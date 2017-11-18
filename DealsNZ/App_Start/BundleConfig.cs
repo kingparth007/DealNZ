@@ -14,22 +14,13 @@ namespace DealsNZ
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/materializecss").Include(
-                       "~/Content/materialize-v0.97.5/js/materialize.js"));
-
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-            //          "~/Scripts/bootstrap.js",
-            //          "~/Scripts/respond.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      //"~/Content/bootstrap.css",
-                      "~/Content/materialize-v0.97.5/css/materialize.css",
-                      "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/materializejs").Include(                
+                       "~/Content/js/materialize.js",
+                       "~/Content/js/init.js"));
+            
+            bundles.Add(new StyleBundle("~/bundles/materializecss").Include(
+                "~/Content/css/materialize.css",
+                "~/Content/css/style.css"));
         }
     }
 }
