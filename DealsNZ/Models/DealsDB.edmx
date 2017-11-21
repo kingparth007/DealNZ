@@ -18,7 +18,7 @@
           <Key>
             <PropertyRef Name="CardId" />
           </Key>
-          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="CardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" />
           <Property Name="CardNumber" Type="varchar" MaxLength="20" />
           <Property Name="CardExpiryMonth" Type="int" />
@@ -37,7 +37,7 @@
           <Key>
             <PropertyRef Name="CouponId" />
           </Key>
-          <Property Name="CouponId" Type="int" Nullable="false" />
+          <Property Name="CouponId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CouponUniqueText" Type="varchar" MaxLength="50" />
           <Property Name="CouponValidTill" Type="date" />
           <Property Name="UserId" Type="int" />
@@ -48,7 +48,7 @@
           <Key>
             <PropertyRef Name="DealId" />
           </Key>
-          <Property Name="DealId" Type="int" Nullable="false" />
+          <Property Name="DealId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StoreId" Type="int" />
           <Property Name="ValidTill" Type="date" />
           <Property Name="Discount" Type="int" />
@@ -84,20 +84,31 @@
           <Key>
             <PropertyRef Name="SubscriptionId" />
           </Key>
-          <Property Name="SubscriptionId" Type="int" Nullable="false" />
+          <Property Name="SubscriptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubscriptionTitle" Type="varchar" MaxLength="20" />
-          <Property Name="SubscriptionDiscription" Type="varbinary" MaxLength="500" />
+          <Property Name="SubscriptionDiscription" Type="varchar(max)" />
           <Property Name="SubscriptionPrice" Type="int" />
           <Property Name="AddedOn" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="30" />
-          <Property Name="Password" Type="varchar" MaxLength="500" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="20" />
           <Property Name="isContactVerified" Type="bit" />
           <Property Name="isLocked" Type="bit" />
@@ -116,16 +127,25 @@
           <Property Name="UserId" Type="int" />
           <Property Name="SubscriptionId" Type="int" />
         </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserTypeName" Type="varchar" MaxLength="15" />
+        </EntityType>
         <EntityType Name="Wallet">
           <Key>
             <PropertyRef Name="WalletId" />
           </Key>
-          <Property Name="WalletId" Type="int" Nullable="false" />
+          <Property Name="WalletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WalletCredit" Type="int" />
           <Property Name="UserId" Type="int" />
         </EntityType>
         <Association Name="FK_Card_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Card" Type="Self.Card" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -149,7 +169,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Coupon_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Coupon" Type="Self.Coupon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -209,7 +231,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Store_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Store" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -221,7 +245,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserProfile_Subscription">
-          <End Role="Subscription" Type="Self.Subscription" Multiplicity="0..1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subscription">
@@ -232,8 +258,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserProfile_UserType">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="UserType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserSubscrition_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserSubscrition" Type="Self.UserSubscrition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -245,7 +287,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wallet_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -265,8 +309,10 @@
           <EntitySet Name="DealImage" EntityType="Self.DealImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSubscrition" EntityType="Self.UserSubscrition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wallet" EntityType="Self.Wallet" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Card_UserProfile" Association="Self.FK_Card_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
@@ -304,6 +350,10 @@
             <End Role="Subscription" EntitySet="Subscription" />
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_UserType" Association="Self.FK_UserProfile_UserType">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserSubscrition_UserProfile" Association="Self.FK_UserSubscrition_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="UserSubscrition" EntitySet="UserSubscrition" />
@@ -332,7 +382,7 @@
           <Key>
             <PropertyRef Name="CardId" />
           </Key>
-          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="CardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" />
           <Property Name="CardNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CardExpiryMonth" Type="Int32" />
@@ -353,7 +403,7 @@
           <Key>
             <PropertyRef Name="CouponId" />
           </Key>
-          <Property Name="CouponId" Type="Int32" Nullable="false" />
+          <Property Name="CouponId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CouponUniqueText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CouponValidTill" Type="DateTime" Precision="0" />
           <Property Name="UserId" Type="Int32" />
@@ -366,7 +416,7 @@
           <Key>
             <PropertyRef Name="DealId" />
           </Key>
-          <Property Name="DealId" Type="Int32" Nullable="false" />
+          <Property Name="DealId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StoreId" Type="Int32" />
           <Property Name="ValidTill" Type="DateTime" Precision="0" />
           <Property Name="Discount" Type="Int32" />
@@ -410,21 +460,32 @@
           <Key>
             <PropertyRef Name="SubscriptionId" />
           </Key>
-          <Property Name="SubscriptionId" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubscriptionTitle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="SubscriptionDiscription" Type="Binary" MaxLength="500" FixedLength="false" />
+          <Property Name="SubscriptionDiscription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SubscriptionPrice" Type="Int32" />
           <Property Name="AddedOn" Type="DateTime" Precision="0" />
           <NavigationProperty Name="UserProfiles" Relationship="Self.FK_UserProfile_Subscription" FromRole="Subscription" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="isContactVerified" Type="Boolean" />
           <Property Name="isLocked" Type="Boolean" />
@@ -436,6 +497,7 @@
           <NavigationProperty Name="Coupons" Relationship="Self.FK_Coupon_UserProfile" FromRole="UserProfile" ToRole="Coupon" />
           <NavigationProperty Name="Stores" Relationship="Self.FK_Store_UserProfile" FromRole="UserProfile" ToRole="Store" />
           <NavigationProperty Name="Subscription" Relationship="Self.FK_UserProfile_Subscription" FromRole="UserProfile" ToRole="Subscription" />
+          <NavigationProperty Name="UserType1" Relationship="Self.FK_UserProfile_UserType" FromRole="UserProfile" ToRole="UserType" />
           <NavigationProperty Name="UserSubscritions" Relationship="Self.FK_UserSubscrition_UserProfile" FromRole="UserProfile" ToRole="UserSubscrition" />
           <NavigationProperty Name="Wallets" Relationship="Self.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
         </EntityType>
@@ -450,11 +512,19 @@
           <Property Name="SubscriptionId" Type="Int32" />
           <NavigationProperty Name="UserProfile" Relationship="Self.FK_UserSubscrition_UserProfile" FromRole="UserSubscrition" ToRole="UserProfile" />
         </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserTypeName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="Self.FK_UserProfile_UserType" FromRole="UserType" ToRole="UserProfile" />
+        </EntityType>
         <EntityType Name="Wallet">
           <Key>
             <PropertyRef Name="WalletId" />
           </Key>
-          <Property Name="WalletId" Type="Int32" Nullable="false" />
+          <Property Name="WalletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WalletCredit" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
           <NavigationProperty Name="UserProfile" Relationship="Self.FK_Wallet_UserProfile" FromRole="Wallet" ToRole="UserProfile" />
@@ -472,7 +542,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Card_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Card" Type="Self.Card" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -508,7 +580,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Coupon_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Coupon" Type="Self.Coupon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -544,7 +618,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Store_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Store" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -556,7 +632,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserProfile_Subscription">
-          <End Role="Subscription" Type="Self.Subscription" Multiplicity="0..1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subscription">
@@ -567,8 +645,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserProfile_UserType">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="UserType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserSubscrition_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserSubscrition" Type="Self.UserSubscrition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -580,7 +674,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wallet_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
@@ -600,8 +696,10 @@
           <EntitySet Name="DealImages" EntityType="Self.DealImage" />
           <EntitySet Name="Stores" EntityType="Self.Store" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
           <EntitySet Name="UserSubscritions" EntityType="Self.UserSubscrition" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
           <EntitySet Name="Wallets" EntityType="Self.Wallet" />
           <AssociationSet Name="FK_Store_Address" Association="Self.FK_Store_Address">
             <End Role="Address" EntitySet="Addresses" />
@@ -637,6 +735,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_UserProfile_Subscription" Association="Self.FK_UserProfile_Subscription">
             <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_UserType" Association="Self.FK_UserProfile_UserType">
+            <End Role="UserType" EntitySet="UserTypes" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
           <AssociationSet Name="FK_UserSubscrition_UserProfile" Association="Self.FK_UserSubscrition_UserProfile">
@@ -747,10 +849,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DealsModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="DealsModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -772,6 +886,14 @@
                 <ScalarProperty Name="UserSubscritionRenewalDate" ColumnName="UserSubscritionRenewalDate" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="DealsModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

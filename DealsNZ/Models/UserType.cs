@@ -12,19 +12,16 @@ namespace DealsNZ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Subscription
+    public partial class UserType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Subscription()
+        public UserType()
         {
             this.UserProfiles = new HashSet<UserProfile>();
         }
     
-        public int SubscriptionId { get; set; }
-        public string SubscriptionTitle { get; set; }
-        public string SubscriptionDiscription { get; set; }
-        public Nullable<int> SubscriptionPrice { get; set; }
-        public Nullable<System.DateTime> AddedOn { get; set; }
+        public int UserTypeId { get; set; }
+        public string UserTypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserProfile> UserProfiles { get; set; }

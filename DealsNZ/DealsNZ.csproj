@@ -143,7 +143,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController\SubscriptionsController.cs" />
+    <Compile Include="Controllers\AdminController\UserTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Register_LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,18 +183,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\RepositoryFiles\UnitOfWorks.cs" />
-    <Compile Include="Models\RepositoryFiles\_IRepositoryList.cs" />
+    <Compile Include="Models\Repository\ClassServices\Repository.cs" />
+    <Compile Include="Models\Repository\ClassServices\SubscriptionServices.cs" />
+    <Compile Include="Models\Repository\ClassServices\UnitOfWorks.cs" />
+    <Compile Include="Models\Repository\ClassServices\UserTypeService.cs" />
+    <Compile Include="Models\Repository\Interface\IRepository.cs" />
+    <Compile Include="Models\Repository\Interface\ISubscription.cs" />
+    <Compile Include="Models\Repository\Interface\IUnitOFWorks.cs" />
+    <Compile Include="Models\Repository\Interface\IUserType.cs" />
     <Compile Include="Models\Store.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Subscription.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserProfile.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserSubscrition.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserType.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Wallet.cs">
@@ -214,16 +229,6 @@
     <Content Include="Images\background1.jpg" />
     <Content Include="Images\background2.jpg" />
     <Content Include="Images\background3.jpg" />
-    <Content Include="Models\DealsDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DealsDB.edmx</DependentUpon>
-      <LastGenOutput>DealsDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DealsDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DealsDB.edmx</DependentUpon>
-      <LastGenOutput>DealsDB.cs</LastGenOutput>
-    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -259,6 +264,16 @@
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Models\DealsDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DealsDB.edmx</DependentUpon>
+      <LastGenOutput>DealsDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DealsDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DealsDB.edmx</DependentUpon>
+      <LastGenOutput>DealsDB.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -282,9 +297,20 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layoutnew.cshtml" />
+    <Content Include="Views\Register_Login\Index.cshtml" />
+    <Content Include="Views\Shared\LoginView.cshtml" />
+    <Content Include="Views\Subscriptions\Create.cshtml" />
+    <Content Include="Views\Subscriptions\Delete.cshtml" />
+    <Content Include="Views\Subscriptions\Details.cshtml" />
+    <Content Include="Views\Subscriptions\Edit.cshtml" />
+    <Content Include="Views\Subscriptions\Index.cshtml" />
+    <Content Include="Views\UserType\Create.cshtml" />
+    <Content Include="Views\UserType\Edit.cshtml" />
+    <Content Include="Views\UserType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\UserController\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
