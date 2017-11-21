@@ -14,8 +14,7 @@ namespace DealsNZ
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/materializejs").Include(                
-                       "~/Content/js/materialize.js",
+            bundles.Add(new ScriptBundle("~/bundles/materializejs").Include(
                        "~/Content/js/init.js"));
             
             bundles.Add(new StyleBundle("~/bundles/materializecss").Include(

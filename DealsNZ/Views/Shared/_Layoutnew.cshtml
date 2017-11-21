@@ -6,29 +6,34 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster+Two|Merienda+One|Material+Icons" rel="stylesheet">
     @Styles.Render("~/bundles/materializecss")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    
 
 </head>
 <body>
     <nav class="white" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="#" class="brand-logo">DealsNZ</a>
+            <a href="#" data-activates="slide-out" class="button-collapse left teal-text show-on-large"><i class="material-icons">menu</i></a>
+            <a id="logo-container" href="#" class="brand-logo teal-text"> DealsNZ</a>
             <ul class="right hide-on-med-and-down">
-                <li>
-                    <span><a href="#"><i class="material-icons">account_circle</i></a></span>
-                </li>
+                <li><span><a href="#"><i class="material-icons teal-text">account_circle</i></a></span></li>
             </ul>
-
-            <ul id="nav-mobile" class="side-nav">
-                <li>
-                    <i clas s="fa fa-user" aria-hidden="true"></i>
-                    <a href="#">
-                        Login
-                    </a>
-                </li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
+
     </nav>
+
+    <ul id="slide-out" class="side-nav">
+        <li class="hide-on-large-only"><a href="#">Login</a></li>
+        <li><a href="#!">Second Link</a></li>
+        <li><a href="#!"><i class="material-icons">cloud</i> First </a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader" href="#!">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    </ul>
+
+
 
     <div id="index-banner" class="parallax-container">
         <div class="section no-pad-bot">
@@ -169,9 +174,23 @@
 
     <!--  Scripts-->
     @Scripts.Render("~/bundles/jquery")
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    @Scripts.Render("~/bundles/materializejs")
 
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    @Scripts.Render("~/bundles/materializejs")
+    <script>
+        $('.button-collapse').sideNav({
+            menuWidth: 300, // Default is 300
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: true, // Choose whether you can drag to open on touch screens,
+            onOpen: function (el) { }, // A function to be called when sideNav is opened
+            onClose: function (el) { }, // A function to be called when sideNav is closed
+            }
+          );
+    </script>
     @RenderSection("scripts", required: false)
 
 
