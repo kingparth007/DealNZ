@@ -1,0 +1,36 @@
+﻿@*@model DealsNZ.Models.UserProfile*@
+
+@{
+    Layout = null;
+}
+
+<div class="light-green accent-1">
+
+    @{ using (Html.BeginForm("Hello", "Register_Login"))
+        {
+            <input type="submit" name="Hello" value="Hello" class="btn-floating accent-1 red" />
+
+            {
+                if (Session["Heloo"] == null)
+                {
+
+                    
+
+                    ("Hello").ToString();
+                }
+                else
+
+                {
+
+                    <div class="black-text accent-2">
+                        @Session["Heloo"].ToString()
+                    </div>
+                }
+
+            }
+
+
+
+        }
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@model DealsNZ.Models.Subscription
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subscription</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionDiscription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionDiscription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscriptionPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscriptionPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedOn)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubscriptionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

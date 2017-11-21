@@ -13,11 +13,12 @@ namespace RepoPattern.Models.RepositoryFiles
         T GetClassByID(int ClassID);
 
         void InsertClass(T Class);
+        void InsertRange(IEnumerable<T> Classes);
 
-        void DeleteClass(int ClassID);
+        void DeleteClass(T Class);
+        void DeleteRange(IEnumerable<T> Classes);
 
-        void UpdateClass(T Class);
-
+      //  void UpdateClass(T Class);
         void SaveChange();
 
 
