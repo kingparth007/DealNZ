@@ -21,6 +21,7 @@ namespace DealsNZ.Models
             this.Coupons = new HashSet<Coupon>();
             this.Stores = new HashSet<Store>();
             this.UserSubscritions = new HashSet<UserSubscrition>();
+            this.UserVerifications = new HashSet<UserVerification>();
             this.Wallets = new HashSet<Wallet>();
         }
     
@@ -30,6 +31,7 @@ namespace DealsNZ.Models
         public string Password { get; set; }
         public string Name { get; set; }
         public string Contact { get; set; }
+        public string GuidString { get; set; }
         public Nullable<bool> isContactVerified { get; set; }
         public Nullable<bool> isLocked { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
@@ -47,6 +49,8 @@ namespace DealsNZ.Models
         public virtual UserType UserType1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSubscrition> UserSubscritions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserVerification> UserVerifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wallet> Wallets { get; set; }
     }

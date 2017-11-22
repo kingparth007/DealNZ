@@ -33,10 +33,10 @@ namespace DealsNZ.Models
         public virtual DbSet<DealImage> DealImages { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<UserSubscrition> UserSubscritions { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<Wallet> Wallets { get; set; }
+        public virtual DbSet<UserVerification> UserVerifications { get; set; }
     }
 }

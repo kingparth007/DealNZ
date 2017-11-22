@@ -12,12 +12,13 @@ namespace DealsNZ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class UserVerification
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public System.Guid UserVerificationID { get; set; }
+        public int Userid { get; set; }
+        public string Purpose { get; set; }
+        public Nullable<System.DateTime> AddedOn { get; set; }
+    
+        public virtual UserProfile UserProfile { get; set; }
     }
 }
