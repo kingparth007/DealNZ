@@ -18,9 +18,16 @@
         <div class="nav-wrapper">
             <a href="#" data-activates="slide-out" class="button-collapse left teal-text show-on-large"><i class="material-icons">menu</i></a>
             <a id="logo-container" href="#" class="brand-logo teal-text"> DealsNZ</a>
-            
+
+
+            <ul class="right">
+                <li><span><a href="#"><i class="material-icons teal-text">shopping_cart</i><span class="new badge">1</span></a></span></li>
+            </ul>
             <ul class="right hide-on-med-and-down">
                 <li><span><a href="#"><i class="material-icons teal-text">account_circle</i></a></span></li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li><span><a href="#"><i class="material-icons teal-text">home</i></a></span></li>
                 <li><span><a href="#"><i class="show-search-bar material-icons teal-text">search</i></a></span></li>
             </ul>
         </div>
@@ -39,12 +46,19 @@
 
 
     <ul id="slide-out" class="side-nav">
-        <li class="hide-on-large-only"><a href="#">Login</a></li>
-        <li><a href="#!">Second Link</a></li>
-        <li><a href="#!"><i class="material-icons">cloud</i> First </a></li>
+        <li class="hide-on-large-only"><a href="#"><i class="material-icons">account_box</i>Login</a></li>
+        <li class="hide-on-large-only"><a class="show-search-bar" href="#"><i class="material-icons">search</i>Search</a></li>
+        <li><a href="#!"><i class="material-icons">home</i> Home </a></li>
+        <li><a href="#!"><i class="material-icons">local_offer</i> All Deals </a></li>
         <li><div class="divider"></div></li>
-        <li><a class="subheader" href="#!">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        <li><a href="#!">Featured</a></li>
+        <li><a href="#!"><i class="material-icons amber-text">whatshot</i>Hot Deals</a></li>
+        <li><a href="#!"><i class="material-icons red-text accent-3">loyalty</i>New Deals</a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="#!">Quick Search</a></li>
+        <li><a href="#!"><i class="material-icons">restaurant</i>Food</a></li>
+        <li><a href="#!"><i class="material-icons">accessibility</i>Clothings</a></li>
+
     </ul>
 
 
@@ -99,9 +113,8 @@
 
     @Scripts.Render("~/bundles/materializejs")
     <script>
-        
-        $(function ()
-        {
+
+        $(function () {
             $('.button-collapse').sideNav({
                 menuWidth: 300, // Default is 300
                 edge: 'left', // Choose the horizontal origin
