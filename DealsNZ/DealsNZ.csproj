@@ -52,6 +52,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -183,14 +186,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\ClassServices\Repository.cs" />
-    <Compile Include="Models\Repository\ClassServices\SubscriptionServices.cs" />
-    <Compile Include="Models\Repository\ClassServices\UnitOfWorks.cs" />
-    <Compile Include="Models\Repository\ClassServices\UserTypeService.cs" />
-    <Compile Include="Models\Repository\Interface\IRepository.cs" />
-    <Compile Include="Models\Repository\Interface\ISubscription.cs" />
-    <Compile Include="Models\Repository\Interface\IUnitOFWorks.cs" />
-    <Compile Include="Models\Repository\Interface\IUserType.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Repository\ClassServices\Repository.cs" />
+    <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
+    <Compile Include="Repository\ClassServices\UnitOfWorks.cs" />
+    <Compile Include="Repository\ClassServices\UserProfileServices.cs" />
+    <Compile Include="Repository\ClassServices\UserSubscriptionServices.cs" />
+    <Compile Include="Repository\ClassServices\UserTypeService.cs" />
+    <Compile Include="Repository\ClassServices\UserVerificationService.cs" />
+    <Compile Include="Repository\ClassServices\UserWalletServices.cs" />
+    <Compile Include="Repository\Interface\IRepository.cs" />
+    <Compile Include="Repository\Interface\ISubscription.cs" />
+    <Compile Include="Repository\Interface\IUnitOFWorks.cs" />
+    <Compile Include="Repository\Interface\IUserProfile.cs" />
+    <Compile Include="Repository\Interface\IUserSubscription.cs" />
+    <Compile Include="Repository\Interface\IUserType.cs" />
+    <Compile Include="Repository\Interface\IUserVerification.cs" />
+    <Compile Include="Repository\Interface\IUserWallet.cs" />
     <Compile Include="Models\Store.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
@@ -209,6 +221,9 @@
     <Compile Include="Models\UserType.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserVerification.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Wallet.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
@@ -220,6 +235,7 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\font\material-design-icons\LICENSE.txt" />
     <Content Include="Content\font\material-design-icons\Material-Design-Icons.svg" />
+    <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\js\init.js" />
     <Content Include="Content\js\materialize.js" />
     <Content Include="Content\js\materialize.min.js" />
@@ -263,6 +279,7 @@
     <Content Include="Models\DealsDB.edmx.diagram">
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Grid.mvc.readme" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\DealsDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -274,6 +291,9 @@
       <DependentUpon>DealsDB.edmx</DependentUpon>
       <LastGenOutput>DealsDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -307,6 +327,9 @@
     <Content Include="Views\UserType\Create.cshtml" />
     <Content Include="Views\UserType\Edit.cshtml" />
     <Content Include="Views\UserType\Index.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Register_Login\RegisterUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,17 +8,17 @@ namespace RepoPattern.Models.RepositoryFiles
 {
     public interface _IRepositoryList<T> where T : class
     {
-        IEnumerable<T> GetClass();
+        IEnumerable<T> GetAll();
 
-        T GetClassByID(int ClassID);
+        T GetByID(int ID);
 
-        void InsertClass(T Class);
+        void Insert(T Class);
         void InsertRange(IEnumerable<T> Classes);
 
-        void DeleteClass(T Class);
+        void Delete(T Class);
         void DeleteRange(IEnumerable<T> Classes);
 
-      //  void UpdateClass(T Class);
+        //  void UpdateClass(T Class);
         void SaveChange();
 
 

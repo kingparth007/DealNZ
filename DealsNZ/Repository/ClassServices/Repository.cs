@@ -17,7 +17,7 @@ namespace RepoPattern.Models.RepositoryFiles
         }
 
 
-        public void DeleteClass(T Class)
+        public void Delete(T Class)
         {
             _DbContext.Set<T>().Remove(Class);
         }
@@ -27,17 +27,17 @@ namespace RepoPattern.Models.RepositoryFiles
             _DbContext.Set<T>().RemoveRange(Classes);
         }
 
-        public IEnumerable<T> GetClass()
+        public IEnumerable<T> GetAll()
         {
             return _DbContext.Set<T>().ToList();
         }
 
-        public T GetClassByID(int ClassID)
+        public T GetByID(int ClassID)
         {
             return _DbContext.Set<T>().Find(ClassID);
         }
 
-        public void InsertClass(T Class)
+        public void Insert(T Class)
         {
             _DbContext.Set<T>().Add(Class);
 
@@ -46,7 +46,7 @@ namespace RepoPattern.Models.RepositoryFiles
         public void InsertRange(IEnumerable<T> Classes)
         {
             _DbContext.Set<T>().AddRange(Classes);
-            
+
 
         }
 
@@ -55,6 +55,6 @@ namespace RepoPattern.Models.RepositoryFiles
             _DbContext.SaveChanges();
         }
 
-        
+
     }
 }
