@@ -183,14 +183,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\ClassServices\Repository.cs" />
-    <Compile Include="Models\Repository\ClassServices\SubscriptionServices.cs" />
-    <Compile Include="Models\Repository\ClassServices\UnitOfWorks.cs" />
-    <Compile Include="Models\Repository\ClassServices\UserTypeService.cs" />
-    <Compile Include="Models\Repository\Interface\IRepository.cs" />
-    <Compile Include="Models\Repository\Interface\ISubscription.cs" />
-    <Compile Include="Models\Repository\Interface\IUnitOFWorks.cs" />
-    <Compile Include="Models\Repository\Interface\IUserType.cs" />
+    <Compile Include="Repository\ClassServices\Repository.cs" />
+    <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
+    <Compile Include="Repository\ClassServices\UnitOfWorks.cs" />
+    <Compile Include="Repository\ClassServices\UserTypeService.cs" />
+    <Compile Include="Repository\Interface\IRepository.cs" />
+    <Compile Include="Repository\Interface\ISubscription.cs" />
+    <Compile Include="Repository\Interface\IUnitOFWorks.cs" />
+    <Compile Include="Repository\Interface\IUserType.cs" />
     <Compile Include="Models\Store.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
