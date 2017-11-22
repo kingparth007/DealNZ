@@ -18,7 +18,7 @@ namespace DealsNZ.Controllers.AdminController
         // GET: Subscriptions
         public ActionResult Index()
         {
-            return View(db.Subscriptions.ToList());
+            return View(unitOfworks.Subscription.GetAll());
         }
 
         // GET: Subscriptions/Details/5
@@ -56,7 +56,7 @@ namespace DealsNZ.Controllers.AdminController
                 if (checkName == null)
                 {
                     subscription.AddedOn = System.DateTime.Now.Date;
-                    unitOfworks.Subscription.InsertClass(subscription);
+                    unitOfworks.Subscription.Insert(subscription);
                     unitOfworks.Complete();
                     ViewBag.ErrorMsg = "Data Added Sucessfully";
                     return RedirectToAction("Index");
@@ -74,7 +74,7 @@ namespace DealsNZ.Controllers.AdminController
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subscription subscription = unitOfworks.Subscription.GetClassByID(Convert.ToInt32(id));
+            Subscription subscription = unitOfworks.Subscription.GetByID(Convert.ToInt32(id));
             if (subscription == null)
             {
                 return HttpNotFound();
@@ -126,8 +126,8 @@ namespace DealsNZ.Controllers.AdminController
         //  [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Subscription subscription = unitOfworks.Subscription.GetClassByID(Convert.ToInt32(id));
-            unitOfworks.Subscription.DeleteClass(subscription);
+            Subscription subscription = unitOfworks.Subscription.GetByID(Convert.ToInt32(id));
+            unitOfworks.Subscription.Delete(subscription);
             unitOfworks.Complete();
             return RedirectToAction("Index");
         }

@@ -15,6 +15,10 @@ namespace RepoPattern.Models.RepositoryFiles
         public readonly DealsDB _dbcontext;
         internal ISubscription Subscription { get; private set; }
         internal IUserType Usertype { get; private set; }
+        internal IUserProfile UserProfile { get; private set; }
+        internal IUserSubscription UserSubscription { get; private set; }
+        internal IUserVerification UserVerification { get; private set; }
+        internal IUserWallet UserWallet { get; private set; }
         public UnitOfWorks(DealsDB _dbc)
         {
 

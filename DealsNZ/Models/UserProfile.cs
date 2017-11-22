@@ -11,7 +11,10 @@ namespace DealsNZ.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class UserProfile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,22 +24,24 @@ namespace DealsNZ.Models
             this.Coupons = new HashSet<Coupon>();
             this.Stores = new HashSet<Store>();
             this.UserSubscritions = new HashSet<UserSubscrition>();
+            this.UserVerifications = new HashSet<UserVerification>();
             this.Wallets = new HashSet<Wallet>();
         }
-    
+
         public int UserId { get; set; }
         public Nullable<int> UserType { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string Contact { get; set; }
+        public string GuidString { get; set; }
         public Nullable<bool> isContactVerified { get; set; }
         public Nullable<bool> isLocked { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
         public Nullable<int> UserSubscritionId { get; set; }
         public string UserPromoCode { get; set; }
         public Nullable<int> RefferedByUser { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Card> Cards { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -47,6 +52,8 @@ namespace DealsNZ.Models
         public virtual UserType UserType1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSubscrition> UserSubscritions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserVerification> UserVerifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wallet> Wallets { get; set; }
     }

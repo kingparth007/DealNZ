@@ -16,7 +16,7 @@ namespace DealsNZ.Controllers.AdminController
         public ActionResult Index()
         {
 
-            return View(unitOfworks.Usertype.GetClass().ToList());
+            return View(unitOfworks.Usertype.GetAll().ToList());
         }
 
         // GET: UserType/Create
@@ -38,7 +38,7 @@ namespace DealsNZ.Controllers.AdminController
                     var getusertypename = unitOfworks.Usertype.GetUserByName(usertype.UserTypeName);
                     if (getusertypename == null)
                     {
-                        unitOfworks.Usertype.InsertClass(usertype);
+                        unitOfworks.Usertype.Insert(usertype);
                         unitOfworks.Complete();
 
                         return RedirectToAction("Index");
@@ -62,7 +62,7 @@ namespace DealsNZ.Controllers.AdminController
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserType usertype = unitOfworks.Usertype.GetClassByID(id);
+            UserType usertype = unitOfworks.Usertype.GetByID(id);
             if (usertype == null)
             {
                 return HttpNotFound();
@@ -113,12 +113,12 @@ namespace DealsNZ.Controllers.AdminController
                 }
                 else
                 {
-                    UserType usertype = unitOfworks.Usertype.GetClassByID(id);
+                    UserType usertype = unitOfworks.Usertype.GetByID(id);
                     if (usertype == null)
                     {
                         return HttpNotFound();
                     }
-                    unitOfworks.Usertype.DeleteClass(usertype);
+                    unitOfworks.Usertype.Delete(usertype);
                     unitOfworks.Complete();
                     return RedirectToAction("Index");
                 }
@@ -129,5 +129,6 @@ namespace DealsNZ.Controllers.AdminController
                 return RedirectToAction("Index");
             }
         }
+
     }
 }
