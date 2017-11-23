@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutnew.cshtml";
+}
+
+<h2>Features</h2>
+    
+<div class="row">
+    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml")
+    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml")
+</div>
+
+<script>
+    $(function () {
+        Materialize.toast('I am a toast!', 4000);
+    });
+</script>
