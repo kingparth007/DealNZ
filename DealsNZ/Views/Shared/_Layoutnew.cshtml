@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title DealsNZ</title>
     <link href="https://fonts.googleapis.com/css?family=Lobster+Two|Merienda+One|Material+Icons" rel="stylesheet">
     @Styles.Render("~/bundles/materializecss")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -50,7 +50,7 @@
         <li class="hide-on-large-only"><a href="#"><i class="material-icons">account_box</i>Login</a></li>
         <li class="hide-on-large-only"><a class="show-search-bar" href="#"><i class="material-icons">search</i>Search</a></li>
         <li><a href="#!"><i class="material-icons">home</i> Home </a></li>
-        <li><a href="#!"><i class="material-icons">local_offer</i> All Deals </a></li>
+        <li><a href="/AllDeals"><i class="material-icons">local_offer</i> All Deals </a></li>
         <li><div class="divider"></div></li>
         <li><a href="#!">Featured</a></li>
         <li><a href="#!"><i class="material-icons amber-text">whatshot</i>Hot Deals</a></li>
@@ -72,7 +72,7 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Company Bio</h5>
+                    <h5 class="white-text">DealsNZ</h5>
                     <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
 
 
@@ -99,7 +99,7 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+                Made by <a class="white-text text-lighten-3">Aakash Dilroop Parth</a>
             </div>
         </div>
     </footer>
@@ -117,7 +117,7 @@
 
         $(function () {
             $('.button-collapse').sideNav({
-                menuWidth: 300, // Default is 300
+                menuWidth: 260, // Default is 300
                 edge: 'left', // Choose the horizontal origin
                 closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
                 draggable: true, // Choose whether you can drag to open on touch screens,
@@ -129,11 +129,11 @@
             $("#search-bar").hide();
 
             $("#close-search-bar").click(function () {
-                $("#search-bar").toggle(300);
+                $("#search-bar").toggle(500);
             });
 
             $(".show-search-bar").click(function (event) {
-                $("#search-bar").toggle(300);
+                $("#search-bar").toggle(500);
             });
         });
     </script>

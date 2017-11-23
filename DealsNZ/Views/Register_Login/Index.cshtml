@@ -1,16 +1,14 @@
 ﻿<div class="row">
-    <section id="Register">
-        <div class="col m6 s12">
+    <div class="col m6 s12">
+        <div id="Register" class="card">
             @{Html.RenderPartial("RegisterUser", new DealsNZ.Models.AccountModels.Register());}
         </div>
-    </section>
+    </div>
 
-
-    <section id="Login">
-        <div class="col m6 s12">
+    <div class="col m6 s12">
+        <div id="Login" class="card">
             @{Html.RenderPartial("LoginView", new DealsNZ.Models.AccountModels.Login());}
         </div>
-    </section>
-
+    </div>
 
 </div>
