@@ -11,10 +11,7 @@ namespace DealsNZ.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class UserProfile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,7 +24,7 @@ namespace DealsNZ.Models
             this.UserVerifications = new HashSet<UserVerification>();
             this.Wallets = new HashSet<Wallet>();
         }
-
+    
         public int UserId { get; set; }
         public Nullable<int> UserType { get; set; }
         public string Email { get; set; }
@@ -41,7 +38,7 @@ namespace DealsNZ.Models
         public Nullable<int> UserSubscritionId { get; set; }
         public string UserPromoCode { get; set; }
         public Nullable<int> RefferedByUser { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Card> Cards { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

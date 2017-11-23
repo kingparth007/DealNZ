@@ -90,16 +90,6 @@
           <Property Name="SubscriptionPrice" Type="int" />
           <Property Name="AddedOn" Type="date" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="UserProfile">
           <Key>
             <PropertyRef Name="UserId" />
@@ -334,7 +324,6 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <EntitySet Name="DealImage" EntityType="Self.DealImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSubscrition" EntityType="Self.UserSubscrition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
@@ -413,7 +402,6 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <EntitySet Name="DealImages" EntityType="DealsModel.DealImage" />
           <EntitySet Name="Stores" EntityType="DealsModel.Store" />
           <EntitySet Name="Subscriptions" EntityType="DealsModel.Subscription" />
-          <EntitySet Name="sysdiagrams" EntityType="DealsModel.sysdiagram" />
           <EntitySet Name="UserProfiles" EntityType="DealsModel.UserProfile" />
           <EntitySet Name="UserSubscritions" EntityType="DealsModel.UserSubscrition" />
           <EntitySet Name="UserTypes" EntityType="DealsModel.UserType" />
@@ -570,16 +558,6 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <Property Name="SubscriptionPrice" Type="Int32" />
           <Property Name="AddedOn" Type="DateTime" Precision="0" />
           <NavigationProperty Name="UserProfiles" Relationship="DealsModel.FK_UserProfile_Subscription" FromRole="Subscription" ToRole="UserProfile" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -912,17 +890,6 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
                 <ScalarProperty Name="SubscriptionDiscription" ColumnName="SubscriptionDiscription" />
                 <ScalarProperty Name="SubscriptionTitle" ColumnName="SubscriptionTitle" />
                 <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DealsModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
