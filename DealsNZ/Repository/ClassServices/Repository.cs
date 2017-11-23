@@ -11,6 +11,7 @@ namespace RepoPattern.Models.RepositoryFiles
     {
         protected readonly DealsDB _DbContext;
 
+
         public Repository(DealsDB Data)
         {
             _DbContext = Data;

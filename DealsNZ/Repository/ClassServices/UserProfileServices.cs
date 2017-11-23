@@ -12,6 +12,9 @@ namespace DealsNZ.Models.Repository.ClassServices
     public class UserProfileServices : Repository<UserProfile>, IUserProfile
     {
         protected readonly DealsDB DealDb;
+
+        UnitOfWorks unitofworks = new UnitOfWorks(new DealsDB());
+
         public UserProfileServices(DealsDB Data) : base(Data)
         {
             DealDb = Data;
@@ -42,20 +45,51 @@ namespace DealsNZ.Models.Repository.ClassServices
         public bool RegisterUser(Models.AccountModels.Register Register)
         {
 
-            UserProfile InsertUser = new UserProfile()
+
+            try
             {
-                UserType = 2,
-                Name = Register.Name,
-                Email = Register.Email,
-                Password = PasswordEncrypt(Register.Password),
-                AddedOn = System.DateTime.Now.Date,
-                isContactVerified = false
-            };
-            Insert(InsertUser);
-            SaveChange();
-            int id = InsertUser.UserId;
-            return true;
+                UserProfile InsertUser = new UserProfile()
+                {
+                    UserType = 5,
+                    Name = Register.Name,
+                    Email = Register.Email,
+                    Password = PasswordEncrypt(Register.Password),
+                    AddedOn = System.DateTime.Now.Date,
+                    isContactVerified = false
+                };
+                Insert(InsertUser);
+                SaveChange();
+                int id = InsertUser.UserId;
+                //if (unitofworks.UserWallet.WalletAtRegister(id) == true)
+                //{
+                //    UserVerification UserVerificationAtRegister = new UserVerification()
+                //    {
+                //        Userid = id,
+                //        Purpose = "Register",
+                //        AddedOn = System.DateTime.Now.Date
+                //    };
+
+                //    if (UserVerificationAtRegister != null)
+                //    {
+                //        unitofworks.UserVerification.Insert(UserVerificationAtRegister);
+                //        SaveChange();
+                //        Guid verificationId = UserVerificationAtRegister.UserVerificationID;
+
+                //        return true;
+                //    }
+
+                //    return false;
+                //}
+                return true;
+
+            }
+            catch
+            {
+                return false;
+            }
+
         }
+
         public string PasswordEncrypt(string password)
         {
             byte[] encode = new byte[password.Length];

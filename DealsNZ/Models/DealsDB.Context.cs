@@ -12,19 +12,19 @@ namespace DealsNZ.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class DealsDB : DbContext
     {
         public DealsDB()
             : base("name=DealsDB")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Company> Companies { get; set; }

@@ -15,5 +15,25 @@ namespace DealsNZ.Models.Repository.ClassServices
         {
             DealDb = Data;
         }
+
+        public bool UserSubscriptionAtRegister(int id, int sub_id)
+        {
+            UserSubscrition InsertUserSubscriptionAtStoreRegister = new UserSubscrition()
+            {
+                UserId = id,
+                SubscriptionId = 1,
+                UserSubscritionDate = System.DateTime.Now.Date
+
+
+            };
+            if (InsertUserSubscriptionAtStoreRegister != null)
+            {
+                Insert(InsertUserSubscriptionAtStoreRegister);
+                SaveChange();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -23,9 +23,7 @@ namespace RepoPattern.Models.RepositoryFiles
         {
 
             _dbcontext = _dbc;
-            Subscription = new SubscriptionServices(_dbcontext);
-            //  CarDetails = new CarDetailRepo(_dbcontext);
-            Usertype = new UserTypeService(_dbcontext);
+
         }
 
 

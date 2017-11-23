@@ -16,19 +16,19 @@
                 <div class="input-field inline col m6 s12">
                     <i class="material-icons prefix">email</i>
 
-                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "validate", @type = "email" })
+                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "validate", @type = "email",@MaxLenght="10" })
                     @Html.LabelFor(model => model.Email)
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "red-text", @type = "col s3" })
                 </div>
                 <div class="input-field inline col m6 s12">
                     <i class="material-icons prefix">vpn_key</i>
-                    @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "validate", @type = "Password" })
+                    @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "validate", @type = "password" })
                     @Html.LabelFor(model => model.Password)
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "red-text", @type = "col s3" })
                 </div>
                 <div class="input-field inline col m6 s12">
                     <i class="material-icons prefix">vpn_key</i>
-                    @Html.TextBoxFor(model => model.ConformPassword, htmlAttributes: new { @class = "validate", @type = "Password" })
+                    @Html.TextBoxFor(model => model.ConformPassword, htmlAttributes: new { @class = "validate", @type = "password" })
                     @Html.LabelFor(model => model.ConformPassword)
                     @Html.ValidationMessageFor(model => model.ConformPassword, "", new { @class = "red-text small", @type = "col s3" })
                 </div>
