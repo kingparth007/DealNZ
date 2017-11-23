@@ -151,6 +151,7 @@
     <Compile Include="Controllers\AllDealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Register_LoginController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +190,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Repository\ClassServices\Repository.cs" />
+    <Compile Include="Repository\ClassServices\StoreServices.cs" />
     <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
     <Compile Include="Repository\ClassServices\UnitOfWorks.cs" />
     <Compile Include="Repository\ClassServices\UserProfileServices.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="Repository\ClassServices\UserVerificationService.cs" />
     <Compile Include="Repository\ClassServices\UserWalletServices.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />
+    <Compile Include="Repository\Interface\IStore.cs" />
     <Compile Include="Repository\Interface\ISubscription.cs" />
     <Compile Include="Repository\Interface\IUnitOFWorks.cs" />
     <Compile Include="Repository\Interface\IUserProfile.cs" />
@@ -331,6 +334,8 @@
     <Content Include="Views\Shared\DealViews\DealBox.cshtml" />
     <Content Include="Views\AllDeals\Index.cshtml" />
     <Content Include="Views\Shared\DealViews\DealBox2.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Store\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
