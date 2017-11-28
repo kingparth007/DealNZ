@@ -320,7 +320,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layoutnew.cshtml" />
     <Content Include="Views\Register_Login\Index.cshtml" />
-    <Content Include="Views\Shared\LoginView.cshtml" />
+    <Content Include="Views\Register_Login\LoginView.cshtml" />
     <Content Include="Views\Subscriptions\Create.cshtml" />
     <Content Include="Views\Subscriptions\Delete.cshtml" />
     <Content Include="Views\Subscriptions\Details.cshtml" />

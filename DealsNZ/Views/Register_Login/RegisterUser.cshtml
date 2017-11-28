@@ -1,11 +1,13 @@
 ﻿@model DealsNZ.Models.AccountModels.Register
 
-<div class="card white">
-    <div class="card-content black-text">
-        <span class="card-title">Register</span>
-        <div>
-            @using (Html.BeginForm("RegisterUser", "Register_Login"))
-            {
+
+@using (Html.BeginForm("RegisterUser", "Register_Login"))
+{
+
+    <div class="card white">
+        <div class="card-content black-text">
+            <span class="card-title">Register</span>
+            <div>
                 <div class="input-field ">
                     <i class="material-icons prefix">account_circle</i>
                     @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "validate", @type = "text" })
@@ -33,14 +35,14 @@
                 </div>
 
                 <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.RegisterError</h6>
-            }
 
+
+            </div>
+        </div>
+        <div class="card-action">
+            <input type="submit" value="Register" name="RegisterUser" class="btn-flat teal lighten-2 white-text waves-effect" />
+            <a id="Login-Btn" class="btn-flat text-darken-4 light-blue-text waves-effect right" href="#" style="margin-right:0px !important;padding-right:16px;padding-left:16px">Login</a>
         </div>
     </div>
-    <div class="card-action">
-        <input type="submit" value="Register" name="RegisterUser" class="btn-flat teal lighten-2 white-text waves-effect" />
-        <a id="Login-Btn" class="btn-flat text-darken-4 light-blue-text waves-effect right" href="#" style="margin-right:0px !important;padding-right:16px;padding-left:16px">Login</a>
-    </div>
-</div>
 
-   
+}
