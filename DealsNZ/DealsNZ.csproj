@@ -151,6 +151,7 @@
     <Compile Include="Controllers\AllDealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Register_LoginController.cs" />
+    <Compile Include="Controllers\UserController\ActivationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +189,9 @@
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\ClassServices\Repository.cs" />
     <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
     <Compile Include="Repository\ClassServices\UnitOfWorks.cs" />
@@ -331,10 +335,13 @@
     <Content Include="Views\Shared\DealViews\DealBox.cshtml" />
     <Content Include="Views\AllDeals\Index.cshtml" />
     <Content Include="Views\Shared\DealViews\DealBox2.cshtml" />
+    <Content Include="Views\Activation\Index.cshtml" />
+    <Content Include="Views\Activation\Activate.cshtml" />
+    <Content Include="Views\Activation\ForgotPassword.cshtml" />
+    <Content Include="Views\Register_Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\UserController\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

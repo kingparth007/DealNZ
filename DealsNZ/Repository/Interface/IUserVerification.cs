@@ -9,5 +9,7 @@ namespace DealsNZ.Models.Repository.Interface
 {
     interface IUserVerification : _IRepositoryList<UserVerification>
     {
+        bool UserActivate(string guid);
+        
     }
 }

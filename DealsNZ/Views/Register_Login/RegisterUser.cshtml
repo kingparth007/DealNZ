@@ -16,7 +16,7 @@
                 <div class="input-field inline col m6 s12">
                     <i class="material-icons prefix">email</i>
 
-                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "validate", @type = "email",@MaxLenght="10" })
+                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "validate", @type = "email", @MaxLenght = "10" })
                     @Html.LabelFor(model => model.Email)
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "red-text", @type = "col s3" })
                 </div>
@@ -40,4 +40,3 @@
     }
 
 </div>
-

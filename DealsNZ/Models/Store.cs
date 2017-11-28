@@ -17,18 +17,19 @@ namespace DealsNZ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Store()
         {
+            this.Addresses = new HashSet<Address>();
             this.Deals = new HashSet<Deal>();
         }
     
         public int StoreId { get; set; }
         public string StoreName { get; set; }
-        public Nullable<int> StoreAddress { get; set; }
         public Nullable<int> UserId { get; set; }
         public string Contact { get; set; }
         public string IdentificationImage { get; set; }
         public Nullable<int> CompanyId { get; set; }
     
-        public virtual Address Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Address> Addresses { get; set; }
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deal> Deals { get; set; }

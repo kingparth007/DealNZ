@@ -16,13 +16,14 @@
             </div>
             <div class="input-field inline col m6 s12">
                 <i class="material-icons prefix">vpn_key</i>
-                @Html.TextBoxFor(model => model.LogInPassword, htmlAttributes: new { @class = "validate" })
+                @Html.TextBoxFor(model => model.LogInPassword, htmlAttributes: new { @class = "validate", @type = "password" })
                 @Html.LabelFor(model => model.LogInPassword)
                 @Html.ValidationMessageFor(model => model.LogInPassword, "", new { @class = "red-text", @type = "col s3" })
             </div>
 
             <div class="input-field inline  center col m12 s12">
                 <input type="submit" value="Login" name="LoginUser" class="btn-large teal black-text" />
+                <a href="@Url.Action("ForgotPassword","Activation")" class="btn-flat">Forgot Password?</a>
             </div>
         </fieldset>
     </div>

@@ -19,8 +19,11 @@ namespace DealsNZ.Models
             public string Email { get; set; }
             [Required]
             [DataType(DataType.Password)]
+            [DisplayName("Password")]
+            [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
+            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             public string Password { get; set; }
-            [NotMapped]
+
             [DataType(DataType.Password)]
 
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
@@ -50,6 +53,35 @@ namespace DealsNZ.Models
             public string LogInPassword { get; set; }
 
         }
+        public class ForgotPass
+        {
+            [Required]
+            [DataType(DataType.EmailAddress)]
+            [DisplayName("Email")]
+            //[RegularExpression("/^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$/", ErrorMessage = "Email id is not Valid")]
+            [EmailAddress(ErrorMessage = "Invalid Email Address")]
+            public string ForgotPassEmail { get; set; }
+        }
+        public class ResetPass
+        {
+            [Required]
+            public int ForgotUserID { get; set; }
 
+
+            [Required]
+            [DataType(DataType.Password)]
+            [DisplayName("Password")]
+            [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
+            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
+            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+            [DisplayName("Confirm Password")]
+            [Compare("Password", ErrorMessage = "It should be similar to Password")]
+            public string ConformPassword { get; set; }
+
+        }
     }
 }
