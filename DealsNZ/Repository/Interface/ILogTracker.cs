@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DealsNZ.Models;
 using RepoPattern.Models.RepositoryFiles;
 
-namespace DealsNZ.Models.Repository.Interface
+namespace DealsNZ.Repository.Interface
 {
-    interface IUserVerification : _IRepositoryList<UserVerification>
+    interface ILogTracker : _IRepositoryList<LogTracker>
     {
-        bool UserActivate(string guid);
-        
+
     }
 }

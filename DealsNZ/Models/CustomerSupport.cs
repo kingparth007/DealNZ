@@ -12,14 +12,14 @@ namespace DealsNZ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserVerification
+    public partial class CustomerSupport
     {
-        public int UserVerificationID { get; set; }
-        public System.Guid UserVerificationCode { get; set; }
-        public int Userid { get; set; }
-        public string Purpose { get; set; }
+        public int CustomerSupportID { get; set; }
+        public string CustomerEmail { get; set; }
+        public string CustomerIssueSubject { get; set; }
+        public string CustomerIssue { get; set; }
+        public int IssueStage { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
-    
-        public virtual UserProfile UserProfile { get; set; }
+        public string AdminResponse { get; set; }
     }
 }

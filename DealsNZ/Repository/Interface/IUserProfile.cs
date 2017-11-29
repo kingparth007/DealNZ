@@ -15,6 +15,12 @@ namespace DealsNZ.Models.Repository.Interface
         string PasswordEncrypt(string password);
         string Decryptdata(string encryptpwd);
         UserProfile GetUserByEmail(string Email);
-        bool LoginDetail(Models.AccountModels.Login Login);
+        UserProfile LoginDetail(Models.AccountModels.Login Login);
+        UserVerification ForgotPassUser(string guid);
+        bool UserMail(string uRL, string subject, string name, string email);
+        //  bool UserActivate(string guid);
+        bool UpdateUser(UserProfile user);
+        bool RemoveLinkForResetPassword(int userid);
+
     }
 }
