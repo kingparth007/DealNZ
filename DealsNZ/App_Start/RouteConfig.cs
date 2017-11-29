@@ -18,6 +18,11 @@ namespace DealsNZ
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Activation",
+                url: "{controller}/{action}/{guid}",
+                defaults: new { controller = "Activation", action = "Activate", guid = "" }
+            );
         }
     }
 }

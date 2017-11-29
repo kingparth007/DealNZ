@@ -12,12 +12,11 @@ namespace DealsNZ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserVerification
+    public partial class LogTracker
     {
-        public int UserVerificationID { get; set; }
-        public System.Guid UserVerificationCode { get; set; }
-        public int Userid { get; set; }
-        public string Purpose { get; set; }
+        public int LogID { get; set; }
+        public int UserId { get; set; }
+        public string Message { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
     
         public virtual UserProfile UserProfile { get; set; }

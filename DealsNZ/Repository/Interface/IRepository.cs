@@ -20,7 +20,7 @@ namespace RepoPattern.Models.RepositoryFiles
 
         //  void UpdateClass(T Class);
         void SaveChange();
-
+        void Dispose();
 
     }
 }

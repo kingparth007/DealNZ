@@ -9,5 +9,7 @@ namespace DealsNZ.Models.Repository.Interface
 {
     interface IUserSubscription : _IRepositoryList<UserSubscrition>
     {
+        bool UserSubscriptionAtRegister(int id, int sub_id);
     }
+
 }
