@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using DealsNZ.Helpers;
 using DealsNZ.Models;
 using DealsNZ.Models.Repository.ClassServices;
 using DealsNZ.Models.Repository.Interface;
@@ -9,14 +10,15 @@ namespace DealsNZ.Controllers
 {
     public class Register_LoginController : Controller
     {
-        // GET: Register_Login
-        //UnitOfWorks unitofworks = new UnitOfWorks(new DealsDB());
-        //UserProfileServices UserProfileService = new UserProfileServices(new DealsDB());
-        //       IUserProfile profileservice = new IUserProfile()
+
         IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
         IUserType up = new UserTypeService(new DealsDB());
+
+        KeyList KeyList = new KeyList();
+
         public ActionResult Index()
         {
+
             ViewBag.RegisterError = "";
             ViewBag.LoginError = "";
             ViewBag.ABC = new SelectList(up.GetAll(), "UserTypeId", "UserTypeName");
@@ -76,8 +78,13 @@ namespace DealsNZ.Controllers
                     {
                         if (loggeduser.isContactVerified == true)
                         {
-                            Session["UserEmail"] = loggeduser.Email;
-                            Session["UserType"] = loggeduser.UserType1.UserTypeName;
+                            Session[KeyList.SessionKeys.UserEmail] = loggeduser.Email;
+                            Session[KeyList.SessionKeys.UserType] = loggeduser.UserType1.UserTypeName;
+                            Session[KeyList.SessionKeys.UserID] = loggeduser.UserId;
+                            Logs GenerateLog = new Logs();
+
+                            GenerateLog.CreateLog(loggeduser.UserId, KeyList.LogMessages.LoginMessage);
+
                             return Redirect(Url.Action("Index", "Home"));
                         }
                         ViewBag.LoginError = "Please Activate User for login. Check Your Mail";
@@ -95,7 +102,10 @@ namespace DealsNZ.Controllers
         }
         public ActionResult LoggedOut()
         {
-            Session["UserEmail"] = Session["UserType"] = null;
+            Logs GenerateLog = new Logs();
+            GenerateLog.CreateLog(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]), KeyList.LogMessages.LogOutMessage);
+            Session[KeyList.SessionKeys.UserEmail] = Session[KeyList.SessionKeys.UserType] = null;
+            Session[KeyList.SessionKeys.UserID] = null;
             Session.Abandon();
             return Redirect(Url.Action("Index", "Home"));
         }
@@ -134,6 +144,9 @@ namespace DealsNZ.Controllers
                     GetUserForResetPass.Password = UserProfileService.PasswordEncrypt(ResetPassUser.Password.ToString());
                     if (UserProfileService.UpdateUser(GetUserForResetPass) == true)
                     {
+                        Logs GenerateLog = new Logs();
+
+                        GenerateLog.CreateLog(GetUserForResetPass.UserId, KeyList.LogMessages.ResetPassword);
                         UserProfileService.RemoveLinkForResetPassword(GetUserForResetPass.UserId);
                         return Redirect(Url.Action("Index", "Register_Login"));
                     }

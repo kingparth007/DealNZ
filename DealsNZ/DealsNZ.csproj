@@ -150,6 +150,8 @@
     <Compile Include="Controllers\AdminController\UserTypeController.cs" />
     <Compile Include="Controllers\AllDealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Helpers\KeyList.cs" />
+    <Compile Include="Helpers\Logs.cs" />
     <Compile Include="Controllers\Register_LoginController.cs" />
     <Compile Include="Controllers\UserController\ActivationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -204,6 +206,7 @@
     <Compile Include="Models\WishList.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ClassServices\LogTrackerService.cs" />
     <Compile Include="Repository\ClassServices\Repository.cs" />
     <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
     <Compile Include="Repository\ClassServices\UnitOfWorks.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="Repository\ClassServices\UserTypeService.cs" />
     <Compile Include="Repository\ClassServices\UserVerificationService.cs" />
     <Compile Include="Repository\ClassServices\UserWalletServices.cs" />
+    <Compile Include="Repository\Interface\ILogTracker.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />
     <Compile Include="Repository\Interface\ISubscription.cs" />
     <Compile Include="Repository\Interface\IUnitOFWorks.cs" />
@@ -353,7 +357,9 @@
     <Content Include="Views\Activation\ForgotPassword.cshtml" />
     <Content Include="Views\Register_Login\ResetPassword.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controllers\VendorController\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
