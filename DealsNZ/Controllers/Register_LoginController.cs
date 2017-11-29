@@ -15,6 +15,7 @@ namespace DealsNZ.Controllers
         //       IUserProfile profileservice = new IUserProfile()
         IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
         IUserType up = new UserTypeService(new DealsDB());
+       
         public ActionResult Index()
         {
             ViewBag.RegisterError = "";

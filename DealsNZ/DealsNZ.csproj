@@ -155,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
@@ -191,35 +192,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LogTracker.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Notification.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>DealsDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WishList.cs">
-      <DependentUpon>DealsDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\ClassServices\Repository.cs" />
-    <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
-    <Compile Include="Repository\ClassServices\UnitOfWorks.cs" />
-    <Compile Include="Repository\ClassServices\UserProfileServices.cs" />
-    <Compile Include="Repository\ClassServices\UserSubscriptionServices.cs" />
-    <Compile Include="Repository\ClassServices\UserTypeService.cs" />
-    <Compile Include="Repository\ClassServices\UserVerificationService.cs" />
-    <Compile Include="Repository\ClassServices\UserWalletServices.cs" />
-    <Compile Include="Repository\Interface\IRepository.cs" />
-    <Compile Include="Repository\Interface\ISubscription.cs" />
-    <Compile Include="Repository\Interface\IUnitOFWorks.cs" />
-    <Compile Include="Repository\Interface\IUserProfile.cs" />
-    <Compile Include="Repository\Interface\IUserSubscription.cs" />
-    <Compile Include="Repository\Interface\IUserType.cs" />
-    <Compile Include="Repository\Interface\IUserVerification.cs" />
-    <Compile Include="Repository\Interface\IUserWallet.cs" />
     <Compile Include="Models\Store.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
@@ -241,6 +219,25 @@
     <Compile Include="Models\Wallet.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WishList.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ClassServices\Repository.cs" />
+    <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
+    <Compile Include="Repository\ClassServices\UnitOfWorks.cs" />
+    <Compile Include="Repository\ClassServices\UserProfileServices.cs" />
+    <Compile Include="Repository\ClassServices\UserSubscriptionServices.cs" />
+    <Compile Include="Repository\ClassServices\UserTypeService.cs" />
+    <Compile Include="Repository\ClassServices\UserVerificationService.cs" />
+    <Compile Include="Repository\ClassServices\UserWalletServices.cs" />
+    <Compile Include="Repository\Interface\IRepository.cs" />
+    <Compile Include="Repository\Interface\ISubscription.cs" />
+    <Compile Include="Repository\Interface\IUnitOFWorks.cs" />
+    <Compile Include="Repository\Interface\IUserProfile.cs" />
+    <Compile Include="Repository\Interface\IUserSubscription.cs" />
+    <Compile Include="Repository\Interface\IUserType.cs" />
+    <Compile Include="Repository\Interface\IUserVerification.cs" />
+    <Compile Include="Repository\Interface\IUserWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +284,7 @@
     <Content Include="Content\font\material-design-icons\Material-Design-Icons.woff" />
     <Content Include="Content\font\material-design-icons\Material-Design-Icons.ttf" />
     <Content Include="Content\font\material-design-icons\Material-Design-Icons.eot" />
+    <Content Include="Grid.mvc.readme" />
     <EntityDeploy Include="Models\DealsDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DealsDB.Designer.cs</LastGenOutput>
@@ -294,7 +292,6 @@
     <Content Include="Models\DealsDB.edmx.diagram">
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Content>
-    <Content Include="Grid.mvc.readme" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\DealsDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
