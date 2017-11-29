@@ -11,6 +11,7 @@ namespace RepoPattern.Models.RepositoryFiles
     {
         protected readonly DealsDB _DbContext;
 
+
         public Repository(DealsDB Data)
         {
             _DbContext = Data;
@@ -20,6 +21,7 @@ namespace RepoPattern.Models.RepositoryFiles
         public void Delete(T Class)
         {
             _DbContext.Set<T>().Remove(Class);
+            _DbContext.SaveChanges();
         }
 
         public void DeleteRange(IEnumerable<T> Classes)
@@ -40,7 +42,7 @@ namespace RepoPattern.Models.RepositoryFiles
         public void Insert(T Class)
         {
             _DbContext.Set<T>().Add(Class);
-
+            SaveChange();
         }
 
         public void InsertRange(IEnumerable<T> Classes)
@@ -55,6 +57,9 @@ namespace RepoPattern.Models.RepositoryFiles
             _DbContext.SaveChanges();
         }
 
+        public void Dispose() {
+            _DbContext.Dispose();
+        }
 
     }
 }

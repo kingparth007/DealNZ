@@ -26,7 +26,7 @@ namespace DealsNZ.Models
         }
     
         public int UserId { get; set; }
-        public Nullable<int> UserType { get; set; }
+        public int UserType { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }

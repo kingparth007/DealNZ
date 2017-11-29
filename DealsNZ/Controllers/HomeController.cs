@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RepoPattern.Models.RepositoryFiles;
+using DealsNZ.Models;
 
 namespace DealsNZ.Controllers
 {
     public class HomeController : Controller
     {
+       // UnitOfWorks Un = new UnitOfWorks(new DealsDB());
+        
         public ActionResult Index()
         {
             return View();
@@ -26,6 +30,6 @@ namespace DealsNZ.Controllers
 
             return View();
         }
-        
+
     }
 }

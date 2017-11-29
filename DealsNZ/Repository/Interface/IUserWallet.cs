@@ -9,6 +9,6 @@ namespace DealsNZ.Models.Repository.Interface
 {
     interface IUserWallet : _IRepositoryList<Wallet>
     {
-
+        bool WalletAtRegister(int id);
     }
 }

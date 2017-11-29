@@ -12,14 +12,12 @@ namespace DealsNZ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class sysdiagram
     {
-        public int AddressId { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Street { get; set; }
-        public Nullable<int> StoreId { get; set; }
-    
-        public virtual Store Store { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
