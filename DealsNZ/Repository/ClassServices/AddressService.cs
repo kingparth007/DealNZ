@@ -8,8 +8,9 @@ using System.Web;
 
 namespace DealsNZ.Repository.ClassServices
 {
-    public class AddressService : Repository<Address>, IAddress
+    public class AddressService : Repository<Address>,IAddress
     {
+       
         protected readonly DealsDB DealDb;
         public AddressService(DealsDB Data) : base(Data)
         {
@@ -29,6 +30,7 @@ namespace DealsNZ.Repository.ClassServices
 
         }
 
+       
         public IEnumerable<Address> GetAllAddress()
         {
             var listofAddress = GetAll();
@@ -38,13 +40,19 @@ namespace DealsNZ.Repository.ClassServices
         public void RemoveAddress(int id)
         {
             Delete(GetAddressById(id));
-            throw new NotImplementedException();
+            
         }
 
         public void UpdateAddress(Address _address)
         {
             DealDb.Entry(_address).State = System.Data.Entity.EntityState.Modified;
             SaveChange();
+        }
+
+        public IEnumerable<Address> GetAddressBystoreId(int id)
+        {
+            return Get(x => x.StoreId == id);
+     
         }
     }
 }
