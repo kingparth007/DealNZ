@@ -13,6 +13,7 @@
           <Property Name="City" Type="varchar" MaxLength="20" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="Street" Type="varchar" MaxLength="50" />
+          <Property Name="StoreId" Type="int" />
         </EntityType>
         <EntityType Name="Card">
           <Key>
@@ -74,7 +75,6 @@
           </Key>
           <Property Name="StoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StoreName" Type="varchar" MaxLength="50" />
-          <Property Name="StoreAddress" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="Contact" Type="varchar" MaxLength="20" />
           <Property Name="IdentificationImage" Type="varchar" MaxLength="500" />
@@ -145,6 +145,18 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <Property Name="WalletCredit" Type="int" />
           <Property Name="UserId" Type="int" />
         </EntityType>
+        <Association Name="FK_Address_Store">
+          <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Card_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -206,18 +218,6 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
             </Principal>
             <Dependent Role="Deal">
               <PropertyRef Name="StoreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Store_Address">
-          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
-          <End Role="Store" Type="Self.Store" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="AddressId" />
-            </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="StoreAddress" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -289,7 +289,7 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserVeryfication_UserProfile">
+        <Association Name="FK_UserVerification_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
           <End Role="UserVerification" Type="Self.UserVerification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -336,6 +336,10 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
     [UserVerification].[AddedOn] AS [AddedOn]
     FROM [dbo].[UserVerification] AS [UserVerification]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Address_Store" Association="Self.FK_Address_Store">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
           <AssociationSet Name="FK_Card_UserProfile" Association="Self.FK_Card_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Card" EntitySet="Card" />
@@ -355,10 +359,6 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <AssociationSet Name="FK_Deals_Store" Association="Self.FK_Deals_Store">
             <End Role="Store" EntitySet="Store" />
             <End Role="Deal" EntitySet="Deal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Store_Address" Association="Self.FK_Store_Address">
-            <End Role="Address" EntitySet="Address" />
-            <End Role="Store" EntitySet="Store" />
           </AssociationSet>
           <AssociationSet Name="FK_Store_Company" Association="Self.FK_Store_Company">
             <End Role="Company" EntitySet="Company" />
@@ -380,7 +380,7 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="UserSubscrition" EntitySet="UserSubscrition" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserVeryfication_UserProfile" Association="Self.FK_UserVeryfication_UserProfile">
+          <AssociationSet Name="FK_UserVerification_UserProfile" Association="Self.FK_UserVerification_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="UserVerification" EntitySet="UserVerification" />
           </AssociationSet>
@@ -407,9 +407,9 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <EntitySet Name="UserTypes" EntityType="DealsModel.UserType" />
           <EntitySet Name="Wallets" EntityType="DealsModel.Wallet" />
           <EntitySet Name="UserVerifications" EntityType="DealsModel.UserVerification" />
-          <AssociationSet Name="FK_Store_Address" Association="DealsModel.FK_Store_Address">
-            <End Role="Address" EntitySet="Addresses" />
+          <AssociationSet Name="FK_Address_Store" Association="DealsModel.FK_Address_Store">
             <End Role="Store" EntitySet="Stores" />
+            <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
           <AssociationSet Name="FK_Card_UserProfile" Association="DealsModel.FK_Card_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
@@ -451,7 +451,7 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="UserSubscrition" EntitySet="UserSubscritions" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserVeryfication_UserProfile" Association="DealsModel.FK_UserVeryfication_UserProfile">
+          <AssociationSet Name="FK_UserVerification_UserProfile" Association="DealsModel.FK_UserVerification_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="UserVerification" EntitySet="UserVerifications" />
           </AssociationSet>
@@ -468,7 +468,8 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Stores" Relationship="DealsModel.FK_Store_Address" FromRole="Address" ToRole="Store" />
+          <Property Name="StoreId" Type="Int32" />
+          <NavigationProperty Name="Store" Relationship="DealsModel.FK_Address_Store" FromRole="Address" ToRole="Store" />
         </EntityType>
         <EntityType Name="Card">
           <Key>
@@ -538,12 +539,11 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           </Key>
           <Property Name="StoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StoreName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StoreAddress" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
           <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="IdentificationImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CompanyId" Type="Int32" />
-          <NavigationProperty Name="Address" Relationship="DealsModel.FK_Store_Address" FromRole="Store" ToRole="Address" />
+          <NavigationProperty Name="Addresses" Relationship="DealsModel.FK_Address_Store" FromRole="Store" ToRole="Address" />
           <NavigationProperty Name="Company" Relationship="DealsModel.FK_Store_Company" FromRole="Store" ToRole="Company" />
           <NavigationProperty Name="Deals" Relationship="DealsModel.FK_Deals_Store" FromRole="Store" ToRole="Deal" />
           <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Store_UserProfile" FromRole="Store" ToRole="UserProfile" />
@@ -582,7 +582,7 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <NavigationProperty Name="Subscription" Relationship="DealsModel.FK_UserProfile_Subscription" FromRole="UserProfile" ToRole="Subscription" />
           <NavigationProperty Name="UserType1" Relationship="DealsModel.FK_UserProfile_UserType" FromRole="UserProfile" ToRole="UserType" />
           <NavigationProperty Name="UserSubscritions" Relationship="DealsModel.FK_UserSubscrition_UserProfile" FromRole="UserProfile" ToRole="UserSubscrition" />
-          <NavigationProperty Name="UserVerifications" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserProfile" ToRole="UserVerification" />
+          <NavigationProperty Name="UserVerifications" Relationship="DealsModel.FK_UserVerification_UserProfile" FromRole="UserProfile" ToRole="UserVerification" />
           <NavigationProperty Name="Wallets" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
         </EntityType>
         <EntityType Name="UserSubscrition">
@@ -622,17 +622,17 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <Property Name="Userid" Type="Int32" Nullable="false" />
           <Property Name="Purpose" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="AddedOn" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserVerification" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_UserVerification_UserProfile" FromRole="UserVerification" ToRole="UserProfile" />
         </EntityType>
-        <Association Name="FK_Store_Address">
-          <End Type="DealsModel.Address" Role="Address" Multiplicity="0..1" />
-          <End Type="DealsModel.Store" Role="Store" Multiplicity="*" />
+        <Association Name="FK_Address_Store">
+          <End Type="DealsModel.Store" Role="Store" Multiplicity="0..1" />
+          <End Type="DealsModel.Address" Role="Address" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="AddressId" />
+            <Principal Role="Store">
+              <PropertyRef Name="StoreId" />
             </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="StoreAddress" />
+            <Dependent Role="Address">
+              <PropertyRef Name="StoreId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -768,7 +768,7 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserVeryfication_UserProfile">
+        <Association Name="FK_UserVerification_UserProfile">
           <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="1" />
           <End Type="DealsModel.UserVerification" Role="UserVerification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -794,7 +794,7 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -803,6 +803,7 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="DealsModel.Address">
               <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="City" ColumnName="City" />
@@ -876,7 +877,6 @@ warning 6002: The table/view 'Deals.dbo.UserVerification' does not have a primar
                 <ScalarProperty Name="IdentificationImage" ColumnName="IdentificationImage" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
                 <ScalarProperty Name="StoreName" ColumnName="StoreName" />
                 <ScalarProperty Name="StoreId" ColumnName="StoreId" />
               </MappingFragment>

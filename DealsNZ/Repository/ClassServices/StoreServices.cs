@@ -5,27 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static DealsNZ.Models.StoreModel;
 
 namespace DealsNZ.Repository.ClassServices
 {
     public class StoreServices : Repository<Store>, IStore
     {
+        
         protected readonly DealsDB DealDb;
         public StoreServices(DealsDB Data) : base(Data)
         {
             DealDb = Data;
         }
-
-        public int CreateStore(Store _store)
+        #region Store service
+        public int CreateStore(Store store)
         {
-            var ids = GetAllStores();
-            foreach (var isd in ids)
-            {if(isd==store.StoreId)
-                Insert(_store);
-                SaveChange();
-                var id = _store.StoreId;
-                return id;
-            }
+            Insert(store);
+            SaveChange();
+            var id = store.StoreId;
+            return id;
+
 
         }
 
@@ -35,22 +34,35 @@ namespace DealsNZ.Repository.ClassServices
             return storeList;
         }
 
+
         public Store GetStoreById(int id)
         {
             return GetByID(id);
 
         }
 
+        public Store GetStoreName(string storeName)
+        {
+            Store name = DealDb.Stores.Where(x => x.StoreName == storeName).SingleOrDefault();
+            return name;
+        }
+
         public void RemoveStorebyId(int id)
         {
             Delete(GetByID(id));
-
-        }
-
-        public void updateStore(Store _store)
-        {
-            DealDb.Entry(_store).State = System.Data.Entity.EntityState.Modified;
             SaveChange();
+
         }
+
+        public void UpdateStore(Store _store)
+        {
+        
+                DealDb.Entry(_store).State = System.Data.Entity.EntityState.Modified;
+                SaveChange();
+            
+        }
+        #endregion
+
+
     }
 }

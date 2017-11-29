@@ -59,6 +59,12 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -146,12 +152,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController\AddressController.cs" />
     <Compile Include="Controllers\AdminController\SubscriptionsController.cs" />
     <Compile Include="Controllers\AdminController\UserTypeController.cs" />
     <Compile Include="Controllers\AllDealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Register_LoginController.cs" />
-    <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\AdminController\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +196,9 @@
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\StoreModel.cs" />
+    <Compile Include="Repository\ClassServices\AddressService.cs" />
+    <Compile Include="Repository\ClassServices\CompanyService.cs" />
     <Compile Include="Repository\ClassServices\Repository.cs" />
     <Compile Include="Repository\ClassServices\StoreServices.cs" />
     <Compile Include="Repository\ClassServices\SubscriptionServices.cs" />
@@ -198,6 +208,8 @@
     <Compile Include="Repository\ClassServices\UserTypeService.cs" />
     <Compile Include="Repository\ClassServices\UserVerificationService.cs" />
     <Compile Include="Repository\ClassServices\UserWalletServices.cs" />
+    <Compile Include="Repository\Interface\IAddress.cs" />
+    <Compile Include="Repository\Interface\ICompany.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />
     <Compile Include="Repository\Interface\IStore.cs" />
     <Compile Include="Repository\Interface\ISubscription.cs" />
@@ -240,6 +252,7 @@
     <Content Include="Content\js\init.js" />
     <Content Include="Content\js\materialize.js" />
     <Content Include="Content\js\materialize.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -336,10 +349,13 @@
     <Content Include="Views\Shared\DealViews\DealBox2.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Store\Create.cshtml" />
+    <Content Include="Views\Address\GetAllAddress.cshtml" />
+    <Content Include="Views\Store\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\UserController\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
