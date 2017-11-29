@@ -16,9 +16,9 @@
                 </div>
                 <div class="input-field ">
                     <i class="material-icons prefix">lock</i>
-                    @Html.TextBoxFor(model => model.LogInPassword, htmlAttributes: new { @class = "validate" })
+                    @Html.TextBoxFor(model => model.LogInPassword, htmlAttributes: new { @class = "validate", @type = "password" })
                     @Html.LabelFor(model => model.LogInPassword)
-                    @Html.ValidationMessageFor(model => model.LogInPassword, "", new { @class = "red-text", @type = "Password" })
+                    @Html.ValidationMessageFor(model => model.LogInPassword, "", new { @class = "red-text"})
                 </div>
 
                 <h6 class="waves-effect center materialize-red-text text-black accent-3">@ViewBag.LoginError</h6>
