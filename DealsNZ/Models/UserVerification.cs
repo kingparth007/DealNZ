@@ -14,7 +14,8 @@ namespace DealsNZ.Models
     
     public partial class UserVerification
     {
-        public System.Guid UserVerificationID { get; set; }
+        public int UserVerificationID { get; set; }
+        public System.Guid UserVerificationCode { get; set; }
         public int Userid { get; set; }
         public string Purpose { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }

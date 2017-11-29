@@ -5,18 +5,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DealsNZ.Models;
+using DealsNZ.Models.Repository.ClassServices;
+using DealsNZ.Models.Repository.Interface;
 using RepoPattern.Models.RepositoryFiles;
 
 namespace DealsNZ.Controllers.AdminController
 {
     public class UserTypeController : Controller
     {
-        private UnitOfWorks unitOfworks = new UnitOfWorks(new DealsDB());
+        //private UnitOfWorks unitOfworks = new UnitOfWorks(new DealsDB());
         // GET: UserType
+        private IUserType UsertypeService = new UserTypeService(new DealsDB());
         public ActionResult Index()
         {
 
-            return View(unitOfworks.Usertype.GetAll().ToList());
+            return View(UsertypeService.GetAll().ToList());
         }
 
         // GET: UserType/Create
@@ -35,11 +38,11 @@ namespace DealsNZ.Controllers.AdminController
 
                 if (ModelState.IsValid)
                 {
-                    var getusertypename = unitOfworks.Usertype.GetUserByName(usertype.UserTypeName);
+                    var getusertypename = UsertypeService.GetUserByName(usertype.UserTypeName);
                     if (getusertypename == null)
                     {
-                        unitOfworks.Usertype.Insert(usertype);
-                        unitOfworks.Complete();
+                        UsertypeService.Insert(usertype);
+                        UsertypeService.SaveChange();
 
                         return RedirectToAction("Index");
                     }
@@ -62,7 +65,7 @@ namespace DealsNZ.Controllers.AdminController
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserType usertype = unitOfworks.Usertype.GetByID(id);
+            UserType usertype = UsertypeService.GetByID(id);
             if (usertype == null)
             {
                 return HttpNotFound();
@@ -80,12 +83,12 @@ namespace DealsNZ.Controllers.AdminController
             {
                 if (ModelState.IsValid)
                 {
-                    UserType getusertypename = unitOfworks.Usertype.GetUserByName(usertype.UserTypeName);
+                    UserType getusertypename = UsertypeService.GetUserByName(usertype.UserTypeName);
                     if (getusertypename == null || usertype.UserTypeId == getusertypename.UserTypeId)
                     {
 
-                        unitOfworks.Usertype.UpdateUserType(usertype);
-                        unitOfworks.Complete();
+                        UsertypeService.UpdateUserType(usertype);
+                        UsertypeService.SaveChange();
                         return RedirectToAction("Index");
                     }
                     ViewBag.Error = "User Already Exist";
@@ -113,13 +116,13 @@ namespace DealsNZ.Controllers.AdminController
                 }
                 else
                 {
-                    UserType usertype = unitOfworks.Usertype.GetByID(id);
+                    UserType usertype = UsertypeService.GetByID(id);
                     if (usertype == null)
                     {
                         return HttpNotFound();
                     }
-                    unitOfworks.Usertype.Delete(usertype);
-                    unitOfworks.Complete();
+                    UsertypeService.Delete(usertype);
+                    UsertypeService.SaveChange();
                     return RedirectToAction("Index");
                 }
 

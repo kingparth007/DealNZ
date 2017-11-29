@@ -7,18 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DealsNZ.Models;
+using DealsNZ.Models.Repository.ClassServices;
+using DealsNZ.Models.Repository.Interface;
 using RepoPattern.Models.RepositoryFiles;
+
 
 namespace DealsNZ.Controllers.AdminController
 {
     public class SubscriptionsController : Controller
     {
         private DealsDB db = new DealsDB();
-        private UnitOfWorks unitOfworks = new UnitOfWorks(new DealsDB());
+        // private UnitOfWorks unitOfworks = new UnitOfWorks(new DealsDB());
         // GET: Subscriptions
+        private ISubscription SubscriprinService = new SubscriptionServices(new DealsDB());
         public ActionResult Index()
         {
-            return View(unitOfworks.Subscription.GetAll());
+            return View(SubscriprinService.GetAll());
         }
 
         // GET: Subscriptions/Details/5
@@ -51,13 +55,13 @@ namespace DealsNZ.Controllers.AdminController
         {
             if (ModelState.IsValid)
             {
-                var checkName = unitOfworks.Subscription.GetSubscriptionNameForCheck(subscription.SubscriptionTitle.ToString());
+                var checkName = SubscriprinService.GetSubscriptionNameForCheck(subscription.SubscriptionTitle.ToString());
                 ViewBag.ErrorMsg = "Data Already Exist";
                 if (checkName == null)
                 {
                     subscription.AddedOn = System.DateTime.Now.Date;
-                    unitOfworks.Subscription.Insert(subscription);
-                    unitOfworks.Complete();
+                    SubscriprinService.Insert(subscription);
+                    SubscriprinService.SaveChange();
                     ViewBag.ErrorMsg = "Data Added Sucessfully";
                     return RedirectToAction("Index");
                 }
@@ -74,7 +78,7 @@ namespace DealsNZ.Controllers.AdminController
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subscription subscription = unitOfworks.Subscription.GetByID(Convert.ToInt32(id));
+            Subscription subscription = SubscriprinService.GetByID(Convert.ToInt32(id));
             if (subscription == null)
             {
                 return HttpNotFound();
@@ -93,13 +97,13 @@ namespace DealsNZ.Controllers.AdminController
             ViewBag.ErrorMsg = "Data Already Exist";
             if (ModelState.IsValid)
             {
-                var checkName = unitOfworks.Subscription.GetSubscriptionNameForCheck(subscription.SubscriptionTitle);
+                var checkName = SubscriprinService.GetSubscriptionNameForCheck(subscription.SubscriptionTitle);
                 if (checkName.SubscriptionId == subscription.SubscriptionId || checkName == null)
                 {
 
 
-                    unitOfworks.Subscription.UpdateSubscription(subscription);
-                    unitOfworks.Complete();
+                    SubscriprinService.UpdateSubscription(subscription);
+                    SubscriprinService.SaveChange();
                     return RedirectToAction("Index");
                 }
             }
@@ -126,9 +130,9 @@ namespace DealsNZ.Controllers.AdminController
         //  [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Subscription subscription = unitOfworks.Subscription.GetByID(Convert.ToInt32(id));
-            unitOfworks.Subscription.Delete(subscription);
-            unitOfworks.Complete();
+            Subscription subscription = SubscriprinService.GetByID(Convert.ToInt32(id));
+            SubscriprinService.Delete(subscription);
+            SubscriprinService.SaveChange();
             return RedirectToAction("Index");
         }
 
