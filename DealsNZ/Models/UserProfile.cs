@@ -19,10 +19,13 @@ namespace DealsNZ.Models
         {
             this.Cards = new HashSet<Card>();
             this.Coupons = new HashSet<Coupon>();
+            this.LogTrackers = new HashSet<LogTracker>();
+            this.Notifications = new HashSet<Notification>();
             this.Stores = new HashSet<Store>();
             this.UserSubscritions = new HashSet<UserSubscrition>();
             this.UserVerifications = new HashSet<UserVerification>();
             this.Wallets = new HashSet<Wallet>();
+            this.WishLists = new HashSet<WishList>();
         }
     
         public int UserId { get; set; }
@@ -44,6 +47,10 @@ namespace DealsNZ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Coupon> Coupons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LogTracker> LogTrackers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
         public virtual Subscription Subscription { get; set; }
         public virtual UserType UserType1 { get; set; }
@@ -53,5 +60,7 @@ namespace DealsNZ.Models
         public virtual ICollection<UserVerification> UserVerifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wallet> Wallets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishList> WishLists { get; set; }
     }
 }

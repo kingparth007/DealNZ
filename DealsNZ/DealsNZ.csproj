@@ -167,6 +167,9 @@
     <Compile Include="Models\Coupon.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerSupport.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Deal.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
@@ -189,7 +192,16 @@
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\LogTracker.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DealsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WishList.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\ClassServices\Repository.cs" />
@@ -232,6 +244,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DealDB.sql" />
     <Content Include="Content\css\materialize.css" />
     <Content Include="Content\css\materialize.min.css" />
     <Content Include="Content\css\style.css" />
@@ -340,9 +353,7 @@
     <Content Include="Views\Activation\ForgotPassword.cshtml" />
     <Content Include="Views\Register_Login\ResetPassword.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
