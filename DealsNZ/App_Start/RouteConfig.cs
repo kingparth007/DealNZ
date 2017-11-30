@@ -21,7 +21,7 @@ namespace DealsNZ
             routes.MapRoute(
                 name: "Activation",
                 url: "{controller}/{action}/{guid}",
-                defaults: new { controller = "Activation", action = "Activate", guid = "" }
+                defaults: new { controller = "Activation", action = "Activate", guid = UrlParameter.Optional }
             );
         }
     }

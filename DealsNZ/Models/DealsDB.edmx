@@ -143,7 +143,11 @@
           <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="20" />
-          <Property Name="GuidString" Type="varchar" MaxLength="100" />
+          <Property Name="Street" Type="varchar" MaxLength="30" />
+          <Property Name="Suburb" Type="varchar" MaxLength="30" />
+          <Property Name="City" Type="varchar" MaxLength="30" />
+          <Property Name="Region" Type="varchar" MaxLength="30" />
+          <Property Name="Country" Type="varchar" MaxLength="30" />
           <Property Name="isContactVerified" Type="bit" />
           <Property Name="isLocked" Type="bit" />
           <Property Name="AddedOn" Type="date" />
@@ -512,7 +516,6 @@
           <EntitySet Name="Stores" EntityType="DealsModel.Store" />
           <EntitySet Name="Subscriptions" EntityType="DealsModel.Subscription" />
           <EntitySet Name="sysdiagrams" EntityType="DealsModel.sysdiagram" />
-          <EntitySet Name="UserProfiles" EntityType="DealsModel.UserProfile" />
           <EntitySet Name="UserSubscritions" EntityType="DealsModel.UserSubscrition" />
           <EntitySet Name="UserTypes" EntityType="DealsModel.UserType" />
           <EntitySet Name="UserVerifications" EntityType="DealsModel.UserVerification" />
@@ -522,20 +525,12 @@
             <End Role="Store" EntitySet="Stores" />
             <End Role="Address" EntitySet="Addresses" />
           </AssociationSet>
-          <AssociationSet Name="FK_Card_UserProfile" Association="DealsModel.FK_Card_UserProfile">
-            <End Role="UserProfile" EntitySet="UserProfiles" />
-            <End Role="Card" EntitySet="Cards" />
-          </AssociationSet>
           <AssociationSet Name="FK_Store_Company" Association="DealsModel.FK_Store_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Store" EntitySet="Stores" />
           </AssociationSet>
           <AssociationSet Name="FK_Coupon_Deals" Association="DealsModel.FK_Coupon_Deals">
             <End Role="Deal" EntitySet="Deals" />
-            <End Role="Coupon" EntitySet="Coupons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Coupon_UserProfile" Association="DealsModel.FK_Coupon_UserProfile">
-            <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Coupon" EntitySet="Coupons" />
           </AssociationSet>
           <AssociationSet Name="FK_DealImages_Deals" Association="DealsModel.FK_DealImages_Deals">
@@ -545,6 +540,15 @@
           <AssociationSet Name="FK_Deals_Store" Association="DealsModel.FK_Deals_Store">
             <End Role="Store" EntitySet="Stores" />
             <End Role="Deal" EntitySet="Deals" />
+          </AssociationSet>
+          <EntitySet Name="UserProfiles" EntityType="DealsModel.UserProfile" />
+          <AssociationSet Name="FK_Card_UserProfile" Association="DealsModel.FK_Card_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Card" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coupon_UserProfile" Association="DealsModel.FK_Coupon_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Coupon" EntitySet="Coupons" />
           </AssociationSet>
           <AssociationSet Name="FK_LogTracker_UserProfile" Association="DealsModel.FK_LogTracker_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
@@ -582,7 +586,7 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="WishList" EntitySet="WishLists" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -727,35 +731,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserType" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="GuidString" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="isContactVerified" Type="Boolean" />
-          <Property Name="isLocked" Type="Boolean" />
-          <Property Name="AddedOn" Type="DateTime" Precision="0" />
-          <Property Name="UserSubscritionId" Type="Int32" />
-          <Property Name="UserPromoCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RefferedByUser" Type="Int32" />
-          <NavigationProperty Name="Cards" Relationship="DealsModel.FK_Card_UserProfile" FromRole="UserProfile" ToRole="Card" />
-          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="UserProfile" ToRole="Coupon" />
-          <NavigationProperty Name="LogTrackers" Relationship="DealsModel.FK_LogTracker_UserProfile" FromRole="UserProfile" ToRole="LogTracker" />
-          <NavigationProperty Name="Notifications" Relationship="DealsModel.FK_Notification_UserProfile" FromRole="UserProfile" ToRole="Notification" />
-          <NavigationProperty Name="Stores" Relationship="DealsModel.FK_Store_UserProfile" FromRole="UserProfile" ToRole="Store" />
-          <NavigationProperty Name="Subscription" Relationship="DealsModel.FK_UserProfile_Subscription" FromRole="UserProfile" ToRole="Subscription" />
-          <NavigationProperty Name="UserType1" Relationship="DealsModel.FK_UserProfile_UserType" FromRole="UserProfile" ToRole="UserType" />
-          <NavigationProperty Name="UserSubscritions" Relationship="DealsModel.FK_UserSubscrition_UserProfile" FromRole="UserProfile" ToRole="UserSubscrition" />
-          <NavigationProperty Name="UserVerifications" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserProfile" ToRole="UserVerification" />
-          <NavigationProperty Name="Wallets" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
-          <NavigationProperty Name="WishLists" Relationship="DealsModel.FK_WishList_Deal" FromRole="UserProfile" ToRole="WishList" />
-        </EntityType>
         <EntityType Name="UserSubscrition">
           <Key>
             <PropertyRef Name="UserSubscriptionId" />
@@ -819,20 +794,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Card_UserProfile">
-          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DealsModel.Card" Role="Card" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Card">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Store_Company">
           <End Type="DealsModel.Company" Role="Company" Multiplicity="0..1" />
           <End Type="DealsModel.Store" Role="Store" Multiplicity="*" />
@@ -857,20 +818,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Coupon_UserProfile">
-          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Coupon">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DealImages_Deals">
           <End Type="DealsModel.Deal" Role="Deal" Multiplicity="0..1" />
           <End Type="DealsModel.DealImage" Role="DealImage" Multiplicity="*" />
@@ -892,6 +839,67 @@
             </Principal>
             <Dependent Role="Deal">
               <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Suburb" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="isContactVerified" Type="Boolean" />
+          <Property Name="isLocked" Type="Boolean" />
+          <Property Name="AddedOn" Type="DateTime" Precision="0" />
+          <Property Name="UserSubscritionId" Type="Int32" />
+          <Property Name="UserPromoCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RefferedByUser" Type="Int32" />
+          <NavigationProperty Name="Cards" Relationship="DealsModel.FK_Card_UserProfile" FromRole="UserProfile" ToRole="Card" />
+          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="UserProfile" ToRole="Coupon" />
+          <NavigationProperty Name="LogTrackers" Relationship="DealsModel.FK_LogTracker_UserProfile" FromRole="UserProfile" ToRole="LogTracker" />
+          <NavigationProperty Name="Notifications" Relationship="DealsModel.FK_Notification_UserProfile" FromRole="UserProfile" ToRole="Notification" />
+          <NavigationProperty Name="Stores" Relationship="DealsModel.FK_Store_UserProfile" FromRole="UserProfile" ToRole="Store" />
+          <NavigationProperty Name="Subscription" Relationship="DealsModel.FK_UserProfile_Subscription" FromRole="UserProfile" ToRole="Subscription" />
+          <NavigationProperty Name="UserType1" Relationship="DealsModel.FK_UserProfile_UserType" FromRole="UserProfile" ToRole="UserType" />
+          <NavigationProperty Name="UserSubscritions" Relationship="DealsModel.FK_UserSubscrition_UserProfile" FromRole="UserProfile" ToRole="UserSubscrition" />
+          <NavigationProperty Name="UserVerifications" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserProfile" ToRole="UserVerification" />
+          <NavigationProperty Name="Wallets" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
+          <NavigationProperty Name="WishLists" Relationship="DealsModel.FK_WishList_Deal" FromRole="UserProfile" ToRole="WishList" />
+        </EntityType>
+        <Association Name="FK_Card_UserProfile">
+          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DealsModel.Card" Role="Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coupon_UserProfile">
+          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1167,25 +1175,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserProfiles">
-            <EntityTypeMapping TypeName="DealsModel.UserProfile">
-              <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="RefferedByUser" ColumnName="RefferedByUser" />
-                <ScalarProperty Name="UserPromoCode" ColumnName="UserPromoCode" />
-                <ScalarProperty Name="UserSubscritionId" ColumnName="UserSubscritionId" />
-                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
-                <ScalarProperty Name="isLocked" ColumnName="isLocked" />
-                <ScalarProperty Name="isContactVerified" ColumnName="isContactVerified" />
-                <ScalarProperty Name="GuidString" ColumnName="GuidString" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserSubscritions">
             <EntityTypeMapping TypeName="DealsModel.UserSubscrition">
               <MappingFragment StoreEntitySet="UserSubscrition">
@@ -1232,6 +1221,29 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="DealId" ColumnName="DealId" />
                 <ScalarProperty Name="WishlistID" ColumnName="WishlistID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="DealsModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="RefferedByUser" ColumnName="RefferedByUser" />
+                <ScalarProperty Name="UserPromoCode" ColumnName="UserPromoCode" />
+                <ScalarProperty Name="UserSubscritionId" ColumnName="UserSubscritionId" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="isLocked" ColumnName="isLocked" />
+                <ScalarProperty Name="isContactVerified" ColumnName="isContactVerified" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Suburb" ColumnName="Suburb" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
