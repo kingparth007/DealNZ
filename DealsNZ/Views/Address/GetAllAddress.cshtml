@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DealsNZ.Models.Address>
+
+@{
+    ViewBag.Title = "GetAllAddress";
+    Layout = "~/Views/Shared/_Layoutnew.cshtml";
+}
+
+
+<div class="row">
+    <div class="col s12 ">
+        <div class="card white darken-1">
+            <div class="card-content black-text">
+                <span class="card-title">Address</span>
+                <div>
+                    <table class="responsive-table highlight ">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.City)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Country)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Street)
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Country)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Street)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.AddressId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.AddressId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.AddressId })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+            <div class="card-action">
+                @Html.ActionLink("Create New", "Create")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -11,11 +11,17 @@ namespace DealsNZ.Helpers
         {
             public const string UserEmail = "UserEmail";
             public const string UserType = "UserType";
-            public const string UserID = "UserEmail";
+            public const string UserID = "UserID";
             
             public const string AdminEmail = "AdminEmail";
             public const string AdminType = "AdminType";
 
+        }
+        public class UserType
+        {
+            public const string Admin = "Admin";
+            public const string User = "Users";
+            public const string Vendor = "Vendor";
         }
 
         public class ActivationsKeys
