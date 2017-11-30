@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DealsNZ.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DealsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -133,6 +133,11 @@
           <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contact" Type="varchar" MaxLength="20" />
+          <Property Name="Street" Type="varchar" MaxLength="30" />
+          <Property Name="Suburb" Type="varchar" MaxLength="30" />
+          <Property Name="Region" Type="varchar" MaxLength="30" />
+          <Property Name="City" Type="varchar" MaxLength="30" />
+          <Property Name="Country" Type="varchar" MaxLength="30" />
           <Property Name="GuidString" Type="varchar" MaxLength="100" />
           <Property Name="isContactVerified" Type="bit" />
           <Property Name="isLocked" Type="bit" />
@@ -401,7 +406,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DealsNZStoreContainer">
+        <EntityContainer Name="DealsModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -488,7 +493,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DealsNZ" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DealsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -633,6 +638,11 @@
           <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Suburb" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="GuidString" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="isContactVerified" Type="Boolean" />
           <Property Name="isLocked" Type="Boolean" />
@@ -1005,9 +1015,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DealsNZStoreContainer" CdmEntityContainer="DealsDB">
+        <EntityContainerMapping StorageEntityContainer="DealsModelStoreContainer" CdmEntityContainer="DealsDB">
           <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="DealsNZ.Address">
+            <EntityTypeMapping TypeName="DealsModel.Address">
               <MappingFragment StoreEntitySet="Address">
                 <ScalarProperty Name="AddressId" ColumnName="AddressId" />
                 <ScalarProperty Name="City" ColumnName="City" />
@@ -1018,7 +1028,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cards">
-            <EntityTypeMapping TypeName="DealsNZ.Card">
+            <EntityTypeMapping TypeName="DealsModel.Card">
               <MappingFragment StoreEntitySet="Card">
                 <ScalarProperty Name="CardId" ColumnName="CardId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1031,7 +1041,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="DealsNZ.Company">
+            <EntityTypeMapping TypeName="DealsModel.Company">
               <MappingFragment StoreEntitySet="Company">
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -1040,7 +1050,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Coupons">
-            <EntityTypeMapping TypeName="DealsNZ.Coupon">
+            <EntityTypeMapping TypeName="DealsModel.Coupon">
               <MappingFragment StoreEntitySet="Coupon">
                 <ScalarProperty Name="CouponId" ColumnName="CouponId" />
                 <ScalarProperty Name="CouponUniqueText" ColumnName="CouponUniqueText" />
@@ -1052,7 +1062,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CustomerSupports">
-            <EntityTypeMapping TypeName="DealsNZ.CustomerSupport">
+            <EntityTypeMapping TypeName="DealsModel.CustomerSupport">
               <MappingFragment StoreEntitySet="CustomerSupport">
                 <ScalarProperty Name="CustomerSupportID" ColumnName="CustomerSupportID" />
                 <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
@@ -1065,7 +1075,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Deals">
-            <EntityTypeMapping TypeName="DealsNZ.Deal">
+            <EntityTypeMapping TypeName="DealsModel.Deal">
               <MappingFragment StoreEntitySet="Deal">
                 <ScalarProperty Name="DealId" ColumnName="DealId" />
                 <ScalarProperty Name="StoreId" ColumnName="StoreId" />
@@ -1081,7 +1091,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DealImages">
-            <EntityTypeMapping TypeName="DealsNZ.DealImage">
+            <EntityTypeMapping TypeName="DealsModel.DealImage">
               <MappingFragment StoreEntitySet="DealImage">
                 <ScalarProperty Name="DealImageId" ColumnName="DealImageId" />
                 <ScalarProperty Name="DealImage1" ColumnName="DealImage" />
@@ -1092,7 +1102,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogTrackers">
-            <EntityTypeMapping TypeName="DealsNZ.LogTracker">
+            <EntityTypeMapping TypeName="DealsModel.LogTracker">
               <MappingFragment StoreEntitySet="LogTracker">
                 <ScalarProperty Name="LogID" ColumnName="LogID" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1102,7 +1112,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Notifications">
-            <EntityTypeMapping TypeName="DealsNZ.Notification">
+            <EntityTypeMapping TypeName="DealsModel.Notification">
               <MappingFragment StoreEntitySet="Notification">
                 <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
                 <ScalarProperty Name="NotificationMessage" ColumnName="NotificationMessage" />
@@ -1112,7 +1122,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Stores">
-            <EntityTypeMapping TypeName="DealsNZ.Store">
+            <EntityTypeMapping TypeName="DealsModel.Store">
               <MappingFragment StoreEntitySet="Store">
                 <ScalarProperty Name="StoreId" ColumnName="StoreId" />
                 <ScalarProperty Name="StoreName" ColumnName="StoreName" />
@@ -1125,7 +1135,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subscriptions">
-            <EntityTypeMapping TypeName="DealsNZ.Subscription">
+            <EntityTypeMapping TypeName="DealsModel.Subscription">
               <MappingFragment StoreEntitySet="Subscription">
                 <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
                 <ScalarProperty Name="SubscriptionTitle" ColumnName="SubscriptionTitle" />
@@ -1136,7 +1146,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserProfiles">
-            <EntityTypeMapping TypeName="DealsNZ.UserProfile">
+            <EntityTypeMapping TypeName="DealsModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
@@ -1144,6 +1154,11 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Suburb" ColumnName="Suburb" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="GuidString" ColumnName="GuidString" />
                 <ScalarProperty Name="isContactVerified" ColumnName="isContactVerified" />
                 <ScalarProperty Name="isLocked" ColumnName="isLocked" />
@@ -1155,7 +1170,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserSubscritions">
-            <EntityTypeMapping TypeName="DealsNZ.UserSubscrition">
+            <EntityTypeMapping TypeName="DealsModel.UserSubscrition">
               <MappingFragment StoreEntitySet="UserSubscrition">
                 <ScalarProperty Name="UserSubscriptionId" ColumnName="UserSubscriptionId" />
                 <ScalarProperty Name="UserSubscritionDate" ColumnName="UserSubscritionDate" />
@@ -1166,7 +1181,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserTypes">
-            <EntityTypeMapping TypeName="DealsNZ.UserType">
+            <EntityTypeMapping TypeName="DealsModel.UserType">
               <MappingFragment StoreEntitySet="UserType">
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
                 <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
@@ -1174,7 +1189,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserVerifications">
-            <EntityTypeMapping TypeName="DealsNZ.UserVerification">
+            <EntityTypeMapping TypeName="DealsModel.UserVerification">
               <MappingFragment StoreEntitySet="UserVerification">
                 <ScalarProperty Name="UserVerificationID" ColumnName="UserVerificationID" />
                 <ScalarProperty Name="UserVerificationCode" ColumnName="UserVerificationCode" />
@@ -1185,7 +1200,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Wallets">
-            <EntityTypeMapping TypeName="DealsNZ.Wallet">
+            <EntityTypeMapping TypeName="DealsModel.Wallet">
               <MappingFragment StoreEntitySet="Wallet">
                 <ScalarProperty Name="WalletId" ColumnName="WalletId" />
                 <ScalarProperty Name="WalletCredit" ColumnName="WalletCredit" />
@@ -1194,7 +1209,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WishLists">
-            <EntityTypeMapping TypeName="DealsNZ.WishList">
+            <EntityTypeMapping TypeName="DealsModel.WishList">
               <MappingFragment StoreEntitySet="WishList">
                 <ScalarProperty Name="WishlistID" ColumnName="WishlistID" />
                 <ScalarProperty Name="DealId" ColumnName="DealId" />

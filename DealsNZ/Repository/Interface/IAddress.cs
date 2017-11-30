@@ -15,5 +15,6 @@ namespace DealsNZ.Repository.Interface
         Address GetAddressById(int id);
         void RemoveAddress(int id);
         void UpdateAddress(Address _address);
+        IEnumerable<Address>  GetAddressBystoreId(int id);
     }
 }

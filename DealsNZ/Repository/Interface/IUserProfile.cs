@@ -21,6 +21,7 @@ namespace DealsNZ.Models.Repository.Interface
         //  bool UserActivate(string guid);
         bool UpdateUser(UserProfile user);
         bool RemoveLinkForResetPassword(int userid);
+        
 
     }
 }

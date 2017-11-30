@@ -11,8 +11,7 @@ namespace DealsNZ.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
-
+    
     public partial class Store
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,7 +27,8 @@ namespace DealsNZ.Models
         public string Contact { get; set; }
         public string IdentificationImage { get; set; }
         public Nullable<int> CompanyId { get; set; }
-     
+        public Nullable<bool> IsDeleted { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual Company Company { get; set; }

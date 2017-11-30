@@ -18,38 +18,44 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.StoreId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StoreName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StoreName, "", new { @class = "text-danger" })
-            </div>
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.StoreName, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.StoreName)
+            @Html.ValidationMessageFor(model => model.StoreName, "", new { @class = "red-text" })
+        </div>
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.Contact, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.Contact)
+            @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "red-text", @type = "" })
+        </div>
+        @* for address *@
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.Street, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.Street)
+            @Html.ValidationMessageFor(model => model.Street, "", new { @class = "red-text", @type = "" })
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.City, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "red-text", @type = "" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
-            </div>
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.Country, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.Country)
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "red-text", @type = "" })
         </div>
-
         <div>
-            @Html.LabelFor(model => model.IdentificationImage)
-            
+            <img src="@Url.Content(Model.IdentificationImage)" style="width:80px" />
+        </div>
+        @*<div>
+            @Html.LabelFor(model => model.IdentificationImage)            
             <div>
                 <i class="material-icons">attach_file</i>
                 <input type="file" name="Image" />
             </div>
-        </div>
+        </div>*@
+
         <div>
             @Html.LabelFor(model => model.CompanyId)
             @Html.DropDownListFor(model => model.CompanyId, new SelectList(Model.CompanyList, "CompanyId", "CompanyName"), "select", htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block" })
@@ -57,6 +63,7 @@
             @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "red-text" })
 
         </div>
+      
 
               <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

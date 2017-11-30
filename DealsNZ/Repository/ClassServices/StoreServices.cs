@@ -42,7 +42,7 @@ namespace DealsNZ.Repository.ClassServices
         }
 
         public Store GetStoreName(string storeName)
-        {
+        { 
             Store name = DealDb.Stores.Where(x => x.StoreName == storeName).SingleOrDefault();
             return name;
         }
@@ -56,9 +56,8 @@ namespace DealsNZ.Repository.ClassServices
 
         public void UpdateStore(Store _store)
         {
-        
-                DealDb.Entry(_store).State = System.Data.Entity.EntityState.Modified;
-                SaveChange();
+            DealDb.Entry(_store).State = System.Data.Entity.EntityState.Modified;
+            SaveChange();
             
         }
         #endregion
