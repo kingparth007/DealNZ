@@ -10,15 +10,20 @@ using System.Web.Mvc;
 using static DealsNZ.Models.StoreModel;
 using PagedList;
 using PagedList.Mvc;
+using DealsNZ.Models.Repository.Interface;
+using DealsNZ.Models.Repository.ClassServices;
+using DealsNZ.Helpers;
 
 namespace DealsNZ.Controllers
 {
+    [CustomAuthorize(KeyList.UserType.Admin)]
     public class StoreController : Controller
     {
-
+        //TODO UserId need to Insert
         IStore storeService = new StoreServices(new DealsDB());
         IAddress addressService = new AddressService(new DealsDB());
         ICompany companyService = new CompanyService(new DealsDB());
+        IUserProfile userProfileService = new UserProfileServices(new DealsDB());
         // GET: Store
         public ActionResult Index(int? page)
         {
@@ -56,40 +61,43 @@ namespace DealsNZ.Controllers
 
             try
             {
-                string fileName = Path.GetFileNameWithoutExtension(store.Image.FileName);
-                string extension = Path.GetExtension(store.Image.FileName);
-                fileName = fileName + extension;
-                store.IdentificationImage = "~/Images/" + fileName;
-                fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
-                store.Image.SaveAs(fileName);
-
-                if (ModelState.IsValid)
+                if (Session[KeyList.SessionKeys.UserID] != null)
                 {
-                    Store _store = new Store
+                    var userId = Session[KeyList.SessionKeys.UserID].ToString();
+                    string fileName = Path.GetFileNameWithoutExtension(store.Image.FileName);
+                    string extension = Path.GetExtension(store.Image.FileName);
+                    fileName = fileName + extension;
+                    store.IdentificationImage = "~/Images/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    store.Image.SaveAs(fileName);
+
+                    if (ModelState.IsValid)
                     {
-                        StoreName = store.StoreName,
-                        UserId = store.UserId,
-                        Contact = store.Contact,
-                        IdentificationImage = store.IdentificationImage,
-                        CompanyId = store.CompanyId
-                    };
+                        Store _store = new Store
+                        {
+                            StoreName = store.StoreName,
+                            UserId = Convert.ToInt32(userId),
+                            Contact = store.Contact,
+                            IdentificationImage = store.IdentificationImage,
+                            CompanyId = store.CompanyId
+                        };
 
-                    int id = storeService.CreateStore(_store);
-                    //storeService.Insert(_store);
-                    //to add address
+                        int id = storeService.CreateStore(_store);
+                        //storeService.Insert(_store);
+                        //to add address
 
-                    Address address = new Address
-                    {
-                        Street = store.Street,
-                        City = store.City,
-                        Country = store.Country,
-                        StoreId = id,
-                    };
-                    addressService.CreateAddress(address);
+                        Address address = new Address
+                        {
+                            Street = store.Street,
+                            City = store.City,
+                            Country = store.Country,
+                            StoreId = id,
+                        };
+                        addressService.CreateAddress(address);
 
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
                 }
-
                 return View(dropdown);
             }
             catch (Exception e)
@@ -102,8 +110,7 @@ namespace DealsNZ.Controllers
 
         // GET: Store/Edit/5
         public ActionResult Edit(int id)
-        {
-            var userId = 3;
+        {         
 
             Store store = storeService.GetStoreById(id);
             var address = addressService.GetAddressBystoreId(id).SingleOrDefault();
@@ -112,8 +119,7 @@ namespace DealsNZ.Controllers
                 StoreId = store.StoreId,
                 StoreName = store.StoreName,
                 Contact = store.Contact,
-                CompanyId = store.Company.CompanyId,
-                UserId = userId,
+                CompanyId = store.Company.CompanyId,               
                 IdentificationImage = store.IdentificationImage,
                 City = address.City,
                 Country = address.Country,

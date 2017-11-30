@@ -17,8 +17,6 @@ namespace DealsNZ.Repository.Interface
         Store GetStoreById(int id);
         void RemoveStorebyId(int id);
         void UpdateStore(Store _store);
-        Store GetStoreName(string storeName);
-
-
+        Store GetStoreName(string storeName);     
     }
 }

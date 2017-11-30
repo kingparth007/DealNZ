@@ -48,9 +48,10 @@ namespace DealsNZ.Models.Repository.ClassServices
         {
             try
             {
+                var usertype = DealDb.UserTypes.Where(x => x.UserTypeName.Equals("Users")).SingleOrDefault();
                 UserProfile InsertUser = new UserProfile()
                 {
-                    UserType = Convert.ToInt16(DealDb.UserTypes.Where(x => x.UserTypeName.Equals("Users")).Select(x => x.UserTypeId)),
+                    UserType = usertype.UserTypeId,
                     Name = Register.Name,
                     Email = Register.Email.ToLower().ToString(),
                     Password = PasswordEncrypt(Register.Password),
