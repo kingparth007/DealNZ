@@ -36,6 +36,8 @@ namespace DealsNZ.Helpers
             public const string LoginMessage = "Register_Login/LoginUser --  User-Logged-IN";
             public const string LogOutMessage = "Register_Login/LoggedOut --  User-Logged-Out";
             public const string ResetPassword = "Register_Login/ResetPassword --  Password reset done by user";
+            public const string ChangePassword = "Register_Login/ChagePassword --  Password Changed by user";
+            public const string ChangeProfile = "Register_Login/MyProfile --  Profile Updated by User";
         }
 
     }

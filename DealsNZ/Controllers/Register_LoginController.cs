@@ -5,6 +5,7 @@ using DealsNZ.Models;
 using DealsNZ.Models.Repository.ClassServices;
 using DealsNZ.Models.Repository.Interface;
 using RepoPattern.Models.RepositoryFiles;
+using static DealsNZ.Models.AccountModels;
 
 namespace DealsNZ.Controllers
 {
@@ -12,22 +13,29 @@ namespace DealsNZ.Controllers
     {
 
         IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
-        IUserType up = new UserTypeService(new DealsDB());
+        //  IUserType up = new UserTypeService(new DealsDB());
 
-        KeyList KeyList = new KeyList();
+        //KeyList KeyList = new KeyList();
 
         public ActionResult Index()
         {
 
             ViewBag.RegisterError = "";
             ViewBag.LoginError = "";
-            ViewBag.ABC = new SelectList(up.GetAll(), "UserTypeId", "UserTypeName");
+            if (Session[KeyList.SessionKeys.UserID] != null)
+            {
+                return Redirect(Url.Action("MyProfile", "Register_Login"));
+            }
+            //    ViewBag.ABC = new SelectList(up.GetAll(), "UserTypeId", "UserTypeName");
             return View();
         }
         public ActionResult RegisterUser()
         {
-
-            return Redirect(Url.Action("Index", "Register_Login"));
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return Redirect(Url.Action("Index", "Register_Login"));
+            }
+            return Redirect(Url.Action("MyProfile", "Register_Login"));
         }
         [HttpPost]
         public ActionResult RegisterUser(AccountModels.Register Register)
@@ -62,8 +70,11 @@ namespace DealsNZ.Controllers
 
         public ActionResult LoginUser()
         {
-
-            return Redirect(Url.Action("Index", "Register_Login"));
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return Redirect(Url.Action("Index", "Register_Login"));
+            }
+            return Redirect(Url.Action("MyProfile", "Register_Login"));
         }
         [HttpPost]
         public ActionResult LoginUser(AccountModels.Login Login)
@@ -102,12 +113,17 @@ namespace DealsNZ.Controllers
         }
         public ActionResult LoggedOut()
         {
-            Logs GenerateLog = new Logs();
-            GenerateLog.CreateLog(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]), KeyList.LogMessages.LogOutMessage);
-            Session[KeyList.SessionKeys.UserEmail] = Session[KeyList.SessionKeys.UserType] = null;
-            Session[KeyList.SessionKeys.UserID] = null;
-            Session.Abandon();
-            return Redirect(Url.Action("Index", "Home"));
+            if (Session[KeyList.SessionKeys.UserID] != null)
+            {
+                Logs GenerateLog = new Logs();
+                GenerateLog.CreateLog(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]), KeyList.LogMessages.LogOutMessage);
+                Session[KeyList.SessionKeys.UserEmail] = Session[KeyList.SessionKeys.UserType] = null;
+                Session[KeyList.SessionKeys.UserID] = null;
+                Session.Abandon();
+                return Redirect(Url.Action("Index", "Home"));
+            }
+            return Redirect(Url.Action("Index", "Register_Login"));
+
         }
         public ActionResult Reset()
         {
@@ -129,8 +145,12 @@ namespace DealsNZ.Controllers
 
         public ActionResult ResetPassword()
         {
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
 
-            return View();
+                return View();
+            }
+            return Redirect(Url.Action("Index", "Register_Login"));
         }
         [HttpPost]
         public ActionResult ResetPassword(AccountModels.ResetPass ResetPassUser)
@@ -154,6 +174,116 @@ namespace DealsNZ.Controllers
                 return Redirect(Url.Action("ForgotPassword", "Activation"));
             }
             return View(ResetPassUser);
+        }
+
+        public ActionResult ChangePassword()
+        {
+            if (Session[KeyList.SessionKeys.UserID] != null)
+            {
+                return Redirect(Url.Action("MyProfile", "Register_Login"));
+            }
+            return Redirect(Url.Action("Index", "Register_Login"));
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(AccountModels.ChangePassword ChangePassword)
+        {
+            string data = "";
+            if (ModelState.IsValid)
+            {
+                UserProfile User = UserProfileService.GetByID(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
+
+                if (UserProfileService.Decryptdata(User.Password) == ChangePassword.CHOldPassword)
+                {
+                    if (UserProfileService.Decryptdata(User.Password) != ChangePassword.CHNewPassword)
+                    {
+                        User.Password = UserProfileService.PasswordEncrypt(ChangePassword.CHNewPassword);
+                        UserProfileService.UpdateUser(User);
+                        Logs GenerateLog = new Logs();
+                        GenerateLog.CreateLog(User.UserId, KeyList.LogMessages.ChangePassword);
+                        data = ViewBag.ChangePasswordError = "Password Changed Sucessfully";
+                        //data = ;    
+                        return Redirect(Url.Action("MyProfile", "Register_Login"));
+                    }
+                    ViewBag.ChangePasswordError = "Old Password is same with New password";
+                    return View("MyProfile");
+                }
+                ViewBag.ChangePasswordError = "Wrong Password";
+                return View("MyProfile");
+            }
+
+            return View("MyProfile");
+        }
+
+
+        public ActionResult MyProfile()
+        {
+            if (Session[KeyList.SessionKeys.UserID] != null)
+            {
+
+                var user = UserProfileService.GetByID(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
+                EditProfile EditUser = new EditProfile()
+                {
+                    UsrID = user.UserId,
+                    Usrtype = user.UserType1.UserTypeName,
+                    UserEmail = user.Email,
+                    UserName = user.Name,
+                    UserNumber = user.Contact.Substring(3),
+                    Street = user.Street,
+                    Surbrb = user.Suburb,
+                    City = user.City,
+                    Region = user.Region,
+                    Country = "New Zealand",
+                    PinCode = user.PinCode.ToString()
+                };
+                return View(EditUser);
+
+            }
+            return Redirect(Url.Action("Index", "Register_Login"));
+        }
+
+        [HttpPost]
+        public ActionResult MyProfile(AccountModels.EditProfile MyProfile)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Checknumber(MyProfile.UserNumber) == false)
+                {
+                    ViewBag.ProfileError = "Please Add Number without +64 or 0";
+                    return View("MyProfile", MyProfile);
+                }
+
+                UserProfile user = UserProfileService.GetByID(MyProfile.UsrID);
+
+                user.UserId = MyProfile.UsrID;
+                user.Name = MyProfile.UserName;
+                user.Contact = "+64" + MyProfile.UserNumber;
+                user.Street = MyProfile.Street;
+                user.Suburb = MyProfile.Surbrb;
+                user.City = MyProfile.City;
+                user.Region = MyProfile.Region;
+                user.Country = "New Zealand";
+                user.PinCode = Convert.ToInt32(MyProfile.PinCode);
+
+                if (UserProfileService.UpdateUser(user) == true)
+                {
+                    Logs GenerateLog = new Logs();
+
+                    GenerateLog.CreateLog(user.UserId, KeyList.LogMessages.ChangeProfile);
+                    return Redirect(Url.Action("Index", "Register_Login"));
+                }
+
+            }
+            return View("MyProfile", MyProfile);
+        }
+
+        public bool Checknumber(string number)
+        {
+            if (number.ToString().StartsWith("+64") || number.ToString().StartsWith("64") || number.ToString().StartsWith("0"))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

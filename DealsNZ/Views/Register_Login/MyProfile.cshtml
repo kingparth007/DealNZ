@@ -1,0 +1,105 @@
+﻿@model DealsNZ.Models.AccountModels.EditProfile
+
+
+
+@using (Html.BeginForm("MyProfile", "Register_Login"))
+{
+    @Html.AntiForgeryToken()
+    <div class="card white">
+
+        <div class="card-content black-text">
+            <span class="card-title">Profile</span>
+
+            <div class="row">
+                @Html.HiddenFor(model => Model.UsrID)
+                <div class="input-field col m4 s12 ">
+                    <i class="material-icons prefix">email</i>
+                    @Html.TextBoxFor(model => model.UserEmail, htmlAttributes: new { @class = "teal-text", @readonly = "readonly" })
+                    @Html.LabelFor(model => model.UserEmail)
+                    @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "red-text", @type = "" })
+                    
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="input-field col m6 s12">
+                    <i class="material-icons prefix">account_box</i>
+                    @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @class = "validate", })
+                    @Html.LabelFor(model => model.UserName)
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "red-text", @type = "" })
+                </div>
+
+                <div class="input-field col m6 s12">
+
+                    <i class="material-icons prefix">smartphone</i>
+
+                    @Html.TextBoxFor(model => model.UserNumber, htmlAttributes: new { @class = "validate", @placeholder = "275721887" })
+                    @Html.LabelFor(model => model.UserNumber)
+                    @Html.ValidationMessageFor(model => model.UserNumber, "", new { @class = "red-text", @type = "" })<br />
+                    <span style="font:2px;">Add Number without New zealand country code(+64)</span>
+                </div>
+            </div>
+            <div class="row">
+                <span class="card-title" style="margin-left:15px;">Address</span>
+                <div class="input-field col m4 s12">
+                    <i class="material-icons prefix">home</i>
+                    @Html.TextBoxFor(model => model.Street, htmlAttributes: new { @class = "validate", })
+                    @Html.LabelFor(model => model.Street)
+                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "red-text", @type = "" })
+                </div>
+                <div class="input-field col m4 s12 ">
+                    <i class="material-icons prefix">home</i>
+                    @Html.TextBoxFor(model => model.Surbrb, htmlAttributes: new { @class = "validate", })
+                    @Html.LabelFor(model => model.Surbrb)
+                    @Html.ValidationMessageFor(model => model.Surbrb, "", new { @class = "red-text", @type = "" })
+                </div>
+                <div class="input-field col m4 s12 ">
+                    <i class="material-icons prefix">home</i>
+                    @Html.TextBoxFor(model => model.City, htmlAttributes: new { @class = "validate", })
+                    @Html.LabelFor(model => model.City)
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "red-text", @type = "" })
+                </div>
+                <div class="input-field col m4 s12 ">
+                    <i class="material-icons prefix">home</i>
+                    @Html.TextBoxFor(model => model.Region, htmlAttributes: new { @class = "validate", })
+                    @Html.LabelFor(model => model.Region)
+                    @Html.ValidationMessageFor(model => model.Region, "", new { @class = "red-text", @type = "" })
+                </div>
+
+                <div class="input-field col m4 s12 ">
+                    <i class="material-icons prefix">home</i>
+                    @Html.TextBoxFor(model => model.Country, htmlAttributes: new { @class = "teal-text", @readonly = "readonly" })
+                    @Html.LabelFor(model => model.Country)
+                    @Html.ValidationMessageFor(model => model.Country, "", new { @class = "red-text", @type = "" })
+                </div>
+                <div class="input-field col m4 s12">
+                    <i class="material-icons prefix">location_on</i>
+                    <input type="text" autocomplete="on"  />
+                    @Html.TextBoxFor(model => model.PinCode, htmlAttributes: new { @class = "validate", })
+                    @Html.LabelFor(model => model.PinCode)
+                    @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "red-text", @type = "" })
+                </div>
+                <h6 class="materialize-red-text">  @ViewBag.ProfileError</h6>
+                <p id="Abc" class="waves-effect center col m12 s12 materialize-red-text accent-3"></p>
+            </div>
+        </div>
+        <div class="card-action">
+            <input type="submit" value="Change" class="btn-flat  teal lighten-2 white-text waves-effect" />
+        </div>
+    </div>}
+
+
+
+<div>
+    @{Html.RenderPartial("ChangePassword", new DealsNZ.Models.AccountModels.ChangePassword());}
+</div>
+@*@using (Ajax.BeginForm("MyProfile", "Register_Login", new AjaxOptions
+    {
+        OnSuccess = "OnSuccess",
+        OnFailure = "OnFailure",
+        LoadingElementId = "progress"
+    }))
+    {
+        <br />
+
+    }*@
