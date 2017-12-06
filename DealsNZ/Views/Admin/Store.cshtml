@@ -42,7 +42,7 @@
                                 @Html.DisplayNameFor(model => model.First().Company)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.First().Isvalid)
+                                @Html.DisplayNameFor(model => model.First().IsValid)
                             </th>
                             <th>Actions</th>
                         </tr>
@@ -68,7 +68,7 @@
                                     @Html.DisplayFor(modelItem => item.Company.CompanyName)
                                 </td>
                                 <td>
-                                    @if (item.Isvalid == false)
+                                    @if (item.IsValid == false)
                                     {
                                         @Html.ActionLink("Activae", "Validate", new { id = item.StoreId })
                                     }

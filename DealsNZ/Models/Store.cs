@@ -27,7 +27,8 @@ namespace DealsNZ.Models
         public string Contact { get; set; }
         public string IdentificationImage { get; set; }
         public Nullable<int> CompanyId { get; set; }
-        public Nullable<bool> Isvalid { get; set; }
+        public Nullable<bool> IsValid { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }

@@ -92,7 +92,8 @@ namespace DealsNZ.Controllers.AdminController
                                 StoreId = id,
                             };
                             addressService.CreateAddress(address);
-                            return RedirectToAction("Store");
+
+                            return RedirectToAction("Index");
                         }
 
                     }
@@ -181,28 +182,28 @@ namespace DealsNZ.Controllers.AdminController
             return View(storeService.GetByID(id));
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Validate(int id,FormCollection collection)
+        public ActionResult Validate(int id, FormCollection collection)
         {
             try
             {
-                var IsValidStore = storeService.GetByID(id).Isvalid;
+                var IsValidStore = storeService.GetByID(id).IsValid;
                 if (IsValidStore == false)
                 {
-                    Store store= storeService.GetByID(id);
-                    store.Isvalid = true;
+                    Store store = storeService.GetByID(id);
+                    store.IsValid = true;
                     storeService.UpdateStore(store);
                 }
                 else
                 {
                     Store store = storeService.GetByID(id);
-                    store.Isvalid = false;
+                    store.IsValid = false;
                     storeService.UpdateStore(store);
 
                 }
-               
+
                 return RedirectToAction("Store");
             }
             catch
@@ -210,10 +211,11 @@ namespace DealsNZ.Controllers.AdminController
                 return View();
             }
         }
-        #endregion
 
-#region DealSection
-        
+        // Deals Section
+      
+      
+
         // GET: Deal
 
         public ActionResult Deal(int? page)

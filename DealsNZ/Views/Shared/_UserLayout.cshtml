@@ -1,6 +1,4 @@
-﻿
-
-
+﻿@using DealsNZ.Helpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,16 +25,6 @@
                 <li><span><a href="#"><i class="material-icons teal-text">shopping_cart</i></a></span></li>
                 <li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>
             </ul>
-            @{
-               if (Session["UserEmail"] != null && Session["UserType"] != null)
-       
-                {
-                    <ul class="right hide-on-med-and-down">
-                        <li><span><a href="/Register_Login/LoggedOut">Logout</a></span></li>
-                        <li><span><a href="/Store" class="=teal-text">store</a></span></li>
-                    </ul>
-                }
-            }
             <ul class="right hide-on-med-and-down">
                 <li><span><a href="/Register_Login"><i class="material-icons teal-text">account_circle</i></a></span></li>
             </ul>
@@ -60,22 +48,52 @@
     </nav>
 
 
-    <ul id="slide-out" class="side-nav">
-        <li class="hide-on-large-only"><a href="#"><i class="material-icons">account_box</i>Login</a></li>
-        <li class="hide-on-large-only"><a class="show-search-bar" href="#"><i class="material-icons">search</i>Search</a></li>
-        <li><a href="#!"><i class="material-icons">home</i> Home </a></li>
-        <li><a href="/AllDeals"><i class="material-icons">local_offer</i> All Deals </a></li>
-        <li><div class="divider"></div></li>
-        <li><a href="#!">Featured</a></li>
-        <li><a href="#!"><i class="material-icons amber-text">whatshot</i>Hot Deals</a></li>
-        <li><a href="#!"><i class="material-icons red-text accent-3">loyalty</i>New Deals</a></li>
-        <li><div class="divider"></div></li>
-        <li><a href="#!">Quick Search</a></li>
-        <li><a href="#!"><i class="material-icons">restaurant</i>Food</a></li>
-        <li><a href="#!"><i class="material-icons">accessibility</i>Clothings</a></li>
+    <div id="slide-out" class="side-nav">
 
-    </ul>
+        <ul>
+            <li class="hide-on-large-only"><a href="#"><i class="material-icons">account_box</i>Login</a></li>
+            <li class="hide-on-large-only"><a class="show-search-bar" href="#"><i class="material-icons">search</i>Search</a></li>
+            <li><a href="#!"><i class="material-icons">home</i> Home </a></li>
+            <li><a href="/AllDeals"><i class="material-icons">local_offer</i> All Deals </a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#!">Featured</a></li>
+            <li><a href="#!"><i class="material-icons amber-text">whatshot</i>Hot Deals</a></li>
+            <li><a href="#!"><i class="material-icons red-text accent-3">loyalty</i>New Deals</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#!">Quick Search</a></li>
+            <li><a href="#!"><i class="material-icons">restaurant</i>Food</a></li>
+            <li><a href="#!"><i class="material-icons">accessibility</i>Clothings</a></li>
+        </ul>
 
+        <ul class="picker__list">
+            @{
+                if (Session["UserEmail"] != null && Session["UserType"] != null)
+
+
+                //if (Request.IsAuthenticated)
+                {
+
+                    <li class="picker__list-item">
+                        <a href=@Url.Action("MyProfile","Register_Login") class="waves-effect waves-lightmodal-trigger"><i class="material-icons teal-text">lock_outline</i><i style="font:8px;" class="materialize-teal-text">@Session[KeyList.SessionKeys.UserEmail].ToString();</i></a>
+
+
+                    </li>
+
+                    <li class="picker__list-item"><a href="/Register_Login/LoggedOut"><i class="material-icons">exit_to_app</i>Logout</a></li>
+
+                }
+            }
+        </ul>
+
+    </div>
+    @*<div id="mod" class="modal">
+            <div class="modal-content">
+                @{Html.RenderPartial("ChangePassword", new DealsNZ.Models.AccountModels.ChangePassword());}
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>*@
 
 
     <div class="container body-content">
@@ -125,8 +143,11 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    @* <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+
 
     @Scripts.Render("~/bundles/materializejs")
+
     <script>
 
         $(function () {
@@ -149,9 +170,19 @@
                 $("#search-bar").toggle(500);
             });
         });
-    </script>
-    @RenderSection("scripts", required: false)
 
+        $(document).ready(function () {
+            // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+
+
+        });
+
+    </script>
+
+
+    }
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

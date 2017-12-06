@@ -36,10 +36,10 @@ namespace DealsNZ.Models
         public string Contact { get; set; }
         public string Street { get; set; }
         public string Suburb { get; set; }
-        public string Region { get; set; }
         public string City { get; set; }
+        public string Region { get; set; }
         public string Country { get; set; }
-        public string GuidString { get; set; }
+        public Nullable<int> PinCode { get; set; }
         public Nullable<bool> isContactVerified { get; set; }
         public Nullable<bool> isLocked { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }

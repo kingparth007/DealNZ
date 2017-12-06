@@ -1,36 +1,43 @@
-﻿<div class="row" style="padding-top:20px;padding-bottom:20px;">
+﻿@using DealsNZ.Helpers;
+<div class="row" style="padding-top:20px;padding-bottom:20px;">
 
-    <div class="col m8 s12 offset-m2" id="Register-Card">
-        <div id="Register" class="card">
-            @{Html.RenderPartial("RegisterUser", new DealsNZ.Models.AccountModels.Register());}
-        </div>
-    </div>
+    @{
+        if (Session[KeyList.SessionKeys.UserID] == null)
+        {
+            <div class="col m8 s12 offset-m2" id="Register-Card">
+                <div id="Register" class="card">
+                    @{Html.RenderPartial("RegisterUser", new DealsNZ.Models.AccountModels.Register());}
+                </div>
+            </div>
 
-    <div class="col m8 s12 offset-m2" id="Login-Card">
-        <div id="Login" class="card">
-            @{Html.RenderPartial("LoginView", new DealsNZ.Models.AccountModels.Login());}
-        </div>
-    </div>
-    
+            <div class="col m8 s12 offset-m2" id="Login-Card">
+                <div id="Login" class="card">
+                    @{Html.RenderPartial("LoginView", new DealsNZ.Models.AccountModels.Login());}
+                </div>
+            </div>
+
+                        }
+
+
+    }
 </div>
 
 @section scripts {
     <script>
-            $(function ()
-            {
+        $(function () {
+            $("#Register-Card").hide();
+            $("#Login-Card").show();
+
+            $("#Login-Btn").click(function () {
                 $("#Register-Card").hide();
                 $("#Login-Card").show();
-
-                $("#Login-Btn").click(function () {
-                    $("#Register-Card").hide();
-                    $("#Login-Card").show();
-                });
-
-                $("#Register-Btn").click(function () {
-                    $("#Register-Card").show();
-                    $("#Login-Card").hide();
-                });
-
             });
+
+            $("#Register-Btn").click(function () {
+                $("#Register-Card").show();
+                $("#Login-Card").hide();
+            });
+
+        });
     </script>
 }

@@ -41,6 +41,9 @@ namespace DealsNZ.Models.Repository.ClassServices
         }
         public UserProfile LoginDetail(Models.AccountModels.Login Login)
         {
+
+
+            //var a = GetAll().Select(x => new { x.Name, image = DealDb.DealImages.Where(a => a.DealId.Equals(x.UserId)).ToString() }).ToList();
             string encpass = PasswordEncrypt(Login.LogInPassword);
             var loggeduser = DealDb.UserProfiles.Where(x => x.Email.Equals(Login.LogInEmail) && x.Password == encpass).SingleOrDefault();
             return loggeduser;
@@ -199,7 +202,7 @@ namespace DealsNZ.Models.Repository.ClassServices
 
         public bool RemoveLinkForResetPassword(int userid)
         {
-
+            
             VerificationService = new UserVerificationService(DealDb);
             UserVerification RemoveLink = DealDb.UserVerifications.Where(x => x.Userid.Equals(userid) && x.Purpose.Equals("ResetPass")).SingleOrDefault();
             VerificationService.Delete(RemoveLink);

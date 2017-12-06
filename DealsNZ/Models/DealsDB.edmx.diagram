@@ -4,24 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bce1db65ab494fde900cf6ec4902ed3d" Name="Diagram1">
-        <EntityTypeShape EntityType="DealsModel.Address" Width="1.5" PointX="7.5" PointY="12.875" />
-        <EntityTypeShape EntityType="DealsModel.Card" Width="1.5" PointX="5.25" PointY="20.25" />
-        <EntityTypeShape EntityType="DealsModel.Company" Width="1.5" PointX="3" PointY="11.375" />
+      <Diagram DiagramId="a1ab00bb903c407fbe17a55fdd8450d3" Name="Diagram1">
+        <EntityTypeShape EntityType="DealsModel.Address" Width="1.5" PointX="10.5" PointY="14.125" />
+        <EntityTypeShape EntityType="DealsModel.Card" Width="1.5" PointX="5.25" PointY="19" />
+        <EntityTypeShape EntityType="DealsModel.Company" Width="1.5" PointX="6" PointY="13.25" />
         <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="8.25" PointY="15.875" />
         <EntityTypeShape EntityType="DealsModel.CustomerSupport" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="7.5" PointY="19.875" />
-        <EntityTypeShape EntityType="DealsModel.DealImage" Width="1.5" PointX="9.75" PointY="20.5" />
-        <EntityTypeShape EntityType="DealsModel.LogTracker" Width="1.5" PointX="5.25" PointY="32.5" />
-        <EntityTypeShape EntityType="DealsModel.Notification" Width="1.5" PointX="5.25" PointY="29.75" />
-        <EntityTypeShape EntityType="DealsModel.Store" Width="1.5" PointX="5.25" PointY="15.5" />
-        <EntityTypeShape EntityType="DealsModel.Subscription" Width="1.5" PointX="0.75" PointY="13" />
+        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="10.5" PointY="9.875" />
+        <EntityTypeShape EntityType="DealsModel.DealImage" Width="1.5" PointX="12.75" PointY="10.625" />
+        <EntityTypeShape EntityType="DealsModel.LogTracker" Width="1.5" PointX="5.25" PointY="35.25" />
+        <EntityTypeShape EntityType="DealsModel.Notification" Width="1.5" PointX="5.25" PointY="32.5" />
+        <EntityTypeShape EntityType="DealsModel.Store" Width="1.5" PointX="8.25" PointY="11.5" />
+        <EntityTypeShape EntityType="DealsModel.Subscription" Width="1.5" PointX="0.75" PointY="16" />
+        <EntityTypeShape EntityType="DealsModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="DealsModel.UserProfile" Width="1.5" PointX="3" PointY="13.875" />
-        <EntityTypeShape EntityType="DealsModel.UserSubscrition" Width="1.5" PointX="5.25" PointY="26.875" />
-        <EntityTypeShape EntityType="DealsModel.UserType" Width="1.5" PointX="0.75" PointY="16.375" />
+        <EntityTypeShape EntityType="DealsModel.UserSubscrition" Width="1.5" PointX="5.25" PointY="29.5" />
+        <EntityTypeShape EntityType="DealsModel.UserType" Width="1.5" PointX="0.75" PointY="13.375" />
         <EntityTypeShape EntityType="DealsModel.UserVerification" Width="1.5" PointX="5.25" PointY="7.5" />
         <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="5.25" PointY="10.5" />
-        <EntityTypeShape EntityType="DealsModel.WishList" Width="1.5" PointX="5.25" PointY="35.25" />
+        <EntityTypeShape EntityType="DealsModel.WishList" Width="1.5" PointX="5.25" PointY="16.375" />
         <AssociationConnector Association="DealsModel.FK_Address_Store" />
         <AssociationConnector Association="DealsModel.FK_Card_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Store_Company" />
