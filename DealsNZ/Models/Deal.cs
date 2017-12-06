@@ -25,8 +25,8 @@ namespace DealsNZ.Models
         public Nullable<int> StoreId { get; set; }
         public Nullable<System.DateTime> ValidTill { get; set; }
         public Nullable<int> Discount { get; set; }
-        public Nullable<int> StrikePrice { get; set; }
-        public Nullable<int> Price { get; set; }
+        public Nullable<decimal> StrikePrice { get; set; }
+        public Nullable<decimal> Price { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
