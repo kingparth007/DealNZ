@@ -25,24 +25,14 @@ namespace DealsNZ.Controllers.AdminController
         IDeal dealServices = new DealServices(new DealsDB());
         IDealImage dealImageServices = new DealImageService(new DealsDB());
         IUserProfile userProfileService = new UserProfileServices(new DealsDB());
-        // GET: Store
 
-       // [CustomAuthorize(KeyList.UserType.Admin)]
+        #region StoreSection
+        
+        // [CustomAuthorize(KeyList.UserType.Admin)]
         public ActionResult Store(int? page)
         {
             return View(storeService.Get().ToPagedList(page ?? 1, 5));
         }
-
-
-        //[CustomAuthorize(KeyList.UserType.Vendor)]
-        //public ActionResult VendorStore()
-        //{
-        //    var usertype = Session[KeyList.SessionKeys.UserType].ToString();
-        //    var userId = Session[KeyList.SessionKeys.UserID].ToString();
-        //    var user = userProfileService.GetByID(Convert.ToInt32(userId));
-        //    var store = storeService.Get(x => x.UserId == user.UserId && x.UserProfile.UserType1.UserTypeName == usertype);
-        //    return View(store);
-        //}
 
         // GET: Store/Create
         public ActionResult CreateStore()
@@ -51,7 +41,7 @@ namespace DealsNZ.Controllers.AdminController
             dropdown.CompanyList = companyService.GetAllCompany().
                Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
                ToList();
-            //ViewBag.Companies = new SelectList(companyService.GetAllCompany(), "CompanyId", "CompanyName");
+            
             return View(dropdown);
         }
 
@@ -65,14 +55,10 @@ namespace DealsNZ.Controllers.AdminController
             dropdown.CompanyList = companyService.GetAllCompany().
                Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
                ToList();
-
-
             try
             {
-
                 if (Session[KeyList.SessionKeys.UserID] != null)
                 {
-
                     var userId = Session[KeyList.SessionKeys.UserID].ToString();
 
                     string fileName = Path.GetFileNameWithoutExtension(store.Image.FileName);
@@ -97,9 +83,7 @@ namespace DealsNZ.Controllers.AdminController
                             };
 
                             int id = storeService.CreateStore(_store);
-                            //storeService.Insert(_store);
-                            //to add address
-
+                           
                             Address address = new Address
                             {
                                 Street = store.Street,
@@ -108,8 +92,7 @@ namespace DealsNZ.Controllers.AdminController
                                 StoreId = id,
                             };
                             addressService.CreateAddress(address);
-
-                            return RedirectToAction("Index");
+                            return RedirectToAction("Store");
                         }
 
                     }
@@ -183,7 +166,7 @@ namespace DealsNZ.Controllers.AdminController
 
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Store");
             }
             catch (Exception e)
             {
@@ -227,11 +210,10 @@ namespace DealsNZ.Controllers.AdminController
                 return View();
             }
         }
+        #endregion
 
-        // Deals Section
-      
-      
-
+#region DealSection
+        
         // GET: Deal
 
         public ActionResult Deal(int? page)
@@ -301,7 +283,7 @@ namespace DealsNZ.Controllers.AdminController
                             dealImageServices.CreateDealImage(_dealImage);
                         }
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Deal");
                 }
                 return View();
             }
@@ -310,5 +292,6 @@ namespace DealsNZ.Controllers.AdminController
                 return View();
             }
         }
+#endregion
     }
 }
