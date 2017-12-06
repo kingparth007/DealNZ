@@ -1,11 +1,7 @@
 ﻿using DealsNZ.Models;
 using DealsNZ.Repository.Interface;
 using RepoPattern.Models.RepositoryFiles;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using static DealsNZ.Models.StoreModel;
 
 namespace DealsNZ.Repository.ClassServices
 {
@@ -28,20 +24,9 @@ namespace DealsNZ.Repository.ClassServices
 
         }
 
-        public IEnumerable<Store> GetAllStores()
-        {
-            var storeList = GetAll();
-            return storeList;
-        }
 
 
-        public Store GetStoreById(int id)
-        {
-            return GetByID(id);
-
-        }
-
-        public Store GetStoreName(string storeName)
+      public Store GetStoreName(string storeName)
         { 
             Store name = DealDb.Stores.Where(x => x.StoreName == storeName).SingleOrDefault();
             return name;

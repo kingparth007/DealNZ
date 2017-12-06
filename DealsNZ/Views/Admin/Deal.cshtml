@@ -1,0 +1,28 @@
+﻿@model IPagedList<DealsNZ.Models.DealsModels.DealViewModel>
+
+
+@using PagedList;
+@using PagedList.Mvc;
+
+
+
+
+
+@{
+    ViewBag.Title = "Deals";
+    Layout = "~/Views/Shared/_Layoutnew.cshtml";
+}
+
+<h6>Deals</h6>
+<div class="row">
+    @foreach (var item in Model)
+    {       
+        <div>
+            @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml",item)    
+        </div>
+        
+    }   
+</div>
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("eal", new { page, @class = "teal-text" }))
+</div>

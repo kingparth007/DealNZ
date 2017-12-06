@@ -33,7 +33,7 @@ namespace DealsNZ.Repository.ClassServices
        
         public IEnumerable<Address> GetAllAddress()
         {
-            var listofAddress = GetAll();
+            var listofAddress = Get();
             return listofAddress;
         }
 

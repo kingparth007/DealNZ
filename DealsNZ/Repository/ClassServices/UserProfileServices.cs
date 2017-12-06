@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using DealsNZ.Models.Repository.Interface;
 using RepoPattern.Models.RepositoryFiles;
+using DealsNZ.Helpers;
 
 namespace DealsNZ.Models.Repository.ClassServices
 {
@@ -207,6 +208,17 @@ namespace DealsNZ.Models.Repository.ClassServices
             VerificationService.Delete(RemoveLink);
             VerificationService.Dispose();
             return true;
+        }
+
+        public bool IsAuthenticated()
+        {
+            var session = HttpContext.Current.Session[KeyList.SessionKeys.UserID].ToString();
+                if (session != null)
+            {
+                return true;
+
+            }
+            return false;
         }
     }
 }
