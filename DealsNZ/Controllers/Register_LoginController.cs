@@ -21,7 +21,7 @@ namespace DealsNZ.Controllers
 
             ViewBag.RegisterError = "";
             ViewBag.LoginError = "";
-            ViewBag.ABC = new SelectList(up.GetAll(), "UserTypeId", "UserTypeName");
+            ViewBag.ABC = new SelectList(up.Get(), "UserTypeId", "UserTypeName");
             return View();
         }
         public ActionResult RegisterUser()

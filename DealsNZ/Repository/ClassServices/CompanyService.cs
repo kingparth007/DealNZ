@@ -27,7 +27,7 @@ namespace DealsNZ.Repository.ClassServices
 
         public IEnumerable<Company> GetAllCompany()
         {
-            var listofCompany=GetAll();
+            var listofCompany=Get();
             return listofCompany;
         }
 

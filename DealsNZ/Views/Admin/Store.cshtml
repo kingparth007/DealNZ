@@ -1,4 +1,5 @@
-﻿@using PagedList;
+﻿
+@using PagedList;
 @using PagedList.Mvc;
 
 @model IPagedList<DealsNZ.Models.Store>
@@ -12,16 +13,16 @@
     <div class="col s12 ">
         <div class="card white darken-1">
             <div class="card-content black-text">
-              <div>
-                  <div>
-                      <form>
-                          <div class="input-field">
-                              <input id="search" type="search" class="teal-text" required>
-                              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                              <i class="material-icons class=" teal-text"">close</i>
-                          </div>
-                      </form>
-                  </div>
+                <div>
+                    <div>
+                        <form>
+                            <div class="input-field">
+                                <input id="search" type="search" class="teal-text" required>
+                                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                <i class="material-icons class=" teal-text"">close</i>
+                            </div>
+                        </form>
+                    </div>
 
                     <table class="responsive-table bordered highlight accent-3">
                         <tr>
@@ -40,6 +41,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.First().Company)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().Isvalid)
+                            </th>
                             <th>Actions</th>
                         </tr>
 
@@ -56,30 +60,39 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Contact)
                                 </td>
-                                <td>                                  
-                                        <img src="@Url.Content(item.IdentificationImage)" style="width:80px"/>
-                                   
+                                <td>
+                                    <img src="@Url.Content(item.IdentificationImage)" style="width:80px" />
+
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Company.CompanyName)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.StoreId }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.StoreId }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.StoreId })
+                                    @if (item.Isvalid == false)
+                                    {
+                                        @Html.ActionLink("Activae", "Validate", new { id = item.StoreId })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Deactivate", "Validate", new { id = item.StoreId })
+                                    }
+                                </td>
+                                <td>
+                                    <button type="button" class="btn blue" onclick="location.href='@Url.Action("EditStore", "Admin", new { id = item.StoreId}, null)'"><i  class="material-icons ">edit</i></button>|
+                                   
                                 </td>
                             </tr>
                         }
                     </table>
                 </div>
-                
+
             </div>
             <div class="card-action">
-                @Html.ActionLink("Create New", "Create")
+                @Html.ActionLink("Create New", "CreateStore")
             </div>
             <div>
-           @Html.PagedListPager(Model, page => Url.Action("Index", new {page, @class = "teal-text" }))
-                </div>
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @class = "teal-text" }))
+            </div>
         </div>
     </div>
 </div>

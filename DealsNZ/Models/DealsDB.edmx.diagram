@@ -5,39 +5,39 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bce1db65ab494fde900cf6ec4902ed3d" Name="Diagram1">
-        <EntityTypeShape EntityType="DealsModel.Address" Width="1.5" PointX="10.5" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Card" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Company" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="8.25" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.CustomerSupport" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="10.5" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.DealImage" Width="1.5" PointX="12.75" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.LogTracker" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Notification" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Store" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Subscription" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.UserProfile" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.UserSubscrition" Width="1.5" PointX="5.25" PointY="26.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.UserType" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.UserVerification" Width="1.5" PointX="5.25" PointY="29.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="5.25" PointY="32.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.WishList" Width="1.5" PointX="5.25" PointY="35.25" IsExpanded="true" />
-        <AssociationConnector Association="DealsModel.FK_Address_Store" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Card_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Store_Company" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Coupon_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_DealImages_Deals" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Deals_Store" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_LogTracker_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Notification_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Store_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_UserProfile_Subscription" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_UserProfile_UserType" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_UserSubscrition_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_UserVeryfication_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_Wallet_UserProfile" ManuallyRouted="false" />
-        <AssociationConnector Association="DealsModel.FK_WishList_Deal" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DealsModel.Address" Width="1.5" PointX="7.5" PointY="12.875" />
+        <EntityTypeShape EntityType="DealsModel.Card" Width="1.5" PointX="5.25" PointY="20.25" />
+        <EntityTypeShape EntityType="DealsModel.Company" Width="1.5" PointX="3" PointY="11.375" />
+        <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="8.25" PointY="15.875" />
+        <EntityTypeShape EntityType="DealsModel.CustomerSupport" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="7.5" PointY="19.875" />
+        <EntityTypeShape EntityType="DealsModel.DealImage" Width="1.5" PointX="9.75" PointY="20.5" />
+        <EntityTypeShape EntityType="DealsModel.LogTracker" Width="1.5" PointX="5.25" PointY="32.5" />
+        <EntityTypeShape EntityType="DealsModel.Notification" Width="1.5" PointX="5.25" PointY="29.75" />
+        <EntityTypeShape EntityType="DealsModel.Store" Width="1.5" PointX="5.25" PointY="15.5" />
+        <EntityTypeShape EntityType="DealsModel.Subscription" Width="1.5" PointX="0.75" PointY="13" />
+        <EntityTypeShape EntityType="DealsModel.UserProfile" Width="1.5" PointX="3" PointY="13.875" />
+        <EntityTypeShape EntityType="DealsModel.UserSubscrition" Width="1.5" PointX="5.25" PointY="26.875" />
+        <EntityTypeShape EntityType="DealsModel.UserType" Width="1.5" PointX="0.75" PointY="16.375" />
+        <EntityTypeShape EntityType="DealsModel.UserVerification" Width="1.5" PointX="5.25" PointY="7.5" />
+        <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="5.25" PointY="10.5" />
+        <EntityTypeShape EntityType="DealsModel.WishList" Width="1.5" PointX="5.25" PointY="35.25" />
+        <AssociationConnector Association="DealsModel.FK_Address_Store" />
+        <AssociationConnector Association="DealsModel.FK_Card_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_Store_Company" />
+        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
+        <AssociationConnector Association="DealsModel.FK_Coupon_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_DealImages_Deals" />
+        <AssociationConnector Association="DealsModel.FK_Deals_Store" />
+        <AssociationConnector Association="DealsModel.FK_LogTracker_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_Notification_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_Store_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_UserProfile_Subscription" />
+        <AssociationConnector Association="DealsModel.FK_UserProfile_UserType" />
+        <AssociationConnector Association="DealsModel.FK_UserSubscrition_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_UserVeryfication_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_Wallet_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_WishList_Deal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

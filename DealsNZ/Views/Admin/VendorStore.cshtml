@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DealsNZ.Models.Store>
+
+@{
+    ViewBag.Title = "VendorStore";
+    Layout = "~/Views/Shared/_LayoutVendor.cshtml";
+}
+
+<h2>VendorStore</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StoreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdentificationImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StoreName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact)
+        </td>
+        <td>
+            <img src="@Url.Content(item.IdentificationImage)" style="width:80px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StoreId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StoreId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StoreId })
+        </td>
+    </tr>
+}
+
+</table>

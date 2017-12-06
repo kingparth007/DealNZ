@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -25,11 +28,12 @@
                 <li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>
             </ul>
             @{
-                if (Session["UserEmail"] != null && Session["UserType"] != null)
+               if (Session["UserEmail"] != null && Session["UserType"] != null)
+       
                 {
                     <ul class="right hide-on-med-and-down">
                         <li><span><a href="/Register_Login/LoggedOut">Logout</a></span></li>
-                        <li><span><a href="/Store">Logout</a></span></li>
+                        <li><span><a href="/Store" class="=teal-text">store</a></span></li>
                     </ul>
                 }
             }

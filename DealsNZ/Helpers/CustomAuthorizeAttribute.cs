@@ -11,8 +11,8 @@ namespace DealsNZ.Helpers
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
-        IUserProfile userProfileService = new UserProfileServices(new DealsDB());
-        IUserType userTypeService = new UserTypeService(new DealsDB());
+
+        IUserProfile userProfileService;
         protected readonly DealsDB DealDb;
         private readonly string[] allowedroles;
 
@@ -20,8 +20,11 @@ namespace DealsNZ.Helpers
         {
             this.allowedroles = roles;
         }
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            userProfileService = new UserProfileServices(new DealsDB());
+            
             bool authorize = false;
             var userSessionId = HttpContext.Current.Session[KeyList.SessionKeys.UserID].ToString();
 
@@ -34,7 +37,9 @@ namespace DealsNZ.Helpers
                     authorize = true; /* return true if Entity has current user(active) with specific role */
                 }
             }
+            userProfileService.Dispose();
             return authorize;
+
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {

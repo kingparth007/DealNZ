@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title DealsNZ</title>
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two|Merienda+One|Material+Icons" rel="stylesheet">
+    @Styles.Render("~/bundles/materializecss")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+
+
+</head>
+<body>
+    <nav class="white" role="navigation">
+        <div class="nav-wrapper">
+            <a href="#" data-activates="slide-out" class="button-collapse left teal-text show-on-large"><i class="material-icons">menu</i></a>
+            <a id="logo-container" href="#" class="brand-logo teal-text"> DealsNZ</a>
+
+
+            <ul class="right">
+                <li><span><a href="#"><i class="material-icons teal-text">shopping_cart</i></a></span></li>
+                <li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>
+            </ul>
+            @{
+               if (Session["UserEmail"] != null && Session["UserType"] != null)
+       
+                {
+                    <ul class="right hide-on-med-and-down">
+                        <li><span><a href="/Register_Login/LoggedOut">Logout</a></span></li>                        
+                    </ul>
+                }
+            }
+            <ul class="right hide-on-med-and-down">
+                <li><span><a href="/Register_Login"><i class="material-icons teal-text">account_circle</i></a></span></li>
+            </ul>
+
+            <ul class="right hide-on-med-and-down">
+                <li><span><a href="#"><i class="material-icons teal-text">home</i></a></span></li>
+                <li><span><a href="#"><i class="show-search-bar material-icons teal-text">search</i></a></span></li>
+            </ul>
+        </div>
+    </nav>
+    <nav id="search-bar">
+        <div class="nav-wrapper white">
+            <form>
+                <div class="input-field">
+                    <input id="search" type="search" class="teal-text" required>
+                    <label class="label-icon" for="search"><i class="material-icons teal-text">search</i></label>
+                    <i id="close-search-bar" class="material-icons teal-text">close</i>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+
+    <ul id="slide-out" class="side-nav">
+        <li class="hide-on-large-only"><a href="#"><i class="material-icons">account_box</i>Login</a></li>
+        <li class="hide-on-large-only"><a class="show-search-bar" href="#"><i class="material-icons">search</i>Search</a></li>
+        <li><a href="#!"><i class="material-icons blue-text">dashboard</i> Dashboard </a></li>
+        <li><a href="/Deal/Index"><i class="material-icons">local_offer</i> Deals </a></li>
+        <li><div class="divider"></div></li>    
+        <li><a href="#!">Quick Search</a></li>
+        <li><a href="#!"><i class="material-icons amber-text">whatshot</i>Sales</a></li>
+        <li><a href="#!"><i class="material-icons">credit_card</i>Credit</a></li>
+        <li><a href="#!"><i class="material-icons">store</i>Store</a></li>
+        <li><a href="#!"><i class="material-icons">content_cut</i>Cupons</a></li>
+        <li><div class="divider"></div></li>  
+        <li><a href="#!"><i class="material-icons">people</i>Customer Support</a></li>
+    </ul>
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <footer class="page-footer teal">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">DealsNZ</h5>
+                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Settings</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="white-text text-lighten-3">Aakash Dilroop Parth</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!--  Scripts-->
+    @Scripts.Render("~/bundles/jquery")
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    @Scripts.Render("~/bundles/materializejs")
+    <script>
+
+        $(function () {
+            $('.button-collapse').sideNav({
+                menuWidth: 280, // Default is 300
+                edge: 'left', // Choose the horizontal origin
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true, // Choose whether you can drag to open on touch screens,
+                onOpen: function (el) { }, // A function to be called when sideNav is opened
+                onClose: function (el) { }, // A function to be called when sideNav is closed
+            });
+
+            $("#search-bar").hide();
+
+            $("#close-search-bar").click(function () {
+                $("#search-bar").toggle(500);
+            });
+
+            $(".show-search-bar").click(function (event) {
+                $("#search-bar").toggle(500);
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>
