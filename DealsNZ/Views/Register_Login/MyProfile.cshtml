@@ -17,7 +17,7 @@
                     @Html.TextBoxFor(model => model.UserEmail, htmlAttributes: new { @class = "teal-text", @readonly = "readonly" })
                     @Html.LabelFor(model => model.UserEmail)
                     @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "red-text", @type = "" })
-                    
+
                 </div>
             </div>
             <div class="row">
@@ -74,7 +74,7 @@
                 </div>
                 <div class="input-field col m4 s12">
                     <i class="material-icons prefix">location_on</i>
-                    <input type="text" autocomplete="on"  />
+
                     @Html.TextBoxFor(model => model.PinCode, htmlAttributes: new { @class = "validate", })
                     @Html.LabelFor(model => model.PinCode)
                     @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "red-text", @type = "" })

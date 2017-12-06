@@ -22,6 +22,7 @@ namespace DealsNZ.Models
     
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }

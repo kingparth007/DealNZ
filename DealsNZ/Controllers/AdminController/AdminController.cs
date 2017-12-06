@@ -27,7 +27,7 @@ namespace DealsNZ.Controllers.AdminController
         IUserProfile userProfileService = new UserProfileServices(new DealsDB());
         // GET: Store
 
-       // [CustomAuthorize(KeyList.UserType.Admin)]
+        // [CustomAuthorize(KeyList.UserType.Admin)]
         public ActionResult Store(int? page)
         {
             return View(storeService.Get().ToPagedList(page ?? 1, 5));
@@ -109,7 +109,7 @@ namespace DealsNZ.Controllers.AdminController
                             };
                             addressService.CreateAddress(address);
 
-                            return RedirectToAction("Index");
+                            return RedirectToAction("Store");
                         }
 
                     }
@@ -183,7 +183,7 @@ namespace DealsNZ.Controllers.AdminController
 
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Store");
             }
             catch (Exception e)
             {
@@ -198,28 +198,28 @@ namespace DealsNZ.Controllers.AdminController
             return View(storeService.GetByID(id));
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Validate(int id,FormCollection collection)
+        public ActionResult Validate(int id, FormCollection collection)
         {
             try
             {
-                var IsValidStore = storeService.GetByID(id).Isvalid;
+                var IsValidStore = storeService.GetByID(id).IsValid;
                 if (IsValidStore == false)
                 {
-                    Store store= storeService.GetByID(id);
-                    store.Isvalid = true;
+                    Store store = storeService.GetByID(id);
+                    store.IsValid = true;
                     storeService.UpdateStore(store);
                 }
                 else
                 {
                     Store store = storeService.GetByID(id);
-                    store.Isvalid = false;
+                    store.IsValid = false;
                     storeService.UpdateStore(store);
 
                 }
-               
+
                 return RedirectToAction("Store");
             }
             catch
@@ -229,8 +229,8 @@ namespace DealsNZ.Controllers.AdminController
         }
 
         // Deals Section
-      
-      
+
+
 
         // GET: Deal
 
@@ -301,7 +301,7 @@ namespace DealsNZ.Controllers.AdminController
                             dealImageServices.CreateDealImage(_dealImage);
                         }
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Deal");
                 }
                 return View();
             }
