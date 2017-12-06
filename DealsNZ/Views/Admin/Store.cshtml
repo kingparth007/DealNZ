@@ -70,7 +70,7 @@
                                 <td>
                                     @if (item.IsValid == false)
                                     {
-                                        @Html.ActionLink("Activae", "Validate", new { id = item.StoreId })
+                                        @Html.ActionLink("Activate", "Validate", new { id = item.StoreId })
                                     }
                                     else
                                     {
@@ -78,7 +78,7 @@
                                     }
                                 </td>
                                 <td>
-                                    <button type="button" class="btn blue" onclick="location.href='@Url.Action("EditStore", "Admin", new { id = item.StoreId}, null)'"><i  class="material-icons ">edit</i></button>|
+                                    <a  href='@Url.Action("EditStore", "Admin", new { id = item.StoreId}, null)'><i  class="material-icons">edit</i></a>|
                                    
                                 </td>
                             </tr>

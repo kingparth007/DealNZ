@@ -102,8 +102,6 @@ namespace DealsNZ.Controllers.AdminController
             }
             catch (Exception e)
             {
-                var exception = e;
-
                 return View(dropdown);
             }
         }
@@ -171,7 +169,6 @@ namespace DealsNZ.Controllers.AdminController
             }
             catch (Exception e)
             {
-                var aa = e;
                 return View(dropdown);
             }
         }
@@ -213,8 +210,9 @@ namespace DealsNZ.Controllers.AdminController
         }
 
         // Deals Section
-      
-      
+        #endregion
+#region Deals Section
+
 
         // GET: Deal
 
