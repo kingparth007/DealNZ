@@ -385,6 +385,7 @@
     <Content Include="Views\Register_Login\LoginView.cshtml" />
     <Content Include="Views\Register_Login\MyProfile.cshtml" />
     <Content Include="Views\Register_Login\ResetPassword.cshtml" />
+    <Content Include="Views\Home\Slide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\VendorController\" />

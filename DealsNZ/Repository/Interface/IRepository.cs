@@ -9,7 +9,7 @@ namespace RepoPattern.Models.RepositoryFiles
 {
     public interface _IRepositoryList<T> where T : class
     {
-        IEnumerable<T> Get();
+        IEnumerable<T> GetAll();
 
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
 

@@ -17,7 +17,7 @@ namespace DealsNZ.Helpers
             public const string AdminType = "AdminType";
 
         }
-        public class UserType
+        public class Users
         {
             public const string Admin = "Admin";
             public const string User = "Users";

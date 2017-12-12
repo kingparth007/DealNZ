@@ -36,7 +36,7 @@ namespace RepoPattern.Models.RepositoryFiles
         }
        
 
-        public IEnumerable<T> Get()
+        public IEnumerable<T> GetAll()
         {
             return _DbContext.Set<T>().ToList();
         }

@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.SubscriptionDiscription)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SubscriptionPrice)
+            -    @Html.DisplayNameFor(model => model.SubscriptionPrice)+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AddedOn)
@@ -26,26 +26,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubscriptionTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubscriptionDiscription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubscriptionPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddedOn)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SubscriptionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SubscriptionId }) |
-            @Html.ActionLink("Delete", "DeleteConfirmed", new { id=item.SubscriptionId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionDiscription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddedOn)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SubscriptionId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SubscriptionId }) |
+                @Html.ActionLink("Delete", "DeleteConfirmed", new { id = item.SubscriptionId })
+            </td>
+        </tr>
+    }
 
 </table>

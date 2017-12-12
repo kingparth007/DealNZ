@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DealsNZ.Models.DealsModels.DealViewModel>
+@*<div class="large" style="margin-bottom:100px;">
+        <div class="carousel">
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="carousel-item">
+
+
+                        <div class="card fullscreen large">
+                            <div class="row"></div>
+                            <div class="card-image">
+                                <img src="@item.DealImages" class="responsive-img">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <div class="caption center-align materialize-red-text">
+                                        @item.Title
+                                    </div>
+
+                                    <div class="materialize-red-text">
+                                        @item.Price
+                                        @item.Discount
+                                        @item.ValidTill
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            }
+        </div>
+    </div>*@
+
+<div class="slider">
+    <ul class="slides">
+        @{
+            foreach (var item in Model)
+            {
+
+                <li>
+
+                    <img src="@item.DealImages"> <!-- random image -->
+                    <div class="caption red-text">
+                        <h3>@item.Title</h3>
+                        <h5 class="light blue-grey-text text-lighten-3">@item.ValidTill</h5>
+                    </div>
+
+
+                </li>                }
+        }
+    </ul>
+
+</div>
+
+<br />
+
+<div class="slider">
+    <ul class="slides">
+        <li>
+            <img src="https://lorempixel.com/580/250/nature/1"> <!-- random image -->
+            <div class="caption center-align">
+                <h3>This is our big Tagline!</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+            </div>
+        </li>
+        <li>
+            <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image -->
+            <div class="caption left-align">
+                <h3>Left Aligned Caption</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+            </div>
+        </li>
+        <li>
+            <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image -->
+            <div class="caption right-align">
+                <h3>Right Aligned Caption</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+            </div>
+        </li>
+        <li>
+            <img src="https://lorempixel.com/580/250/nature/4"> <!-- random image -->
+            <div class="caption center-align">
+                <h3>This is our big Tagline!</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -15,6 +15,7 @@ using static DealsNZ.Models.DealsModels;
 
 namespace DealsNZ.Controllers.AdminController
 {
+    
     public class AdminController : Controller
     {
         // GET: Admin
@@ -27,10 +28,10 @@ namespace DealsNZ.Controllers.AdminController
         IUserProfile userProfileService = new UserProfileServices(new DealsDB());
         // GET: Store
 
-        // [CustomAuthorize(KeyList.UserType.Admin)]
+       [CustomAuthorize(KeyList.Users.Admin)]
         public ActionResult Store(int? page)
         {
-            return View(storeService.Get().ToPagedList(page ?? 1, 5));
+            return View(storeService.GetAll().ToPagedList(page ?? 1, 5));
         }
 
 

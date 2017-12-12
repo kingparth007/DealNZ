@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 
@@ -12,7 +12,7 @@
             <div class="card-content black-text">
                 <span class="card-title">Create</span>
                 <div>
-                    @using (Html.BeginForm("Create", "Deal", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("CreateDeal", "Admin", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <div>

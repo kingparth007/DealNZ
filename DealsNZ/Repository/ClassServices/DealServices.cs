@@ -16,27 +16,28 @@ namespace DealsNZ.Repository.ClassServices
         {
             DealDb = Data;
         }
-        
-        public IEnumerable< DealsModels.DealViewModel> AllDeal()
+
+        public IEnumerable<DealsModels.DealViewModel> AllDeal()
         {
-            var deallist = DealDb.Deals.Select(x => new { Id = x.DealId,expire=x.ValidTill, description = x.Description, price = x.Price, discount = x.Discount, DealImages = x.DealImages.FirstOrDefault()}).ToList();
-           // var deallist = DealDb.Deals.Select(x => new { id = x.DealId,price=x.Price,expire=x.ValidTill, discount=x.Discount,description=x.Description, DealImages = DealDb.DealImages.Where(a => a.DealId == x.DealId).Select(a => new { a.DealImage1 }).FirstOrDefault() }).ToList();
+            var deallist = DealDb.Deals.Select(x => new { Id = x.DealId, x.Title, expire = x.ValidTill, description = x.Description, price = x.Price, discount = x.Discount, DealImages = x.DealImages.FirstOrDefault() }).ToList();
+            // var deallist = DealDb.Deals.Select(x => new { id = x.DealId,price=x.Price,expire=x.ValidTill, discount=x.Discount,description=x.Description, DealImages = DealDb.DealImages.Where(a => a.DealId == x.DealId).Select(a => new { a.DealImage1 }).FirstOrDefault() }).ToList();
             List<DealsModels.DealViewModel> d = new List<DealsModels.DealViewModel>();
             foreach (var item in deallist)
             {
                 Models.DealsModels.DealViewModel ds = new DealsModels.DealViewModel();
                 ds.DealId = item.Id;
                 ds.DealImages = item.DealImages.DealImage1;
-               ds.Price =Convert.ToInt32(item.price);
+                ds.Price = Convert.ToInt32(item.price);
                 ds.Description = item.description;
                 ds.Discount = Convert.ToInt32(item.discount);
                 ds.ValidTill = DateTime.Parse(item.expire.ToString());
-                 // DateTime.Parse(item.expire.ToString()).ToShortDateString().ToString();
+                ds.Title = item.Title;
+                // DateTime.Parse(item.expire.ToString()).ToShortDateString().ToString();
 
                 d.Add(ds);
             }
 
-            return d ;
+            return d;
         }
 
         public int CreateDeal(Deal deal)

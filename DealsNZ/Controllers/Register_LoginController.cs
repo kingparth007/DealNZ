@@ -96,6 +96,15 @@ namespace DealsNZ.Controllers
 
                             GenerateLog.CreateLog(loggeduser.UserId, KeyList.LogMessages.LoginMessage);
 
+                            if (Session[KeyList.SessionKeys.UserType].ToString() == KeyList.Users.Admin)
+                            {
+                                return Redirect(Url.Action("Store", "Admin"));
+                            }
+                            if (Session[KeyList.SessionKeys.UserType].ToString() == KeyList.Users.Vendor)
+                            {
+                                return Redirect(Url.Action("Index", "Home"));
+                            }
+
                             return Redirect(Url.Action("Index", "Home"));
                         }
                         ViewBag.LoginError = "Please Activate User for login. Check Your Mail";

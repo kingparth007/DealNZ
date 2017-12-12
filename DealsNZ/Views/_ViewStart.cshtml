@@ -1,3 +1,25 @@
-﻿@{
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+﻿@using DealsNZ.Helpers;
+@{
+
+    if (Session[KeyList.SessionKeys.UserID] != null)
+    {
+        if (Session[KeyList.SessionKeys.UserType].ToString() == KeyList.Users.User)
+        {
+            Layout = "~/Views/Shared/_UserLayout.cshtml";
+        }
+        if (Session[KeyList.SessionKeys.UserType].ToString() == KeyList.Users.Admin)
+        {
+            Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+        }
+        if (Session[KeyList.SessionKeys.UserType].ToString() == KeyList.Users.Vendor)
+        {
+            Layout = "~/Views/Shared/_LayoutVendor.cshtml";
+        }
+
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }
+
 }
