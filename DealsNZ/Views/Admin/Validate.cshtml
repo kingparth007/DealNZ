@@ -4,76 +4,79 @@
     ViewBag.Title = "Validate";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-
-<h5>Validate</h5>
-
-<h6>Are you sure you want to change the setting</h6>
-<div class="row">
-    <div class="col s6 ">
-        <div class="card white darken-1">
-            <div class="card-content black-text">
-                <div>
-                    <h4>Store</h4>
-                    <hr />
-                    <div>
-                        <div class="col m6">
-                            @Html.DisplayNameFor(model => model.StoreName)
-                        </div>
-
+<div class="center">
+  
+    <div class="row">
+        <div class="col s6">
+            <div class="card white darken-1">
+                <div class="card-content black-text">
+                    <div class="center">
+                        <h5>Conform</h5>
+                        <h6>Do you want to continue ?</h6>
+                        <hr />
                         <div>
-                            @Html.DisplayFor(model => model.StoreName)
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col m6">
-                            @Html.DisplayNameFor(model => model.UserId)
-                        </div>
-
-                        <div>
-                            @Html.DisplayFor(model => model.UserId)
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col m6">
-                            @Html.DisplayNameFor(model => model.Contact)
-                        </div>
-
-                        <div>
-                            @Html.DisplayFor(model => model.Contact)
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col m6">
-                            @Html.DisplayNameFor(model => model.IdentificationImage)
-                        </div>
-
-                        <div>
-                           
-                            <img src="@Url.Content(Model.IdentificationImage)" style="width:80px" />
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col m6">
-                            @Html.DisplayNameFor(model => model.CompanyId)
-                        </div>
-
-                        <div>
-                            @Html.DisplayFor(model => model.CompanyId)
-                        </div>
-                    </div>                    
-                    <br />
-                    <div>
-                        @using (Html.BeginForm())
-                        {
-                            @Html.AntiForgeryToken()
-
-                            <div class="form-actions no-color">
-                                <input type="submit" value="OK" class="btn btn-default" /> |
-                                @Html.ActionLink("Back to List", "Store")
+                            <div class="col m6">
+                                @Html.DisplayNameFor(model => model.StoreName)
                             </div>
-                        }
+
+                            <div>
+                                @Html.DisplayFor(model => model.StoreName)
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col m6">
+                                @Html.DisplayNameFor(model => model.UserId)
+                            </div>
+
+                            <div>
+                                @Html.DisplayFor(model => model.UserId)
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col m6">
+                                @Html.DisplayNameFor(model => model.Contact)
+                            </div>
+
+                            <div>
+                                @Html.DisplayFor(model => model.Contact)
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col m6">
+                                @Html.DisplayNameFor(model => model.CompanyId)
+                            </div>
+
+                            <div>
+                                @Html.DisplayFor(model => model.CompanyId)
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col m6">
+                                @Html.DisplayNameFor(model => model.IdentificationImage)
+                            </div>
+
+                            <div>
+
+                                <img src="@Url.Content(Model.IdentificationImage)" style="width:80px" />
+                            </div>
+                        </div>
+                       
+                        <br />
+                        <div>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="ok" class="btn-floating btn red darken-2" />
+                                   |
+                                    @Html.ActionLink("Back to List", "Store")
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div></div>

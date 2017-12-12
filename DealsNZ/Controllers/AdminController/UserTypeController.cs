@@ -19,7 +19,7 @@ namespace DealsNZ.Controllers.AdminController
         public ActionResult Index()
         {
 
-            return View(UsertypeService.Get().ToList());
+            return View(UsertypeService.GetAll().ToList());
         }
 
         // GET: UserType/Create

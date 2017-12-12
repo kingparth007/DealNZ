@@ -5,17 +5,16 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col s12 ">
+
         <div class="card white darken-1">
             <div class="card-content black-text">
                 <span class="card-title">Stores</span>
                 <div>
-                    @using (Html.BeginForm("Create", "Stores", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("CreateStore", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
-                       
 
+                        <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
                         <div class="input-field ">                           
                             @Html.TextBoxFor(model => model.StoreName, htmlAttributes: new { @class = "validate"})
                             @Html.LabelFor(model => model.StoreName)
@@ -57,8 +56,10 @@
                                 <div>
                                     <i class="material-icons">attach_file</i>
                                   
-                                    <input type="file" name="Image" />
+                                    <input type="file" name="files" />
                                 </div>
+                                @Html.ValidationMessageFor(model => model.files, "", new { @class = "red-text", @type = "" })
+
                             </div>
                             
 
@@ -72,18 +73,16 @@
                             <br />
                             <div class="card-action">
                                 <div>
-                                    <input type="submit" value="Create" class="btn waves-effect waves-light" />
+                                    <input type="submit" value="Add" class="btn waves-effect waves-light" />
                                 </div>
                             </div>                        
                     }
                 </div>
             </div>
             <div class="card-action">
-                @Html.ActionLink("Back to List", "Index")
+                @Html.ActionLink("Back to List", "Store")
             </div>
         </div>
-    </div>
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

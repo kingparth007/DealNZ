@@ -19,8 +19,8 @@ namespace DealsNZ.Repository.ClassServices
         
         public IEnumerable< DealsModels.DealViewModel> AllDeal()
         {
-            var deallist = DealDb.Deals.Select(x => new { Id = x.DealId,expire=x.ValidTill, description = x.Description, price = x.Price, discount = x.Discount, DealImages = x.DealImages.FirstOrDefault()}).ToList();
-           // var deallist = DealDb.Deals.Select(x => new { id = x.DealId,price=x.Price,expire=x.ValidTill, discount=x.Discount,description=x.Description, DealImages = DealDb.DealImages.Where(a => a.DealId == x.DealId).Select(a => new { a.DealImage1 }).FirstOrDefault() }).ToList();
+            var deallist = DealDb.Deals.Select(x => new { Id = x.DealId,expire=x.ValidTill, description = x.Description, price = x.Price, discount = x.Discount,IsDeleted=x.IsDeleted ,DealImages = x.DealImages.FirstOrDefault()}).ToList();
+          
             List<DealsModels.DealViewModel> d = new List<DealsModels.DealViewModel>();
             foreach (var item in deallist)
             {
@@ -30,9 +30,8 @@ namespace DealsNZ.Repository.ClassServices
                ds.Price =Convert.ToInt32(item.price);
                 ds.Description = item.description;
                 ds.Discount = Convert.ToInt32(item.discount);
-                ds.ValidTill = DateTime.Parse(item.expire.ToString());
-                 // DateTime.Parse(item.expire.ToString()).ToShortDateString().ToString();
-
+                ds.ValidTill = DateTime.Parse( item.expire.ToString());
+                ds.IsDeleted = Convert.ToBoolean(item.IsDeleted);
                 d.Add(ds);
             }
 

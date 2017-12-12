@@ -25,11 +25,7 @@ namespace DealsNZ.Repository.ClassServices
             return true;
         }
 
-        public IEnumerable<Company> GetAllCompany()
-        {
-            var listofCompany=Get();
-            return listofCompany;
-        }
+       
 
         public Company GetCompanyById(int id)
         {

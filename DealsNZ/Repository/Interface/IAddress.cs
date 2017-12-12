@@ -11,7 +11,7 @@ namespace DealsNZ.Repository.Interface
     interface IAddress:_IRepositoryList<Address>
     {
         bool CreateAddress(Address _address);
-        IEnumerable<Address> GetAllAddress();
+       
         Address GetAddressById(int id);
         void RemoveAddress(int id);
         void UpdateAddress(Address _address);

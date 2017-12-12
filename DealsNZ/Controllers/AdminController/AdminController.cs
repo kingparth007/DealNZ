@@ -27,77 +27,98 @@ namespace DealsNZ.Controllers.AdminController
         IUserProfile userProfileService = new UserProfileServices(new DealsDB());
 
         #region StoreSection
-        
+
         // [CustomAuthorize(KeyList.UserType.Admin)]
         public ActionResult Store(int? page)
         {
-            return View(storeService.Get().ToPagedList(page ?? 1, 5));
+            var listofStore = storeService.GetAll().ToPagedList(page ?? 1, 2);
+            return View(listofStore);
         }
 
         // GET: Store/Create
         public ActionResult CreateStore()
         {
+            StoreViewModel dropdown = DropdownforCompany();
+
+            return View(dropdown);
+        }
+
+        private StoreViewModel DropdownforCompany()
+        {
             StoreViewModel dropdown = new StoreViewModel();
-            dropdown.CompanyList = companyService.GetAllCompany().
+            dropdown.CompanyList = companyService.GetAll().
                Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
                ToList();
-            
-            return View(dropdown);
+            return dropdown;
         }
 
         // POST: Store/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateStore(StoreViewModel store)
+        public ActionResult CreateStore(StoreViewModel store, IEnumerable<HttpPostedFileBase> files)
         {
             // to create dropdownlist
-            StoreViewModel dropdown = new StoreViewModel();
-            dropdown.CompanyList = companyService.GetAllCompany().
-               Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
-               ToList();
+
+            StoreViewModel dropdown = DropdownforCompany();
             try
             {
                 if (Session[KeyList.SessionKeys.UserID] != null)
                 {
                     var userId = Session[KeyList.SessionKeys.UserID].ToString();
-
-                    string fileName = Path.GetFileNameWithoutExtension(store.Image.FileName);
-                    string extension = Path.GetExtension(store.Image.FileName);
-                    fileName = fileName + extension;
-                    store.IdentificationImage = "~/Images/Certificates" + fileName;
-                    fileName = Path.Combine(Server.MapPath("~/Images/Certificates"), fileName);
-                    store.Image.SaveAs(fileName);
-
                     if (ModelState.IsValid)
                     {
+                        if (Checknumber(store.Contact) == false)
+                        {
+                            ViewBag.message = "Please Add Number without +64 or 0";
+                            return View(dropdown);
+                        }
                         var addressss = addressService.Get(a => a.City == store.City && a.Street == store.Street && a.Country == store.Country).SingleOrDefault();
                         if (addressss == null)
                         {
-                            Store _store = new Store
+                            bool Image = files.IsValidImageList(false);
+                            if (Image == true)
                             {
-                                StoreName = store.StoreName,
-                                UserId = Convert.ToInt32(userId),
-                                Contact = store.Contact,
-                                IdentificationImage = store.IdentificationImage,
-                                CompanyId = store.CompanyId
-                            };
+                                foreach (var item in files)
+                                {
+                                    var path = item.SaveImageFile();
 
-                            int id = storeService.CreateStore(_store);
-                           
-                            Address address = new Address
+                                    Store _store = new Store
+                                    {
+                                        StoreName = store.StoreName,
+                                        UserId = Convert.ToInt32(userId),
+                                        Contact = "+64" + store.Contact,
+                                        IdentificationImage = path,
+                                        CompanyId = store.CompanyId,
+                                        IsValid = false,
+                                        IsDeleted = false,
+
+                                    };
+
+                                    int id = storeService.CreateStore(_store);
+                                    Address address = new Address
+                                    {
+                                        Street = store.Street,
+                                        City = store.City,
+                                        Country = store.Country,
+                                        StoreId = id,
+                                    };
+                                    addressService.CreateAddress(address);
+                                }
+                            }
+                            else
                             {
-                                Street = store.Street,
-                                City = store.City,
-                                Country = store.Country,
-                                StoreId = id,
-                            };
-                            addressService.CreateAddress(address);
-
-                            return RedirectToAction("Index");
+                                ViewBag.message = "Image is required and should only have .pdf,.jpeg,.jpg,.gif";
+                                return View(dropdown);
+                            }
                         }
+                        Logs GenerateLog = new Logs();
+                        GenerateLog.CreateLog(Convert.ToInt32(userId), KeyList.LogMessages.CreateStore);
+                        return RedirectToAction("Store");
+
 
                     }
                 }
+
                 return View(dropdown);
             }
             catch (Exception e)
@@ -123,10 +144,11 @@ namespace DealsNZ.Controllers.AdminController
                 City = address.City,
                 Country = address.Country,
                 Street = address.Street
+
             };
-            dropdown.CompanyList = companyService.GetAllCompany().
-            Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
-            ToList();
+            dropdown.CompanyList = companyService.GetAll().
+Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
+ToList();
 
             return View(dropdown);
         }
@@ -136,21 +158,23 @@ namespace DealsNZ.Controllers.AdminController
         [ValidateAntiForgeryToken]
         public ActionResult EditStore(StoreViewModel store)
         {
-            StoreViewModel dropdown = new StoreViewModel();
-            dropdown.CompanyList = companyService.GetAllCompany().
-               Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
-               ToList();
+            StoreViewModel dropdown = DropdownforCompany();
             try
             {
                 if (ModelState.IsValid)
                 {
 
+                    if (Checknumber(store.Contact) == false)
+                    {
+                        ViewBag.message = "Please Add Number without +64 or 0";
+                        return View(dropdown);
+                    }
                     var address = addressService.GetAddressBystoreId(store.StoreId).FirstOrDefault();
 
                     Store _store = storeService.GetByID(store.StoreId);
                     _store.StoreId = store.StoreId;
                     _store.StoreName = store.StoreName;
-                    _store.Contact = store.Contact;
+                    _store.Contact = "+64" + store.Contact;
                     _store.CompanyId = store.CompanyId;
 
                     storeService.UpdateStore(_store);
@@ -162,7 +186,8 @@ namespace DealsNZ.Controllers.AdminController
                         address.Country = store.Country;
                         addressService.UpdateAddress(address);
                     };
-
+                    Logs GenerateLog = new Logs();
+                    GenerateLog.CreateLog(Convert.ToInt32(_store.UserId), KeyList.LogMessages.EditStore);
                 }
 
                 return RedirectToAction("Store");
@@ -186,8 +211,8 @@ namespace DealsNZ.Controllers.AdminController
         {
             try
             {
-                var IsValidStore = storeService.GetByID(id).IsValid;
-                if (IsValidStore == false)
+                var _store = storeService.GetByID(id);
+                if (_store.IsValid == false)
                 {
                     Store store = storeService.GetByID(id);
                     store.IsValid = true;
@@ -200,7 +225,8 @@ namespace DealsNZ.Controllers.AdminController
                     storeService.UpdateStore(store);
 
                 }
-
+                Logs GenerateLog = new Logs();
+                GenerateLog.CreateLog(Convert.ToInt32(_store.UserId), KeyList.LogMessages.ValidateStore);
                 return RedirectToAction("Store");
             }
             catch
@@ -209,89 +235,241 @@ namespace DealsNZ.Controllers.AdminController
             }
         }
 
-        // Deals Section
+        public ActionResult DeleteStore(int id)
+        {
+            var _store = storeService.GetByID(id);
+            return View(_store);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteStore(int id, FormCollection collection)
+        {
+            var _store = storeService.GetByID(id);
+            if (_store.IsDeleted == false)
+            {
+                Store store = storeService.GetByID(id);
+                store.IsDeleted = true;
+                storeService.UpdateStore(store);
+            }
+            else
+            {
+
+                Store store = storeService.GetByID(id);
+                store.IsDeleted = false;
+                storeService.UpdateStore(store);
+            }
+            Logs GenerateLog = new Logs();
+            GenerateLog.CreateLog(Convert.ToInt32(_store.UserId), KeyList.LogMessages.DeleteStore);
+            return RedirectToAction("Store");
+
+        }
+
         #endregion
-#region Deals Section
+
+
+        #region Deals Section
 
 
         // GET: Deal
 
         public ActionResult Deal(int? page)
-        {
-            var listofDeals = dealServices.AllDeal().ToPagedList(page ?? 1, 2);
-            return View(listofDeals);
-        }
 
-        // GET: Deal/Details/5
-        public ActionResult Details(int id)
         {
-            return View();
+
+            var listofDeals = dealServices.GetAll().ToPagedList(page ?? 1, 2); ;
+            return View(listofDeals);
         }
 
         // GET: Deal/Create
         public ActionResult CreateDeal()
         {
             var userId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+            DealViewModel dropdown = DropDownForstore(userId);
+            return View(dropdown);
+        }
 
+        private DealViewModel DropDownForstore(int userId)
+        {
             DealViewModel dropdown = new DealViewModel();
             dropdown.StoreList = storeService.Get(x => x.UserProfile.UserId == userId).
               Select(p => new StoreViewModel { StoreId = p.StoreId, StoreName = p.StoreName }).
               ToList();
-            return View(dropdown);
+            return dropdown;
         }
 
         // POST: Deal/Create
         [HttpPost]
-        public ActionResult CreateDeal(DealViewModel _deal)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateDeal(DealViewModel _deal, IEnumerable<HttpPostedFileBase> files)
         {
+            var userId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+
+            DealViewModel dropdown = DropDownForstore(userId);
             try
             {
-                var userId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
-                var storeId = storeService.Get(x => x.UserId == userId).Select(x => new { x.StoreId, x.StoreName }).ToList();
-
                 if (ModelState.IsValid)
                 {
-                    Deal deal = new Deal
+                    var stores = storeService.Get(x => x.UserId == userId);
+                    var image = files.IsValidImageList(false);
+                    if (image == false)
                     {
-                        StoreId = _deal.StoreId,
-                        Description = _deal.Description,
-                        Title = _deal.Title,
-                        ValidTill = _deal.ValidTill,
-                        Price = _deal.Price,
-                        Discount = _deal.Discount,
-                        AddedOn = DateTime.Parse(DateTime.UtcNow.ToShortDateString()),
-                        IsDeleted = false,
-                    };
-                    int id = dealServices.CreateDeal(deal);
-                    List<DealImage> image = new List<DealImage>();
-                    for (int i = 0; i < Request.Files.Count; i++)
+                        ViewBag.message = "Image is required and should only have .pdf,.jpeg,.jpg,.gif";
+                        return View(dropdown);
+                    }
+                    else
                     {
-                        var file = Request.Files[i];
-                        if (file != null && file.ContentLength > 0)
+                        foreach (var store in stores)
                         {
-                            var fileName = Path.GetFileNameWithoutExtension(file.FileName) + Path.GetExtension(file.FileName);
-                            var url = "~/Images/DealsImages" + fileName;
-                            DealImage _dealImage = new DealImage()
+                            if (store.StoreId == _deal.StoreId)
                             {
-                                DealId = id,
-                                DealImage1 = url
-                            };
-                            image.Add(_dealImage);
+                                var strikePrice = _deal.Price - (decimal)((double)_deal.Discount / 100 * _deal.Price);
+                                if (store.IsValid == true)
+                                {
+                                    Deal deal = new Deal
+                                    {
+                                        StoreId = _deal.StoreId,
+                                        Description = _deal.Description,
+                                        Title = _deal.Title,
+                                        ValidTill =_deal.ValidTill.Date,
+                                        Price = _deal.Price,
+                                        Discount = _deal.Discount,
+                                        StrikePrice = strikePrice,
+                                        AddedOn = DateTime.Now,
+                                        IsDeleted = false,
 
-                            var path = Path.Combine(Server.MapPath("~/Images/DealsImages"), fileName);
-                            file.SaveAs(path);
-                            dealImageServices.CreateDealImage(_dealImage);
+                                    };
+                                    int id = dealServices.CreateDeal(deal);
+
+                                    foreach (var item in files)
+                                    {
+                                        var path = item.SaveImageFile();
+                                        DealImage _dealImage = new DealImage()
+                                        {
+                                            DealId = id,
+                                            DealImage1 = path
+                                        };
+
+                                        dealImageServices.CreateDealImage(_dealImage);
+                                    }
+
+                                }
+                                else
+                                {
+                                    ViewBag.message = "your store registration certificate is not valid";
+                                    return View(dropdown);
+                                }
+                            }
+
+
+                           
                         }
                     }
+                    Logs GenerateLog = new Logs();
+                    GenerateLog.CreateLog(userId, KeyList.LogMessages.EditStore);
                     return RedirectToAction("Deal");
                 }
-                return View();
+                return View(dropdown);
             }
             catch (Exception e)
             {
-                return View();
+                return View(dropdown);
             }
         }
-#endregion
+
+        public ActionResult EditDeal(int id)
+        {
+
+            Deal deal = dealServices.GetByID(id);
+            var Images = deal.DealImages;
+            DealViewModel dropdown = new DealViewModel
+            {
+                DealId = deal.DealId,
+                Title = deal.Title,
+                Price = Convert.ToInt32(deal.Price),
+                Discount = Convert.ToInt32(deal.Discount),
+                ValidTill = DateTime.Parse(deal.ValidTill.ToString()),
+                Description = deal.Description,
+            };
+            return View(dropdown);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDeal(DealViewModel deal)
+        {
+
+            try
+            {
+
+                var userId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+                if (ModelState.IsValid)
+                {
+                    var strikePrice = deal.Price - (decimal)((double)deal.Discount / 100 * deal.Price);
+                    Deal _deal = dealServices.GetByID(deal.DealId);
+                    _deal.Title = deal.Title;
+                    _deal.Price = deal.Price;
+                    _deal.Discount = deal.Discount;
+                    _deal.ValidTill = deal.ValidTill;
+                    _deal.Description = deal.Description;
+                    _deal.StrikePrice = strikePrice;
+                    dealServices.UpdateDeal(_deal);
+                    Logs GenerateLog = new Logs();
+                    GenerateLog.CreateLog(userId, KeyList.LogMessages.EditStore);
+                }
+                return RedirectToAction("Deal");
+            }
+            catch (Exception)
+            {
+
+                return View(deal);
+            }
+
+
+        }
+
+        public ActionResult DeleteDeal(int id)
+        {
+            var _deal = dealServices.GetByID(id);
+            return View(_deal);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteDeal(int id, FormCollection collection)
+        {
+            var userId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+            var _deal = dealServices.GetByID(id);
+            if (_deal.IsDeleted == false)
+            {
+                Deal deal = dealServices.GetByID(id);
+                deal.IsDeleted = true;
+                dealServices.UpdateDeal(deal);
+            }
+            else
+            {
+                Deal deal = dealServices.GetByID(id);
+                deal.IsDeleted = false;
+                dealServices.UpdateDeal(deal);
+            }
+            Logs GenerateLog = new Logs();
+            GenerateLog.CreateLog(Convert.ToInt32(userId), KeyList.LogMessages.DeleteStore);
+            return RedirectToAction("Deal");
+
+        }
+
+        public ActionResult Image(int Id)
+        {
+            var images = dealImageServices.GetAll().Where(x => x.DealId == Id);
+            return View(images);
+        }
+        #endregion
+        public bool Checknumber(string number)
+        {
+            if (number.ToString().StartsWith("+64") || number.ToString().StartsWith("64") || number.ToString().StartsWith("0"))
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

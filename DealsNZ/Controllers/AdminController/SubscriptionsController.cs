@@ -22,7 +22,7 @@ namespace DealsNZ.Controllers.AdminController
         private ISubscription SubscriprinService = new SubscriptionServices(new DealsDB());
         public ActionResult Index()
         {
-            return View(SubscriprinService.Get());
+            return View(SubscriprinService.GetAll());
         }
 
         // GET: Subscriptions/Details/5
