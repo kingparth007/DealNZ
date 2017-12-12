@@ -20,8 +20,6 @@ namespace DealsNZ.Repository.ClassServices
             SaveChange();
             var id = store.StoreId;
             return id;
-
-
         }
 
 

@@ -6,15 +6,17 @@
 }
 
 
-<div class="row">
-    <div class="col s12 ">
+    
         <div class="card white darken-1">
             <div class="card-content black-text">
                 <span class="card-title">Create</span>
+       
                 <div>
                     @using (Html.BeginForm("CreateDeal", "Admin", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
+                        <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
+
                         <div>
                             @Html.LabelFor(model => model.StoreId)
                             @Html.DropDownListFor(model => model.StoreId, new SelectList(Model.StoreList, "StoreId", "StoreName"), "select", htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block" })
@@ -55,9 +57,10 @@
                                 @Html.LabelFor(model => model.DealImages)
                                 <div>
                                     <i class="material-icons">attach_file</i>
-
-                                    <input type="file" name="file" multiple="multiple" />
+                                   
+                                   <input type="file" name="files" multiple="multiple" />
                                 </div>
+                                @Html.ValidationMessageFor(model => model.files, "", new { @class = "red-text" })
                             </div>
                             <br />
                             <div class="card-action">
@@ -65,6 +68,7 @@
                                     <input type="submit" value="Create" class="btn waves-effect waves-light" />
                                 </div>
                             </div>
+
 
                     }
 
@@ -74,5 +78,4 @@
                 @Html.ActionLink("Back to List", "Index")
             </div>
         </div>
-    </div>
-</div>
+    

@@ -1,28 +1,94 @@
-﻿@model IPagedList<DealsNZ.Models.DealsModels.DealViewModel>
-
-
+﻿
 @using PagedList;
 @using PagedList.Mvc;
 
 
-
-
+@model IPagedList<DealsNZ.Models.Deal>
 
 @{
-    ViewBag.Title = "Deals";
+    ViewBag.Title = "Deal";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h6>Deals</h6>
-<div class="row">
-    @foreach (var item in Model)
-    {       
+<h2>Deal</h2>
+
+<p>
+    <a class="btn-floating btn blue tooltipped" data-position="top" data-delay="50" data-tooltip="Add Store" href='@Url.Action("CreateDeal","Admin")'><i class="material-icons">add</i></a>
+</p>
+<div class="card white darken-1">
+    <div class="card-content black-text">
+        <table class="table bordered responsive-table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Store.StoreName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().ValidTill)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Discount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().StrikePrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Description)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.First().DealImages)
+                </th>
+
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Store.StoreName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ValidTill)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrikePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+                 
+                    <td>
+                        <img src="@Url.Content(item.DealImages.FirstOrDefault().DealImage1)" style="width:80px" />
+
+                    </td>
+                    <td>
+                        <a class="btn-floating btn" href='@Url.Action("Image", "Admin", new { id = item.DealId}, null)'><i class="material-icons">photo_libary</i></a>
+                        <a class="btn-floating btn blue" href='@Url.Action("EditDeal", "Admin", new { id = item.DealId}, null)'><i class="material-icons">edit</i></a>
+                        <a class="btn-floating btn red" href='@Url.Action("EditDelete", "Admin", new { id = item.DealId}, null)'><i class="material-icons">delete</i></a>
+                       
+                    </td>
+                </tr>
+            }
+        </table>
         <div>
-            @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml",item)    
+            @Html.PagedListPager(Model, page => Url.Action("Deal", new { page, @class = "teal-text" }))
         </div>
-        
-    }   
-</div>
-<div>
-    @Html.PagedListPager(Model, page => Url.Action("eal", new { page, @class = "teal-text" }))
+        </div>
 </div>

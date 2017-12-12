@@ -1,0 +1,83 @@
+﻿@model DealsNZ.Models.Store
+
+@{
+    ViewBag.Title = "DeleteStore";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+    <div class="row">
+        <div class="col s6 center ">
+            <div class="card white darken-1">
+                <div class="card-content black-text">
+                    <div>
+                        <h5>Delete/Activate</h5>
+                        <h6>Do you want to continue ? </h6>
+                        <hr />
+                        <div>
+                            <div>
+                                <div class="col m6">
+                                    @Html.DisplayNameFor(model => model.StoreName)
+                                </div>
+
+                                <div>
+                                    @Html.DisplayFor(model => model.StoreName)
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col m6">
+                                    @Html.DisplayNameFor(model => model.UserId)
+                                </div>
+
+                                <div>
+                                    @Html.DisplayFor(model => model.UserId)
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col m6">
+                                    @Html.DisplayNameFor(model => model.Contact)
+                                </div>
+
+                                <div>
+                                    @Html.DisplayFor(model => model.Contact)
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col m6">
+                                    @Html.DisplayNameFor(model => model.CompanyId)
+                                </div>
+
+                                <div>
+                                    @Html.DisplayFor(model => model.CompanyId)
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col m6">
+                                    @Html.DisplayNameFor(model => model.IdentificationImage)
+                                </div>
+
+                                <div>
+
+                                    <img src="@Url.Content(Model.IdentificationImage)" style="width:80px" />
+                                </div>
+                            </div>
+
+                            <br />
+
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="ok" class="btn-floating btn red darken-2" /> |
+                                    @Html.ActionLink("Back to List", "Store", new { @class = "btn-floating btn red darken-2" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

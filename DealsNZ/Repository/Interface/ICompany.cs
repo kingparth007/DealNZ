@@ -11,7 +11,7 @@ namespace DealsNZ.Repository.Interface
     interface ICompany: _IRepositoryList<Company>
     {
         //for company
-        IEnumerable<Company> GetAllCompany();
+       
         Company GetCompanyById(int id);
         bool CreateCompany(Company _company);
         void RemoveCompanybyId(int id);

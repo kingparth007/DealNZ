@@ -38,6 +38,12 @@ namespace DealsNZ.Helpers
             public const string ResetPassword = "Register_Login/ResetPassword --  Password reset done by user";
             public const string ChangePassword = "Register_Login/ChagePassword --  Password Changed by user";
             public const string ChangeProfile = "Register_Login/MyProfile --  Profile Updated by User";
+            public const string CreateStore = "Admin/CreateStore --  Store created by User";
+            public const string EditStore = "Admin/EditStore --  Store Updated by User";
+            public const string CreateDeal = "Admin/CreateDeal --  Deal created by User";
+            public const string EditDeal = "Admin/EditDeal --  Store created by User";
+            public const string ValidateStore = "Admin/Validate --  Store Validate by User";
+            public const string DeleteStore = "Admin/DeleteStore --  Store delete setting changed by User";
         }
 
     }

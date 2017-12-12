@@ -31,12 +31,7 @@ namespace DealsNZ.Repository.ClassServices
         }
 
        
-        public IEnumerable<Address> GetAllAddress()
-        {
-            var listofAddress = GetAll();
-            return listofAddress;
-        }
-
+      
         public void RemoveAddress(int id)
         {
             Delete(GetAddressById(id));

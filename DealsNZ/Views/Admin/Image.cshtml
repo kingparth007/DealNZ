@@ -1,0 +1,21 @@
+﻿@model IEnumerable<DealsNZ.Models.DealImage>
+
+@{
+    ViewBag.Title = "Image";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Image</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@foreach (var item in Model) {
+    <div>
+        <img src="@Url.Content(item.DealImage1)" style="width:80px" />
+    </div>
+}
+
+

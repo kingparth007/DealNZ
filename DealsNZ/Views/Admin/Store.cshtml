@@ -24,7 +24,8 @@
                         </form>
                     </div>
 
-                    <table class="responsive-table bordered highlight accent-3">
+                    <table class="responsive-table highlight accent-3">
+                     
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.First().StoreName)
@@ -58,7 +59,7 @@
                                     @Html.DisplayFor(modelItem => item.UserId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Contact)
+                                   @Html.DisplayFor(modelItem => item.Contact)
                                 </td>
                                 <td>
                                     <img src="@Url.Content(item.IdentificationImage)" style="width:80px" />
@@ -70,16 +71,23 @@
                                 <td>
                                     @if (item.IsValid == false)
                                     {
-                                        @Html.ActionLink("Activae", "Validate", new { id = item.StoreId })
+                                        <a class="btn-floating btn red" href='@Url.Action("Validate", "Admin", new { id = item.StoreId}, null)'><i class="material-icons small">lock_outline</i></a>
                                     }
                                     else
                                     {
-                                        @Html.ActionLink("Deactivate", "Validate", new { id = item.StoreId })
+                                        <a class="btn-floating btn green" href='@Url.Action("Validate", "Admin", new { id = item.StoreId}, null)'><i class="material-icons ">lock_open</i></a>//   @Html.ActionLink("Deactivate", "Validate", new { id = item.StoreId })
                                     }
                                 </td>
                                 <td>
-                                    <button type="button" class="btn blue" onclick="location.href='@Url.Action("EditStore", "Admin", new { id = item.StoreId}, null)'"><i  class="material-icons ">edit</i></button>|
-                                   
+                                    <a class="btn-floating btn blue" href='@Url.Action("EditStore", "Admin", new { id = item.StoreId}, null)'><i class="material-icons">edit</i></a>
+                                    @if (item.IsDeleted == false)
+                                    {
+                                        <a class="btn-floating btn red" href='@Url.Action("DeleteStore", "Admin", new { id = item.StoreId}, null)'><i class="material-icons">delete</i></a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn-floating btn red" href='@Url.Action("DeleteStore", "Admin", new { id = item.StoreId}, null)'><i class="material-icons">delete_forever</i></a>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -88,11 +96,21 @@
 
             </div>
             <div class="card-action">
-                @Html.ActionLink("Create New", "CreateStore")
+                <a class="btn-floating btn blue tooltipped" data-position="top" data-delay="50" data-tooltip="Add Store" href='@Url.Action("CreateStore","Admin")'><i class="material-icons">add</i></a>
+               
             </div>
             <div>
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @class = "teal-text" }))
+                @Html.PagedListPager(Model, page => Url.Action("Store", new { page, @class = "teal-text" }))
             </div>
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('.tooltipped').tooltip({ delay: 50 });
+        });
+
+    </script>
+}  
