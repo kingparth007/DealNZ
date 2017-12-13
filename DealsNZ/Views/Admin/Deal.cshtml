@@ -7,7 +7,7 @@
 
 @{
     ViewBag.Title = "Deal";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Deal</h2>
@@ -23,10 +23,13 @@
                     @Html.DisplayNameFor(model => model.First().Store.StoreName)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.First().Title)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.First().ValidTill)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.First().Discount)
+                    @Html.DisplayNameFor(model => model.First().Discount)%
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.First().StrikePrice)
@@ -34,9 +37,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.First().Price)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.First().Title)
-                </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.First().Description)
                 </th>
@@ -55,6 +56,10 @@
                         @Html.DisplayFor(modelItem => item.Store.StoreName)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+
+                    <td>
                         @Html.DisplayFor(modelItem => item.ValidTill)
                     </td>
                     <td>
@@ -67,13 +72,10 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
 
-                 
+
                     <td>
                         <img src="@Url.Content(item.DealImages.FirstOrDefault().DealImage1)" style="width:80px" />
 
@@ -82,7 +84,7 @@
                         <a class="btn-floating btn" href='@Url.Action("Image", "Admin", new { id = item.DealId}, null)'><i class="material-icons">photo_libary</i></a>
                         <a class="btn-floating btn blue" href='@Url.Action("EditDeal", "Admin", new { id = item.DealId}, null)'><i class="material-icons">edit</i></a>
                         <a class="btn-floating btn red" href='@Url.Action("EditDelete", "Admin", new { id = item.DealId}, null)'><i class="material-icons">delete</i></a>
-                       
+
                     </td>
                 </tr>
             }
@@ -90,5 +92,5 @@
         <div>
             @Html.PagedListPager(Model, page => Url.Action("Deal", new { page, @class = "teal-text" }))
         </div>
-        </div>
+    </div>
 </div>

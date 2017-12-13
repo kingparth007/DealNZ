@@ -24,26 +24,34 @@ namespace DealsNZ.Helpers
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             userProfileService = new UserProfileServices(new DealsDB());
-            
+
             bool authorize = false;
-            var userSessionId = HttpContext.Current.Session[KeyList.SessionKeys.UserID].ToString();
-
-            var user = userProfileService.GetByID(Convert.ToInt32(userSessionId));
-            foreach (var role in allowedroles)
+            if (HttpContext.Current.Session[KeyList.SessionKeys.UserID] != null)
             {
-                if (user!=null && user.UserType1.UserTypeName.Contains(role))
+                var userSessionId = HttpContext.Current.Session[KeyList.SessionKeys.UserID].ToString();
 
+                var user = userProfileService.GetByID(Convert.ToInt32(userSessionId));
+                foreach (var role in allowedroles)
                 {
-                    authorize = true; /* return true if Entity has current user(active) with specific role */
+                    if (user != null && user.UserType1.UserTypeName.Contains(role))
+
+                    {
+                        authorize = true; /* return true if Entity has current user(active) with specific role */
+                    }
                 }
+                userProfileService.Dispose();
+                return authorize;
             }
-            userProfileService.Dispose();
-            return authorize;
+            else
+            {
+                return authorize;
+            }
 
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new HttpUnauthorizedResult();
+            filterContext.Result = new RedirectResult("~/Register_Login/Index");
+            
         }
     }
 }
