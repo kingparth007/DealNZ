@@ -15,6 +15,7 @@ using static DealsNZ.Models.DealsModels;
 
 namespace DealsNZ.Controllers.AdminController
 {
+    [CustomAuthorize(KeyList.Users.Admin)]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -28,7 +29,7 @@ namespace DealsNZ.Controllers.AdminController
 
         #region StoreSection
 
-        // [CustomAuthorize(KeyList.UserType.Admin)]
+       
         public ActionResult Store(int? page)
         {
             var listofStore = storeService.GetAll().ToPagedList(page ?? 1, 2);

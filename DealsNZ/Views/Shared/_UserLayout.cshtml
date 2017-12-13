@@ -18,12 +18,12 @@
     <nav class="white" role="navigation">
         <div class="nav-wrapper">
             <a href="#" data-activates="slide-out" class="button-collapse left teal-text show-on-large"><i class="material-icons">menu</i></a>
-            <a id="logo-container" href="#" class="brand-logo teal-text"> DealsNZ</a>
+            <a id="logo-container" href="@Url.Action("Index","Home")" class="brand-logo teal-text"> DealsNZ</a>
 
 
             <ul class="right">
                 <li><span><a href="#"><i class="material-icons teal-text">shopping_cart</i></a></span></li>
-                <li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>
+                @*<li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>*@
             </ul>
             <ul class="right hide-on-med-and-down">
                 <li><span><a href="/Register_Login"><i class="material-icons teal-text">account_circle</i></a></span></li>
@@ -51,9 +51,17 @@
     <div id="slide-out" class="side-nav">
 
         <ul>
-            <li class="hide-on-large-only"><a href="#"><i class="material-icons">account_box</i>Login</a></li>
+            @{ if (Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID] == null)
+            {
+                    <li class="hide-on-large-only teal-text">
+                        <a href=@Url.Action("Index", "Register_Login")>
+                            <i class="material-icons">account_box</i>
+                            Login
+                        </a>
+                    </li>    }        }
+
+
             <li class="hide-on-large-only"><a class="show-search-bar" href="#"><i class="material-icons">search</i>Search</a></li>
-            <li><a href="#!"><i class="material-icons">home</i> Home </a></li>
             <li><a href="/AllDeals"><i class="material-icons">local_offer</i> All Deals </a></li>
             <li><div class="divider"></div></li>
             <li><a href="#!">Featured</a></li>
@@ -131,7 +139,7 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Made by <a class="white-text text-lighten-3">Aakash Dilroop Parth</a>
+                Made by <a class="white-text text-lighten-3">Parth and Ranjit</a>
             </div>
         </div>
     </footer>
@@ -177,11 +185,30 @@
 
 
         });
+        $(document).ready(function () {
+            $('.carousel').carousel();
+
+            $('.carousel.carousel-slider').carousel({ fullWidth: true });
+
+            $('.slider').slider();
+
+            // Pause slider
+            $('.slider').slider('pause');
+            // Start slider
+            $('.slider').slider('start');
+            // Next slide
+            $('.slider').slider('next');
+            // Previous slide
+            $('.slider').slider('prev');
+
+        });
 
     </script>
 
 
-    }
+
+
+
     @RenderSection("scripts", required: false)
 
 </body>
