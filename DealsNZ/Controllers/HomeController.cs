@@ -21,7 +21,9 @@ namespace DealsNZ.Controllers
 
         public ActionResult Index()
         {
-            return View();
+
+            var DealList = DealService.AllDeal().OrderBy(x => Guid.NewGuid());
+            return View(DealList);
         }
 
         public ActionResult About()

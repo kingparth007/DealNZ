@@ -4,69 +4,86 @@
     ViewBag.Title = "EditDeal";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="card white darken-1">
-            <div class="card-content black-text">
-                <div>
-                    <h5>Edit Deal</h5>
+<div class="card grey lighten-4">
+    <div class="card-content black-text">
 
-                    <hr />
-                    <div class="horizontal">
+        <h4 class="card-title">Edit Deal</h4>
 
-                        @using (Html.BeginForm("EditDeal", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            @Html.AntiForgeryToken()
+        <hr />
+        <div class="horizontal">
 
-                           
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.DealId)
-                            
-                                <div class="input-field ">
-                                    @Html.TextBoxFor(model => model.Title, htmlAttributes: new { @class = "validate" })
-                                    @Html.LabelFor(model => model.Title)
-                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "red-text" })
-                                </div>
-                               
-                                <div class="input-field">
-                                    @Html.TextBoxFor(model => model.Price, htmlAttributes: new { @class = "validate" })
-                                    @Html.LabelFor(model => model.Price)
-                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "red-text", @type = "" })
-                                </div>
-                              
-                                <div class="input-field ">
-                                    @Html.TextBoxFor(model => model.Discount, htmlAttributes: new { @class = "validate" })
-                                    @Html.LabelFor(model => model.Discount)
-                                    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "red-text", @type = "" })
-                                </div>
-
-                                <div class="input-field ">
-                                        @Html.TextBoxFor(model => model.ValidTill, htmlAttributes: new { @class = "validate" })
-                                        @Html.LabelFor(model => model.ValidTill)
-                                        @Html.ValidationMessageFor(model => model.ValidTill, "", new { @class = "red-text", @type = "" })
-                                    </div>
-                                <div class="input-field ">
-                                    @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "validate" })
-                                    @Html.LabelFor(model => model.Description)
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "red-text", @type = "" })
-                                </div>
+            @using (Html.BeginForm("EditDeal", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
 
 
-                                
-                                    <div class="card-action">
-                                      <input type="submit" value="Update" class="btn green" />
-                                   </div>
-                              
-                            
-                        }
-                        <div class="card-action">
-                            <div>
-                                @Html.ActionLink("Back to List", "Deal")
-                            </div>
-                            </div>
-                            </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.DealId)
+                <div class="row">
+                    <div class="col m12 s12">
+                        <div class="input-field ">
+                            @Html.TextBoxFor(model => model.Title, htmlAttributes: new { @class = "validate" })
+                            @Html.LabelFor(model => model.Title)
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "red-text" })
+                        </div>
+
+                    </div>
                 </div>
+
+                <div class="row">
+                    <div class="col m6 s12">
+                        <div class="input-field">
+                            @Html.TextBoxFor(model => model.Price, htmlAttributes: new { @class = "validate" })
+                            @Html.LabelFor(model => model.Price)
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "red-text", @type = "" })
+                        </div>
+
+
+                    </div>
+                    <div class="col m6 s12">
+                        <div class="input-field ">
+                            @Html.TextBoxFor(model => model.Discount, htmlAttributes: new { @class = "validate" })
+                            @Html.LabelFor(model => model.Discount)
+                            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "red-text", @type = "" })
+                        </div>
+
+                    </div>
+                    <div class="col m6 s12">
+                        <div class="input-field ">
+                            @Html.TextBoxFor(model => model.ValidTill, htmlAttributes: new { @class = "validate" })
+                            @Html.LabelFor(model => model.ValidTill)
+                            @Html.ValidationMessageFor(model => model.ValidTill, "", new { @class = "red-text", @type = "" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field ">
+                        @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "validate" })
+                        @Html.LabelFor(model => model.Description)
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "red-text", @type = "" })
+                    </div>
+
+                </div>
+                <div class="card-action">
+                    <input type="submit" value="Update" class="btn teal" />
+                </div>
+
+
+            }
+            <div class="card-action">
+
+                @Html.ActionLink("Back to List", "Deal")
+
             </div>
+
         </div>
-    
+    </div>
+</div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

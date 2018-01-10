@@ -1,34 +1,44 @@
 ﻿@model IEnumerable<DealsNZ.Models.UserType>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UsertType";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserTypeName)
-        </th>
-        <th>Action</th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserTypeName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.UserTypeId }) |
+<div class="row">
+    <div class="col s12 ">
+        <div class="card grey lighten-4">
 
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserTypeId })
-            </td>
-        </tr>
-    }
+            <div class="card-content black-text">
+                <h4><span class="card-title">User-Types</span></h4>
+                <p>
+                    <a class="btn-floating btn blue tooltipped" data-position="top" data-delay="50" data-tooltip="Add Store" href='@Url.Action("Create","UserType")'><i class="material-icons">add</i></a>
+                    
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserTypeName)
+                        </th>
+                        <th>Action</th>
+                    </tr>
 
-</table>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserTypeName)
+                            </td>
+                            <td>
+                                <a class="btn-floating btn blue" href='@Url.Action("Edit", "UserType", new { id = item.UserTypeId}, null)'><i class="material-icons">edit</i></a>|
+                                <a class="btn-floating btn red" href='@Url.Action("Delete", "UserType", new { id = item.UserTypeId}, null)'><i class="material-icons">delete</i></a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

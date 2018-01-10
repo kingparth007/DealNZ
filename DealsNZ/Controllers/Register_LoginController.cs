@@ -107,6 +107,10 @@ namespace DealsNZ.Controllers
 
                             return Redirect(Url.Action("Index", "Home"));
                         }
+                        else
+                        {
+                            UserProfileService.Veryfication(loggeduser.UserId, loggeduser.Email, loggeduser.Name);
+                        }
                         ViewBag.LoginError = "Please Activate User for login. Check Your Mail";
                         return View("Index", Login);
                     }
@@ -237,7 +241,7 @@ namespace DealsNZ.Controllers
                     Usrtype = user.UserType1.UserTypeName,
                     UserEmail = user.Email,
                     UserName = user.Name,
-                    UserNumber = user.Contact.Substring(3),
+                    UserNumber = (user.Contact != null ? user.Contact.Substring(3) : null),
                     Street = user.Street,
                     Surbrb = user.Suburb,
                     City = user.City,

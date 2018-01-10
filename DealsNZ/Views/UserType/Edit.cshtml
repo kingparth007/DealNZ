@@ -1,45 +1,50 @@
 ﻿@model DealsNZ.Models.UserType
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "UserType";
 }
 
-<h2>Edit</h2>
+
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>UserType</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.UserTypeId)
-        <h4 class="red-text">
-            @ViewBag.Error
-    </h4>
-    <div class="form-group">
+    <div class="card grey lighten-4">
 
-        @Html.LabelFor(model => model.UserTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UserTypeName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.UserTypeName, "", new { @class = "text-danger" })
+        <div class="card-content black-text">
+
+            <div class="form-horizontal">
+                <h4 class="card-title">Edit UserType</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UserTypeId)
+                <h4 class="red-text">
+                    @ViewBag.Error
+                </h4>
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.UserTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserTypeName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserTypeName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
+            <div class="card-action">
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+            </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }

@@ -13,24 +13,25 @@
 
 
 </head>
-<body>
-    <nav class="white" role="navigation">
+
+<body class="grey lighten-1">
+    <nav class="darken-3 grey" role="navigation">
         <div class="nav-wrapper">
-            <a href="#" data-activates="slide-out" class="button-collapse left teal-text show-on-large"><i class="material-icons">menu</i></a>
-            <a id="logo-container" href="@Url.Action("Index","Home")" target="_blank" class="brand-logo teal-text"> DealsNZ</a>
+            <a href="#" data-activates="slide-out" class="button-collapse left white-text show-on-large"><i class="material-icons">menu</i></a>
+            <a id="logo-container" href="#" target="_blank" class="brand-logo white-text center-align"> DealsNZ-Admin</a>
 
             <ul class="right hide-on-med-and-down">
 
-                <li><span><a href="/Register_Login"><i class="material-icons teal-text">account_circle</i></a></span></li>
+                <li><span><a href="/Register_Login"><i class="material-icons White-text">account_circle</i></a></span></li>
             </ul>
 
         </div>
     </nav>
 
-    <div id="slide-out" class="side-nav">
+    <div id="slide-out" class="side-nav blue-grey lighten-5">
 
         <ul>
-    
+
             <li><a href="#!"><i class="material-icons blue-text">dashboard</i> Dashboard </a></li>
             <li><a href="#!"><i class="material-icons">notifications</i>Notification</a></li>
             <li><a href=@Url.Action("Deal","Admin")><i class="material-icons">local_offer</i> Deals </a></li>
@@ -71,39 +72,10 @@
         @RenderBody()
     </div>
 
-    <footer class="page-footer teal">
+    <footer style="bottom:0;right:0;position:fixed" class="page-footer footer-copyright blue-grey lighten-5 teal-text text-darken-4">
         <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">DealsNZ</h5>
-                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+            <h6>Version 1.0</h6>
 
-
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Settings</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Connect</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                Made by <a class="white-text text-lighten-3">Aakash Dilroop Parth</a>
-            </div>
         </div>
     </footer>
 

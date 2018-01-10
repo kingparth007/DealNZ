@@ -9,14 +9,11 @@
     ViewBag.Title = "Deal";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div class="card grey lighten-4">
 
-<h2>Deal</h2>
-
-<p>
-    <a class="btn-floating btn blue tooltipped" data-position="top" data-delay="50" data-tooltip="Add Store" href='@Url.Action("CreateDeal","Admin")'><i class="material-icons">add</i></a>
-</p>
-<div class="card white darken-1">
     <div class="card-content black-text">
+        <h4 class="card-title left-align">Deal</h4>
+        <a class="btn-floating btn blue tooltipped right-aligned" data-position="top" data-delay="50" data-tooltip="Add Store" href='@Url.Action("CreateDeal","Admin")'><i class="material-icons">add</i></a>
         <table class="table bordered responsive-table">
             <tr>
                 <th>
@@ -81,16 +78,21 @@
 
                     </td>
                     <td>
-                        <a class="btn-floating btn" href='@Url.Action("Image", "Admin", new { id = item.DealId}, null)'><i class="material-icons">photo_libary</i></a>
+                        @*<a class="btn-floating btn" href='@Url.Action("Image", "Admin", new { id = item.DealId}, null)'><i class="material-icons">photo_libary</i></a>*@
                         <a class="btn-floating btn blue" href='@Url.Action("EditDeal", "Admin", new { id = item.DealId}, null)'><i class="material-icons">edit</i></a>
-                        <a class="btn-floating btn red" href='@Url.Action("EditDelete", "Admin", new { id = item.DealId}, null)'><i class="material-icons">delete</i></a>
+                        <a class="btn-floating btn red" href='@Url.Action("DeleteDeal", "Admin", new { id = item.DealId}, null)'><i class="material-icons">delete</i></a>
 
                     </td>
                 </tr>
             }
         </table>
-        <div>
-            @Html.PagedListPager(Model, page => Url.Action("Deal", new { page, @class = "teal-text" }))
+
+    </div>
+    <div class="card-action black-text">
+        <div class="black-text">
+            @Html.PagedListPager(Model, page => Url.Action("Deal", new { page, @class = "black-text" }))
+
         </div>
+
     </div>
 </div>
