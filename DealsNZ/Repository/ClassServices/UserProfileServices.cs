@@ -50,6 +50,7 @@ namespace DealsNZ.Models.Repository.ClassServices
         }
         public bool RegisterUser(Models.AccountModels.Register Register)
         {
+            int id = 0;
             try
             {
                 var usertype = DealDb.UserTypes.Where(x => x.UserTypeName.Equals("Users")).SingleOrDefault();
@@ -65,41 +66,54 @@ namespace DealsNZ.Models.Repository.ClassServices
                 string dc = Decryptdata(PasswordEncrypt(Register.Password));
                 Insert(InsertUser);
                 SaveChange();
-                int id = InsertUser.UserId;
+                id = InsertUser.UserId;
                 WalletService = new UserWalletServices(DealDb);
                 if (WalletService.WalletAtRegister(id) == true)
                 {
-                    string Purpose = "Register";
-                    Guid guid = Guid.NewGuid();
-                    UserVerification UserVerificationAtRegister = new UserVerification()
+                    var VerificationMail = Veryfication(id, InsertUser.Email, InsertUser.Name);
+
+                    if (VerificationMail == true)
                     {
-                        UserVerificationCode = guid,
-                        Userid = id,
-                        Purpose = Purpose,
-                        AddedOn = System.DateTime.Now.Date
-                    };
-                    VerificationService = new UserVerificationService(DealDb);
-                    if (UserVerificationAtRegister != null)
-                    {
-                        VerificationService.Insert(UserVerificationAtRegister);
-                        //  VerificationService.SaveChange();
-                        VerificationService.Dispose();
                         WalletService.Dispose();
-                        //Mail Logic
-                        // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
-                        string URL = "http://localhost:20629/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
-                        //string dec = Decryptdata(enc);
-                        UserMail(URL, "Activate Your Account", InsertUser.Name, InsertUser.Email);
                         return true;
                     }
-                    WalletService.Dispose();
+                    var WalletData = WalletService.GetByID(id);
+                    WalletService.Delete(WalletData);
+                    var RemoveUser = GetByID(id);
+                    Delete(RemoveUser);
                     return false;
+                    //string Purpose = "Register";
+                    //Guid guid = Guid.NewGuid();
+                    //UserVerification UserVerificationAtRegister = new UserVerification()
+                    //{
+                    //    UserVerificationCode = guid,
+                    //    Userid = id,
+                    //    Purpose = Purpose,
+                    //    AddedOn = System.DateTime.Now.Date
+                    //};
+                    //VerificationService = new UserVerificationService(DealDb);
+                    //if (UserVerificationAtRegister != null)
+                    //{
+                    //    VerificationService.Insert(UserVerificationAtRegister);
+                    //    //  VerificationService.SaveChange();
+                    //    VerificationService.Dispose();
+                    //    WalletService.Dispose();
+                    //    //Mail Logic
+                    //    // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
+                    //    string URL = "http://localhost:20629/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
+                    //    //string dec = Decryptdata(enc);
+                    //    UserMail(URL, "Activate Your Account", InsertUser.Name, InsertUser.Email);
+                    //    return true;
+                    //}
+
                 }
                 WalletService.Dispose();
                 return false;
             }
             catch
             {
+                var RemoveUser = GetByID(id);
+                Delete(RemoveUser);
                 return false;
             }
         }
@@ -156,6 +170,56 @@ namespace DealsNZ.Models.Repository.ClassServices
 
         }
 
+        public bool Veryfication(int UserID, string email, string name)
+        {
+
+            UserVerification userverify = DealDb.UserVerifications.Where(x => x.Userid.Equals(UserID)).Where(x => x.Purpose.Equals(KeyList.ActivationsKeys.Register)).SingleOrDefault();
+            if (userverify != null)
+            {
+
+                //string dec = Decryptdata(enc);
+
+                string URL = "http://localhost:20629/Activation/Activate/" + userverify.UserVerificationCode;
+                UserMail(URL, "Activate Your Account", name, email);
+                return true;
+            }
+            else
+            {
+                string Purpose = "Register";
+                Guid guid = Guid.NewGuid();
+                UserVerification UserVerificationAtRegister = new UserVerification()
+                {
+                    UserVerificationCode = guid,
+                    Userid = UserID,
+                    Purpose = Purpose,
+                    AddedOn = System.DateTime.Now.Date
+                };
+                VerificationService = new UserVerificationService(DealDb);
+                if (UserVerificationAtRegister != null)
+                {
+                    try
+                    {
+                        VerificationService.Insert(UserVerificationAtRegister);
+                    }
+                    catch
+                    {
+
+                    }
+
+                    //  VerificationService.SaveChange();
+                    VerificationService.Dispose();
+
+                    //Mail Logic
+                    // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
+                    string URL = "http://localhost:20629/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
+                    //string dec = Decryptdata(enc);
+                    UserMail(URL, "Activate Your Account", name, email);
+                    return true;
+                }
+
+            }
+            return false;
+        }
         public string PasswordEncrypt(string password)
         {
             byte[] encode = new byte[password.Length];
@@ -202,18 +266,23 @@ namespace DealsNZ.Models.Repository.ClassServices
 
         public bool RemoveLinkForResetPassword(int userid)
         {
-            
+
             VerificationService = new UserVerificationService(DealDb);
             UserVerification RemoveLink = DealDb.UserVerifications.Where(x => x.Userid.Equals(userid) && x.Purpose.Equals("ResetPass")).SingleOrDefault();
             VerificationService.Delete(RemoveLink);
             VerificationService.Dispose();
             return true;
         }
+        public bool GuidSend(int userid)
+        {
+
+            return false;
+        }
 
         public bool IsAuthenticated()
         {
             var session = HttpContext.Current.Session[KeyList.SessionKeys.UserID].ToString();
-                if (session != null)
+            if (session != null)
             {
                 return true;
 

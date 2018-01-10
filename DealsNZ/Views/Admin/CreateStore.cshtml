@@ -6,83 +6,108 @@
 }
 
 
-        <div class="card white darken-1">
-            <div class="card-content black-text">
-                <span class="card-title">Stores</span>
-                <div>
-                    @using (Html.BeginForm("CreateStore", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        @Html.AntiForgeryToken()
+<div class="card grey lighten-4">
+    @using (Html.BeginForm("CreateStore", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-                        <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
-                        <div class="input-field ">                           
-                            @Html.TextBoxFor(model => model.StoreName, htmlAttributes: new { @class = "validate"})
-                            @Html.LabelFor(model => model.StoreName)
-                            @Html.ValidationMessageFor(model => model.StoreName, "", new { @class = "red-text" })
-                        </div>
+        <div class="card-content black-text">
+            <span class="card-title">Add Stores</span>
+            <div class="row">
+                <div class="col m6 s12">
+                    <div class="input-field ">
+                        @Html.TextBoxFor(model => model.StoreName, htmlAttributes: new { @class = "validate" })
+                        @Html.LabelFor(model => model.StoreName, htmlAttributes: new { @class = "black-text" })
+                        @Html.ValidationMessageFor(model => model.StoreName, "", new { @class = "red-text" })
+                    </div>
 
-                        @*<div class="input-field ">
-                            @Html.TextBoxFor(model => model.UserId, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.UserId)
-                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "red-text", @type = "" })
-                        </div>*@
-                        <div class="input-field ">
-                            @Html.TextBoxFor(model => model.Contact, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.Contact)
-                            @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "red-text", @type = "" })
-                        </div>
-                        
 
-                            @* for address *@
-                        <div class="input-field ">
-                            @Html.TextBoxFor(model => model.Street, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.Street)
-                            @Html.ValidationMessageFor(model => model.Street, "", new { @class = "red-text", @type = "" })
-                        </div>
+                    
+                </div>
+                <div class="col m6 s12">
+                    <div class="input-field ">
+                        @Html.TextBoxFor(model => model.Contact, htmlAttributes: new { @class = "validate" })
+                        @Html.LabelFor(model => model.Contact,htmlAttributes: new { @class = "black-text" })
+                        @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "red-text", @type = "" })
+                    </div>
 
-                        <div class="input-field ">
-                            @Html.TextBoxFor(model => model.City, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.City)
-                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "red-text", @type = "" })
-                        </div>
-                        <div class="input-field ">
-                            @Html.TextBoxFor(model => model.Country, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.Country)
-                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "red-text", @type = "" })
-                        </div>
-                       
-                            <div>
-                                @Html.LabelFor(model => model.IdentificationImage)
-                                <div>
-                                    <i class="material-icons">attach_file</i>
-                                  
-                                    <input type="file" name="files" />
-                                </div>
-                                @Html.ValidationMessageFor(model => model.files, "", new { @class = "red-text", @type = "" })
-
-                            </div>
-                            
-
-                            <div>
-                                @Html.LabelFor(model => model.CompanyId)
-                                @Html.DropDownListFor(model=>model.CompanyId,new SelectList(Model.CompanyList,"CompanyId","CompanyName"),"select", htmlAttributes: new {@class= "dropdown-button black-text validate", @style = "display:block" })
-
-                                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "red-text" })
-
-                            </div>
-                            <br />
-                            <div class="card-action">
-                                <div>
-                                    <input type="submit" value="Add" class="btn waves-effect waves-light" />
-                                </div>
-                            </div>                        
-                    }
                 </div>
             </div>
-            <div class="card-action">
-                @Html.ActionLink("Back to List", "Store")
-            </div>
+  
+<div class="row">
+    <div class="col m4 s12">
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.Street, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "black-text" })
+            @Html.ValidationMessageFor(model => model.Street, "", new { @class = "red-text", @type = "" })
         </div>
+
+    </div>
+    <div class="col m4 s12">
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.City, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "black-text" })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "red-text", @type = "" })
+        </div>
+
+    </div>
+    <div class="col m4 s12">
+        <div class="input-field ">
+            @Html.TextBoxFor(model => model.Country, htmlAttributes: new { @class = "validate" })
+            @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "black-text" })
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "red-text", @type = "" })
+        </div>
+
+    </div>
+</div>
+          
+            <div class="row">
+                <div class="col m6 s12">
+                    <div>
+                        @Html.LabelFor(model => model.IdentificationImage,htmlAttributes: new { @class = "black-text" })
+                        <div>
+                            <i class="material-icons">attach_file</i>
+
+                            <input type="file" name="files" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.files, "", new { @class = "red-text", @type = "" })
+
+                    </div>
+                </div>
+                <div class="col m6 s12">
+
+                    <div>
+                        @Html.LabelFor(model => model.CompanyId,htmlAttributes: new { @class = "black-text" })
+                        @Html.DropDownListFor(model => model.CompanyId, new SelectList(Model.CompanyList, "CompanyId", "CompanyName"), "select", htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block" })
+
+                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "red-text" })
+
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <div class="row">
+                <div class="card-action">
+                    <div>
+                        <input type="submit" value="Add" class="btn waves-effect waves-light" />
+                    </div>
+                </div>
+                    <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
+
+
+            </div>
+            
+
+        </div>
+        <div class="card-action">
+            @Html.ActionLink("Back to List", "Store")
+        </div>
+
+    }
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

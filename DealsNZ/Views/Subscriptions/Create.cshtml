@@ -1,58 +1,61 @@
 ﻿@model DealsNZ.Models.Subscription
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Subscription";
 }
 
-<h2>Create</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <div class="card grey lighten-4">
 
-    <div class="form-horizontal">
-        <h4>Subscription</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <label class="mdi-action-label-outline red-text">@ViewBag.ErrorMsg</label>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubscriptionTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SubscriptionTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SubscriptionTitle, "", new { @class = "red-text" })
+        <div class="card-content black-text">
+
+            <div class="form-horizontal">
+                <h4 class="card-title">Create Subscription</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <label class="mdi-action-label-outline red-text">@ViewBag.ErrorMsg</label>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubscriptionTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SubscriptionTitle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SubscriptionTitle, "", new { @class = "red-text" })
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.SubscriptionDiscription, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.SubscriptionDiscription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SubscriptionDiscription, "", new { @class = "red-text" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubscriptionPrice, htmlAttributes: new { @class = "purple-text col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SubscriptionPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SubscriptionPrice, "", new { @class = "red-text" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            
+            
+            </div>
+            <div class="card-action">
+                @Html.ActionLink("Back to List", "Index")
             </div>
         </div>
-
-        <div class="form-group ">
-            @Html.LabelFor(model => model.SubscriptionDiscription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.SubscriptionDiscription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SubscriptionDiscription, "", new { @class = "red-text" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubscriptionPrice, htmlAttributes: new { @class = "purple-text col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SubscriptionPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SubscriptionPrice, "", new { @class = "red-text" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+}            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }

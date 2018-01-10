@@ -19,7 +19,7 @@ namespace DealsNZ.Repository.ClassServices
         
         public IEnumerable< DealsModels.DealViewModel> AllDeal()
         {
-            var deallist = DealDb.Deals.Select(x => new { Id = x.DealId,expire=x.ValidTill, description = x.Description, price = x.Price, discount = x.Discount,IsDeleted=x.IsDeleted ,DealImages = x.DealImages.FirstOrDefault()}).ToList();
+            var deallist = DealDb.Deals.Select(x => new { x.Title,x.StrikePrice, Id = x.DealId,expire=x.ValidTill, description = x.Description, price = x.Price, discount = x.Discount,IsDeleted=x.IsDeleted ,DealImages = x.DealImages.FirstOrDefault()}).ToList();
           
             List<DealsModels.DealViewModel> d = new List<DealsModels.DealViewModel>();
             foreach (var item in deallist)
@@ -32,6 +32,8 @@ namespace DealsNZ.Repository.ClassServices
                 ds.Discount = Convert.ToInt32(item.discount);
                 ds.ValidTill = DateTime.Parse( item.expire.ToString());
                 ds.IsDeleted = Convert.ToBoolean(item.IsDeleted);
+                ds.Title = item.Title;
+                ds.StrikePrice = Convert.ToInt32(item.StrikePrice);
                 d.Add(ds);
             }
 

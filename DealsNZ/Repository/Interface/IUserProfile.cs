@@ -22,6 +22,6 @@ namespace DealsNZ.Models.Repository.Interface
         bool UpdateUser(UserProfile user);
         bool RemoveLinkForResetPassword(int userid);
         bool IsAuthenticated();
-
+        bool Veryfication(int UserID, string email, string name);
     }
 }

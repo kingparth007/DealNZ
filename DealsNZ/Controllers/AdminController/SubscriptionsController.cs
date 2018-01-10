@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DealsNZ.Helpers;
 using DealsNZ.Models;
 using DealsNZ.Models.Repository.ClassServices;
 using DealsNZ.Models.Repository.Interface;
@@ -14,6 +15,7 @@ using RepoPattern.Models.RepositoryFiles;
 
 namespace DealsNZ.Controllers.AdminController
 {
+    [CustomAuthorize(KeyList.Users.Admin)]
     public class SubscriptionsController : Controller
     {
         private DealsDB db = new DealsDB();
