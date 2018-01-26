@@ -49,7 +49,7 @@ namespace DealsNZ.Models
             [DataType(DataType.Password)]
             [DisplayName("Password")]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+           // [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             public string LogInPassword { get; set; }
 
         }
@@ -72,12 +72,12 @@ namespace DealsNZ.Models
             [DataType(DataType.Password)]
             [DisplayName("Password")]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+        //    [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+           // [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             [DisplayName("Confirm Password")]
             [Compare("Password", ErrorMessage = "It should be similar to Password")]
             public string ConformPassword { get; set; }
@@ -90,20 +90,20 @@ namespace DealsNZ.Models
             [DataType(DataType.Password)]
             [DisplayName("Old Password")]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+        //    [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             public string CHOldPassword { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
             [DisplayName("New Password")]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+        //    [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             // [NotEqualTo("OldPassword", "Old Password and New Password are same please change it ")]
             public string CHNewPassword { get; set; }
 
             [DataType(DataType.Password)]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-            [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+          //  [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             [DisplayName("Confirm Password")]
             [Compare("CHNewPassword", ErrorMessage = "It should be similar to New Password")]
             public string CHNewConformPassword { get; set; }

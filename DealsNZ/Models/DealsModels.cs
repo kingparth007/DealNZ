@@ -11,7 +11,7 @@ namespace DealsNZ.Models
 {
     public class DealsModels
     {
-      
+
         public class StoreViewModel
         {
 
@@ -39,8 +39,8 @@ namespace DealsNZ.Models
             [StringLength(20, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
             public string Country { get; set; }
 
-           
-       
+
+
             public IEnumerable<HttpPostedFileBase> files { get; set; }
         }
         public class CompanyViewModel
@@ -82,8 +82,29 @@ namespace DealsNZ.Models
             public string DealImageDesc { get; set; }
             public string ImageTags { get; set; }
 
-                   
+
             public IEnumerable<HttpPostedFileBase> files { get; set; }
+
+        }
+
+
+        public class ViewSingleDeal
+        {
+
+            public int DealId { get; set; }
+            [DisplayName("Expire On")]
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
+   ApplyFormatInEditMode = true)]
+            public DateTime ValidTill { get; set; }
+            public string DealImages { get; set; }
+            [Required]
+            public int CouponQty { get; set; }
+            public int Discount { get; set; }
+            public int StrikePrice { get; set; }
+            public int Price { get; set; }
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public int CouponPrice { get; set; }
 
         }
 
