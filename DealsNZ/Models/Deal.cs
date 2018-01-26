@@ -28,6 +28,7 @@ namespace DealsNZ.Models
         public Nullable<decimal> StrikePrice { get; set; }
         public Nullable<decimal> Price { get; set; }
         public string Title { get; set; }
+        public bool IsDealFree { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
         public Nullable<bool> IsDeleted { get; set; }

@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="DealsModel.Company" Width="1.5" PointX="6" PointY="13.25" />
         <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="8.25" PointY="15.875" />
         <EntityTypeShape EntityType="DealsModel.CustomerSupport" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="10.5" PointY="9.875" />
         <EntityTypeShape EntityType="DealsModel.DealImage" Width="1.5" PointX="12.75" PointY="10.625" />
         <EntityTypeShape EntityType="DealsModel.LogTracker" Width="1.5" PointX="5.25" PointY="35.25" />
         <EntityTypeShape EntityType="DealsModel.Notification" Width="1.5" PointX="5.25" PointY="32.5" />
@@ -26,10 +25,7 @@
         <AssociationConnector Association="DealsModel.FK_Address_Store" />
         <AssociationConnector Association="DealsModel.FK_Card_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Store_Company" />
-        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
         <AssociationConnector Association="DealsModel.FK_Coupon_UserProfile" />
-        <AssociationConnector Association="DealsModel.FK_DealImages_Deals" />
-        <AssociationConnector Association="DealsModel.FK_Deals_Store" />
         <AssociationConnector Association="DealsModel.FK_LogTracker_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Notification_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Store_UserProfile" />
@@ -39,7 +35,11 @@
         <AssociationConnector Association="DealsModel.FK_UserVeryfication_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Wallet_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_WishList_Deal" />
-      </Diagram>
+        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="10.5" PointY="9.25" />
+        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
+        <AssociationConnector Association="DealsModel.FK_DealImages_Deals" />
+        <AssociationConnector Association="DealsModel.FK_Deals_Store" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

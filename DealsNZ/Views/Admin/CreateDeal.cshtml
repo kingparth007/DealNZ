@@ -83,21 +83,30 @@
                         @Html.ValidationMessageFor(model => model.files, "", new { @class = "red-text" })
                     </div>
 
+                    <div>
+
+                    </div>
+                    <div class="input-field">
+                        @Html.CheckBoxFor(model => model.IsDealFree, new { @class = "red-text" ,@style= "display: inline;" })
+                        @Html.LabelFor(model => model.IsDealFree)
+                        @Html.ValidationMessageFor(model => model.IsDealFree, "", new { @class = "red-text" })
+                    </div>
                 </div>
 
-                        <div class="card-action">
-                                <input type="submit" value="Create" class="btn waves-effect waves-light" />
 
-                        </div>
+                <div class="card-action">
+                    <input type="submit" value="Create" class="btn waves-effect waves-light" />
+
+                </div>
 
 
             }
 
         </div>
 
-                </div>
-                <div class="card-action">
-                    @Html.ActionLink("Back to List", "Deal")
-                </div>
-            </div>
+    </div>
+    <div class="card-action">
+        @Html.ActionLink("Back to List", "Deal")
+    </div>
+</div>
 
