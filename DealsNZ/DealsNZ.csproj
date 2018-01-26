@@ -405,6 +405,7 @@
     <Content Include="Views\Deal\ViewDeal.cshtml" />
     <Content Include="Views\Wallet\Index.cshtml" />
     <Content Include="Views\Wallet\AddMoney.cshtml" />
+    <Content Include="Views\Wallet\PaymentSucess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\VendorController\" />

@@ -17,7 +17,7 @@ namespace DealsNZ.DealPayment
 
         // Shipping Price
         public const double _fixedShipping = 0;
-        const int _taxpercent = 15;
+        const int _taxpercent = 0;
         const string _Currency = "NZD";
         int userId;
         public APIContext GetApiContext()
@@ -45,7 +45,7 @@ namespace DealsNZ.DealPayment
             var redirUrls = new RedirectUrls()
             {
                 cancel_url = DomainName+"/Cancel/",
-                return_url = DomainName + "/Wallet/Process/"
+                return_url = DomainName + "/Wallet/PaymentSucess/"
             };
 
             // Add Items to List
