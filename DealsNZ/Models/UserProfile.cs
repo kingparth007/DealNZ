@@ -46,6 +46,7 @@ namespace DealsNZ.Models
         public Nullable<int> UserSubscritionId { get; set; }
         public string UserPromoCode { get; set; }
         public Nullable<int> RefferedByUser { get; set; }
+        public string GuidString { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Card> Cards { get; set; }
