@@ -337,6 +337,7 @@ ToList();
                                         StrikePrice = strikePrice,
                                         AddedOn = DateTime.Now,
                                         IsDeleted = false,
+                                        IsDealFree=_deal.IsDealfree
 
                                     };
                                     int id = dealServices.CreateDeal(deal);
