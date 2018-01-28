@@ -40,8 +40,9 @@
                     @Html.DisplayNameFor(model => model.CouponQty)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ReedemNo_)
+                    @Html.DisplayNameFor(model => model.ReedemNo)
                 </th>
+                <th>Action</th>
             </tr>
 
             @foreach (var item in Model)
@@ -67,6 +68,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CouponQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReedemNo)
                     </td>
                     <td>
                         <a class="btn-floating btn blue" href='@Url.Action("RedeemCoupon", "Admin", new { id = item.CouponId}, null)'><i class="material-icons">redeem</i></a>

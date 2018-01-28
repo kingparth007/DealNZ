@@ -481,22 +481,22 @@ ToList();
             couponService = new CouponService(new DealsDB());
 
             Coupon cupon = couponService.GetByID(Id);
-            if (cupon.CouponValidTill < DateTime.Now)
+            if (cupon.CouponValidTill <= DateTime.Now)
             {
 
                 TempData["Message"] = "The deal " + cupon.CouponUniqueText + " you trying to redeeem is already expired";
             }
             else
             {
-                if (cupon.ReedemNo_ < cupon.CouponQty)
+                if (cupon.ReedemNo < cupon.CouponQty)
                 {
-                    cupon.ReedemNo_ = cupon.ReedemNo_ + 1;
+                    cupon.ReedemNo = cupon.ReedemNo + 1;
                     couponService.UpdateCoupon(cupon);
-                    TempData["Message"] = "The coupon  " + cupon.CouponUniqueText +" is redeemed for " + cupon.ReedemNo_ + " times";
+                    TempData["Message"] = "The coupon  " + cupon.CouponUniqueText +" is redeemed for " + cupon.ReedemNo + " times";
                 }
                 else
                 {
-                    TempData["Message"] = "The coupon " + cupon.CouponUniqueText + " not valid anymore .It is for " + cupon.ReedemNo_ + " time already";
+                    TempData["Message"] = "The coupon " + cupon.CouponUniqueText + " not valid anymore .It is for " + cupon.ReedemNo + " time already";
                 }
             }
             return RedirectToAction("Coupon");
