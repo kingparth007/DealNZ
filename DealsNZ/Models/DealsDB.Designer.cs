@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\OEM\Source\Repos\DealsNZ\DealsNZ\Models\DealsDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\OEM\documents\visual studio 2017\Projects\DealsNZ\DealsNZ\Models\DealsDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
