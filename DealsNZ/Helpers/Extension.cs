@@ -49,7 +49,7 @@ namespace DealsNZ.Helpers
                 {
 
                     var fileName = Path.GetFileNameWithoutExtension(file.FileName) + Path.GetExtension(file.FileName);
-                    var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Images/DealsImages/"), fileName);
+                    var path = Path.Combine(HttpContext.Current.Server.MapPath("/Images/DealsImages/"), fileName);
                     file.SaveAs(path);
 
                 }
@@ -62,8 +62,8 @@ namespace DealsNZ.Helpers
         {
             
                 var fileName = Path.GetFileNameWithoutExtension(sequence.FileName) + Path.GetExtension(sequence.FileName);
-                var filepath = "~/Images/DealsImages/" + fileName;
-                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Images/DealsImages/"), fileName);
+                var filepath = "/Images/DealsImages/" + fileName;
+                var path = Path.Combine(HttpContext.Current.Server.MapPath("/Images/DealsImages/"), fileName);
                 sequence.SaveAs(path);
                 return filepath;
 

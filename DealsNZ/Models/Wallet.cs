@@ -17,6 +17,7 @@ namespace DealsNZ.Models
         public int WalletId { get; set; }
         public Nullable<int> WalletCredit { get; set; }
         public Nullable<int> UserId { get; set; }
+        public byte[] WalletCreditDate { get; set; }
     
         public virtual UserProfile UserProfile { get; set; }
     }

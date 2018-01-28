@@ -5,36 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a1ab00bb903c407fbe17a55fdd8450d3" Name="Diagram1">
-        <EntityTypeShape EntityType="DealsModel.Address" Width="1.5" PointX="7.5" PointY="19.375" />
-        <EntityTypeShape EntityType="DealsModel.Card" Width="1.5" PointX="5.25" PointY="23.375" />
-        <EntityTypeShape EntityType="DealsModel.Company" Width="1.5" PointX="3" PointY="10.375" />
-        <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="8.25" PointY="16" />
-        <EntityTypeShape EntityType="DealsModel.CustomerSupport" Width="1.5" PointX="0.75" PointY="0.75" />
-<<<<<<< HEAD
-        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="7.5" PointY="10.875" />
-        <EntityTypeShape EntityType="DealsModel.DealImage" Width="1.5" PointX="9.75" PointY="11.625" />
-        <EntityTypeShape EntityType="DealsModel.LogTracker" Width="1.5" PointX="5.25" PointY="30" />
-        <EntityTypeShape EntityType="DealsModel.Notification" Width="1.5" PointX="5.25" PointY="20.75" />
-        <EntityTypeShape EntityType="DealsModel.Store" Width="1.5" PointX="5.25" PointY="15.625" />
-        <EntityTypeShape EntityType="DealsModel.Subscription" Width="1.5" PointX="0.75" PointY="13.125" />
-=======
+        <<<<<<< HEAD
         
-        
-        
-        
-        
-        <EntityTypeShape EntityType="DealsModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" />
->>>>>>> a3e4b4418410a5d5c01f0ddcb963b4d70552fb9d
-        <EntityTypeShape EntityType="DealsModel.UserProfile" Width="1.5" PointX="3" PointY="13.875" />
-        <EntityTypeShape EntityType="DealsModel.UserSubscrition" Width="1.5" PointX="5.25" PointY="32.75" />
-        <EntityTypeShape EntityType="DealsModel.UserType" Width="1.5" PointX="0.75" PointY="16.375" />
-        <EntityTypeShape EntityType="DealsModel.UserVerification" Width="1.5" PointX="5.25" PointY="7.625" />
-        <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="5.25" PointY="35.75" />
-        <EntityTypeShape EntityType="DealsModel.WishList" Width="1.5" PointX="5.25" PointY="10.625" />
+        <EntityTypeShape EntityType="DealsModel.Address" Width="1.5" PointX="1.7580021329959865" PointY="30.667655139541093" />
+        <EntityTypeShape EntityType="DealsModel.Card" Width="1.5" PointX="11.567430306024583" PointY="29.753427087214508" />
+        <EntityTypeShape EntityType="DealsModel.Company" Width="1.5" PointX="6.9788954122825047" PointY="21.8632305962328" />
+        <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="9.7020571277020764" PointY="14.150462306174665" />
+        <EntityTypeShape EntityType="DealsModel.CustomerSupport" Width="1.5" PointX="1.6991828874215404" PointY="24.119882818367277" />
+        <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="1.9686124874132744" PointY="2.9015943123500767" />
+        <EntityTypeShape EntityType="DealsModel.DealImage" Width="1.5" PointX="4.0855112523238688" PointY="23.437202643341013" />
+        <EntityTypeShape EntityType="DealsModel.LogTracker" Width="1.5" PointX="7.1314204070397746" PointY="25.009322595321258" />
+        <EntityTypeShape EntityType="DealsModel.Notification" Width="1.5" PointX="7.0261096223379056" PointY="10.601848488022503" />
+        <EntityTypeShape EntityType="DealsModel.Store" Width="1.5" PointX="2.3781189110028178" PointY="31.289672866132889" />
+        <EntityTypeShape EntityType="DealsModel.Subscription" Width="1.5" PointX="0.44981044738078974" PointY="25.478635427299253" />
+        <EntityTypeShape EntityType="DealsModel.UserProfile" Width="1.5" PointX="0.99943909095574124" PointY="3.5085765586740227" />
+        <EntityTypeShape EntityType="DealsModel.UserSubscrition" Width="1.5" PointX="5.7174499247770054" PointY="13.690598106798994" />
+        <EntityTypeShape EntityType="DealsModel.UserType" Width="1.5" PointX="10.566289526674101" PointY="7.9222663230832042" />
+        <EntityTypeShape EntityType="DealsModel.UserVerification" Width="1.5" PointX="10.434790133701073" PointY="28.686165822989384" />
+        <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="2.9243504530397946" PointY="15.456705815837116" />
+        <EntityTypeShape EntityType="DealsModel.WishList" Width="1.5" PointX="0.038587840291945188" PointY="18.081741058305717" />
         <AssociationConnector Association="DealsModel.FK_Address_Store" />
         <AssociationConnector Association="DealsModel.FK_Card_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Store_Company" />
+        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
         <AssociationConnector Association="DealsModel.FK_Coupon_UserProfile" />
+        <AssociationConnector Association="DealsModel.FK_DealImages_Deals" />
+        <AssociationConnector Association="DealsModel.FK_Deals_Store" />
         <AssociationConnector Association="DealsModel.FK_LogTracker_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Notification_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Store_UserProfile" />
@@ -44,9 +40,41 @@
         <AssociationConnector Association="DealsModel.FK_UserVeryfication_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Wallet_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_WishList_Deal" />
-        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
-        <AssociationConnector Association="DealsModel.FK_DealImages_Deals" />
-        <AssociationConnector Association="DealsModel.FK_Deals_Store" />
+        
+        
+        
+        
+        
+=======
+        
+        
+        
+        
+        
+        
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; a3e4b4418410a5d5c01f0ddcb963b4d70552fb9d
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

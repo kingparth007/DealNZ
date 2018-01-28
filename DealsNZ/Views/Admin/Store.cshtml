@@ -17,11 +17,14 @@
                     <div>
                         <form>
                             <h4><span class="card-title">Stores</span></h4>
-                            <div class="input-field">
+                            <div>
 
-                                <input id="search" type="search" class="teal-text" required>
-                                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                                <i class="material-icons class=" teal-text"">close</i>
+                                <p>
+                                    @using (@Html.BeginForm("Store", "Admin", FormMethod.Get))
+                                    {
+                                        @Html.TextBox("search") <input type="submit" value="search" />
+                                    }
+                                </p>
                             </div>
                         </form>
                     </div>
