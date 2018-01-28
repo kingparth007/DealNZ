@@ -17,12 +17,12 @@ namespace DealsNZ.Models
         public int CouponId { get; set; }
         public string CouponUniqueText { get; set; }
         public Nullable<System.DateTime> CouponValidTill { get; set; }
+        public Nullable<int> CouponQty { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<int> DealId { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
-        public Nullable<int> CouponQty { get; set; }
     
-        public virtual UserProfile UserProfile { get; set; }
         public virtual Deal Deal { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }

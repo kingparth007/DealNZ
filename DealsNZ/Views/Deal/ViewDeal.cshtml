@@ -1,30 +1,48 @@
 ﻿@model DealsNZ.Models.DealsModels.ViewSingleDeal
 
 <div class="col s12 m12">
-    <h2 class="header">@Model.Title</h2>
+
     <div class="card horizontal">
         <div class="card-image">
             <img src="@Model.DealImages">
         </div>
         <div class="card-stacked">
             <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">@Model.Discount</span>
-                <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i><strike>$@Model.Price</strike></span>
-                <span class="right teal-text center">
-                    <i class="material-icons" style="font-size:18px"></i>
+                <p class="card-title activator grey-text text-darken-4">@Model.Title</p>
+                <p class="teal-text">@Model.Description</></p>
 
-                    $<label id="strikePrice">@Model.StrikePrice</label>
+                <div class="row" style="margin-top:30px">
+                    <div class="container-fluid">
+                        <div class="col s12 m3 center">
+                            <p>Validity</p>
+                            <p><b>@Model.ValidTill.Date.ToString("dd MMM yyyy")</b></p>
+                        </div>
+                        <div class="col s12 m3 center">
+                            <p>Discount</p>
+                            <p><b>@Model.Discount%</b></p>
+                        </div>
+                        <div class="col s12 m3 center">
+                            <p>Now</p>
+                            <p><b><span class="activator grey-text text-darken-4">$@Model.StrikePrice</span></b></p>
+                        </div>
+                        <div class="col s12 m3 center">
+                            <p>Was</p>
+                            <p><b><strike>$@Model.Price</strike></b></p>
+                        </div>
 
-                </span>
-                <span class="right teal-text center"><i class="material-icons" style="font-size:18px"></i>$@Model.Description</span>
-                <span class="right teal-text center"><i class="material-icons" style="font-size:18px"></i>$@Model.ValidTill</span>
+                    </div>
+                </div>
+                
                 <br />
-            </div>
-            <div class="card-action">
+                <p>Quantity</p>
                 @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
                 @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
+
+            </div>
+            <div class="card-action">
+
                 $<span id="Cprice">@Model.CouponPrice</span>
-                <a href="">Payment For Check-out</a>
+                <a href="" class="pull-right">Payment For Check-out</a>
             </div>
         </div>
     </div>
