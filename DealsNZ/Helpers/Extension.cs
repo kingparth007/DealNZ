@@ -62,7 +62,7 @@ namespace DealsNZ.Helpers
         {
             
                 var fileName = Path.GetFileNameWithoutExtension(sequence.FileName) + Path.GetExtension(sequence.FileName);
-                var filepath = "~/Images/DealsImages/" + fileName;
+                var filepath = "/Images/DealsImages/" + fileName;
                 var path = Path.Combine(HttpContext.Current.Server.MapPath("/Images/DealsImages/"), fileName);
                 sequence.SaveAs(path);
                 return filepath;
