@@ -11,26 +11,31 @@
 <div class="row">
     <div class="col s12 ">
         <div class="card grey lighten-4">
-           
+
             <div class="card-content black-text">
                 <div>
                     <div>
-                        <form>
-                            <h4><span class="card-title">Stores</span></h4>
-                            <div>
 
-                                <p>
-                                    @using (@Html.BeginForm("Store", "Admin", FormMethod.Get))
-                                    {
-                                        @Html.TextBox("search") <input type="submit" value="search" />
-                                    }
-                                </p>
-                            </div>
-                        </form>
+                        <span class="card-title" style="display:inline ">Stores</span>
+                        <span class="right">
+
+                            @using (@Html.BeginForm("Store", "Admin", FormMethod.Get))
+                            {
+
+                                <div class="file-field input-field" style="margin-top: 0px;">
+                                    <button class="btn" type="submit">
+                                        <span><i class="material-icons">search</i></span>
+                                    </button>
+                                    <div class="file-path-wrapper">
+                                        <div style="max-width:400px;">@Html.TextBox("search") </div>
+                                    </div>
+                                </div>
+                            }
+                        </span>
                     </div>
 
                     <table class="responsive-table highlight accent-3">
-                     
+
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.First().StoreName)
@@ -64,7 +69,7 @@
                                     @Html.DisplayFor(modelItem => item.UserId)
                                 </td>
                                 <td>
-                                   @Html.DisplayFor(modelItem => item.Contact)
+                                    @Html.DisplayFor(modelItem => item.Contact)
                                 </td>
                                 <td>
                                     <img src="@Url.Content(item.IdentificationImage)" style="width:80px" />
@@ -101,8 +106,7 @@
 
             </div>
             <div class="card-action">
-                <a class="btn-floating btn blue tooltipped" data-position="top" data-delay="50" data-tooltip="Add Store" href='@Url.Action("CreateStore","Admin")'><i class="material-icons">add</i></a>
-               
+                <a class="waves-effect waves-light btn blue" data-position="top" data-delay="50" data-tooltip="Add Store" href='@Url.Action("CreateStore","Admin")'>Add Store<i class="material-icons left">add</i></a>
             </div>
             <div>
                 @Html.PagedListPager(Model, page => Url.Action("Store", new { page, @class = "teal-text" }))
@@ -116,6 +120,5 @@
         $(document).ready(function () {
             $('.tooltipped').tooltip({ delay: 50 });
         });
-
     </script>
 }  

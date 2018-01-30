@@ -1,10 +1,24 @@
 ﻿@model DealsNZ.Models.DealsModels.ViewSingleDeal
-
+<style>
+    .hovercolor:hover {
+        color: #c2185b !important;
+        font-weight: bolder;
+    }
+    .image_deal{
+        object-fit:cover;
+        width:100%;
+        height:100%;
+    }
+    .card-image{
+        max-width:400px;
+        max-height:600px;
+    }
+</style>
 <div class="col s12 m12">
 
     <div class="card horizontal">
         <div class="card-image">
-            <img style="max-width:400px" src="@Model.DealImages">
+            <img class=" image_deal " src="@Model.DealImages">
         </div>
         <div class="card-stacked">
             <div class="card-content">
@@ -40,9 +54,8 @@
 
             </div>
             <div class="card-action">
-
-                $<span id="Cprice">@Model.CouponPrice</span>
-                <a href="" class="pull-right">Payment For Check-out</a>
+                Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
+                <b><a href="" class="pull-right pink-text hovercolor" >Payment For Check-out</a></b>
             </div>
         </div>
     </div>
