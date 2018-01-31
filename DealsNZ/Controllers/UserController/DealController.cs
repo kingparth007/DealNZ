@@ -72,6 +72,7 @@ namespace DealsNZ.Controllers.UserController
                         CouponQty = CreateCoupon.CouponQty,
                         AddedOn = System.DateTime.Now.Date,
                         DealId = CreateCoupon.DealId,
+                        UserId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID]),
                         ReedemNo = 0
                     };
                     couponservice = new CouponService(new DealsDB());
