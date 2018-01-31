@@ -191,8 +191,9 @@
             <PropertyRef Name="WalletId" />
           </Key>
           <Property Name="WalletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="WalletCredit" Type="int" />
+          <Property Name="WalletCredit" Type="decimal" Precision="18" Scale="0" />
           <Property Name="UserId" Type="int" />
+          <Property Name="WalletCreditDate" Type="datetime" />
         </EntityType>
         <EntityType Name="WishList">
           <Key>
@@ -523,7 +524,6 @@
           <EntitySet Name="UserSubscritions" EntityType="DealsModel.UserSubscrition" />
           <EntitySet Name="UserTypes" EntityType="DealsModel.UserType" />
           <EntitySet Name="UserVerifications" EntityType="DealsModel.UserVerification" />
-          <EntitySet Name="Wallets" EntityType="DealsModel.Wallet" />
           <EntitySet Name="WishLists" EntityType="DealsModel.WishList" />
           <AssociationSet Name="FK_Address_Store" Association="DealsModel.FK_Address_Store">
             <End Role="Store" EntitySet="Stores" />
@@ -569,10 +569,6 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="UserVerification" EntitySet="UserVerifications" />
           </AssociationSet>
-          <AssociationSet Name="FK_Wallet_UserProfile" Association="DealsModel.FK_Wallet_UserProfile">
-            <End Role="UserProfile" EntitySet="UserProfiles" />
-            <End Role="Wallet" EntitySet="Wallets" />
-          </AssociationSet>
           <AssociationSet Name="FK_WishList_Deal" Association="DealsModel.FK_WishList_Deal">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="WishList" EntitySet="WishLists" />
@@ -589,6 +585,11 @@
           <AssociationSet Name="FK_Deals_Store" Association="DealsModel.FK_Deals_Store">
             <End Role="Store" EntitySet="Stores" />
             <End Role="Deal" EntitySet="Deals" />
+          </AssociationSet>
+          <EntitySet Name="Wallets" EntityType="DealsModel.Wallet" />
+          <AssociationSet Name="FK_Wallet_UserProfile" Association="DealsModel.FK_Wallet_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Wallet" EntitySet="Wallets" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Address">
@@ -750,8 +751,8 @@
           <NavigationProperty Name="UserType1" Relationship="DealsModel.FK_UserProfile_UserType" FromRole="UserProfile" ToRole="UserType" />
           <NavigationProperty Name="UserSubscritions" Relationship="DealsModel.FK_UserSubscrition_UserProfile" FromRole="UserProfile" ToRole="UserSubscrition" />
           <NavigationProperty Name="UserVerifications" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserProfile" ToRole="UserVerification" />
-          <NavigationProperty Name="Wallets" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
           <NavigationProperty Name="WishLists" Relationship="DealsModel.FK_WishList_Deal" FromRole="UserProfile" ToRole="WishList" />
+          <NavigationProperty Name="Wallets" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
         </EntityType>
         <EntityType Name="UserSubscrition">
           <Key>
@@ -782,15 +783,6 @@
           <Property Name="Purpose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="AddedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserVerification" ToRole="UserProfile" />
-        </EntityType>
-        <EntityType Name="Wallet">
-          <Key>
-            <PropertyRef Name="WalletId" />
-          </Key>
-          <Property Name="WalletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WalletCredit" Type="Int32" />
-          <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="Wallet" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="WishList">
           <Key>
@@ -954,20 +946,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Wallet_UserProfile">
-          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DealsModel.Wallet" Role="Wallet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Wallet">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WishList_Deal">
           <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1034,6 +1012,30 @@
             </Principal>
             <Dependent Role="Deal">
               <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Wallet">
+          <Key>
+            <PropertyRef Name="WalletId" />
+          </Key>
+          <Property Name="WalletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WalletCredit" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="WalletCreditDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="Wallet" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_Wallet_UserProfile">
+          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DealsModel.Wallet" Role="Wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Wallet">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1223,15 +1225,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Wallets">
-            <EntityTypeMapping TypeName="DealsModel.Wallet">
-              <MappingFragment StoreEntitySet="Wallet">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="WalletCredit" ColumnName="WalletCredit" />
-                <ScalarProperty Name="WalletId" ColumnName="WalletId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WishLists">
             <EntityTypeMapping TypeName="DealsModel.WishList">
               <MappingFragment StoreEntitySet="WishList">
@@ -1256,6 +1249,16 @@
                 <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
                 <ScalarProperty Name="StoreId" ColumnName="StoreId" />
                 <ScalarProperty Name="DealId" ColumnName="DealId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wallets">
+            <EntityTypeMapping TypeName="DealsModel.Wallet">
+              <MappingFragment StoreEntitySet="Wallet">
+                <ScalarProperty Name="WalletCreditDate" ColumnName="WalletCreditDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="WalletCredit" ColumnName="WalletCredit" />
+                <ScalarProperty Name="WalletId" ColumnName="WalletId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

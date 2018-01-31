@@ -40,8 +40,8 @@ namespace DealsNZ.Models
         public virtual DbSet<UserSubscrition> UserSubscritions { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<UserVerification> UserVerifications { get; set; }
-        public virtual DbSet<Wallet> Wallets { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
         public virtual DbSet<Deal> Deals { get; set; }
+        public virtual DbSet<Wallet> Wallets { get; set; }
     }
 }

@@ -93,8 +93,7 @@ namespace DealsNZ.Models
 
             public int DealId { get; set; }
             [DisplayName("Expire On")]
-            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
-   ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
             public DateTime ValidTill { get; set; }
             public string DealImages { get; set; }
             [Required]
@@ -105,7 +104,6 @@ namespace DealsNZ.Models
             public string Title { get; set; }
             public string Description { get; set; }
             public int CouponPrice { get; set; }
-
         }
 
 

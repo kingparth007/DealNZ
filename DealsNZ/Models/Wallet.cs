@@ -15,8 +15,9 @@ namespace DealsNZ.Models
     public partial class Wallet
     {
         public int WalletId { get; set; }
-        public Nullable<int> WalletCredit { get; set; }
+        public Nullable<decimal> WalletCredit { get; set; }
         public Nullable<int> UserId { get; set; }
+        public Nullable<System.DateTime> WalletCreditDate { get; set; }
     
         public virtual UserProfile UserProfile { get; set; }
     }

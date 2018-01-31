@@ -24,8 +24,8 @@ namespace DealsNZ.Models
             this.Stores = new HashSet<Store>();
             this.UserSubscritions = new HashSet<UserSubscrition>();
             this.UserVerifications = new HashSet<UserVerification>();
-            this.Wallets = new HashSet<Wallet>();
             this.WishLists = new HashSet<WishList>();
+            this.Wallets = new HashSet<Wallet>();
         }
     
         public int UserId { get; set; }
@@ -64,8 +64,8 @@ namespace DealsNZ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVerification> UserVerifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wallet> Wallets { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishList> WishLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wallet> Wallets { get; set; }
     }
 }

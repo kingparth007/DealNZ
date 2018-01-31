@@ -1,7 +1,10 @@
 ﻿@model DealsNZ.Models.DealsModels.ViewSingleDeal
 
+
+@using (Html.BeginForm("CouponGenerator", "Deal"))
+{
 <div class="col s12 m12">
-    <h2 class="header">@Model.Title</h2>
+    <h2 class="header"> @Model.Title</h2>
     <div class="card horizontal">
         <div class="card-image">
             <img src="@Model.DealImages">
@@ -23,13 +26,17 @@
             <div class="card-action">
                 @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
                 @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
+                @Html.HiddenFor(model => model.DealId)
+                @Html.HiddenFor(model => model.ValidTill)
                 $<span id="Cprice">@Model.CouponPrice</span>
-                <a href="">Payment For Check-out</a>
+                
+                <input type="submit" value="Payment For Check-out" name="Payment For Check-out" class="btn-flat teal lighten-2 white-text waves-effect" />
+                
             </div>
         </div>
     </div>
 </div>
-
+}
 @section Scripts{
     <script type="text/javascript">
         $("#Cqty").change(function () {

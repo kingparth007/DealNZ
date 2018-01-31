@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="DealsModel.UserSubscrition" Width="1.5" PointX="5.25" PointY="29.5" />
         <EntityTypeShape EntityType="DealsModel.UserType" Width="1.5" PointX="0.75" PointY="13.375" />
         <EntityTypeShape EntityType="DealsModel.UserVerification" Width="1.5" PointX="5.25" PointY="7.5" />
-        <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="5.25" PointY="10.5" />
         <EntityTypeShape EntityType="DealsModel.WishList" Width="1.5" PointX="5.25" PointY="16.375" />
         <AssociationConnector Association="DealsModel.FK_Address_Store" />
         <AssociationConnector Association="DealsModel.FK_Card_UserProfile" />
@@ -33,12 +32,13 @@
         <AssociationConnector Association="DealsModel.FK_UserProfile_UserType" />
         <AssociationConnector Association="DealsModel.FK_UserSubscrition_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_UserVeryfication_UserProfile" />
-        <AssociationConnector Association="DealsModel.FK_Wallet_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_WishList_Deal" />
         <EntityTypeShape EntityType="DealsModel.Deal" Width="1.5" PointX="10.5" PointY="9.25" />
         <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
         <AssociationConnector Association="DealsModel.FK_DealImages_Deals" />
         <AssociationConnector Association="DealsModel.FK_Deals_Store" />
+        <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="5.25" PointY="23.125" />
+        <AssociationConnector Association="DealsModel.FK_Wallet_UserProfile" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

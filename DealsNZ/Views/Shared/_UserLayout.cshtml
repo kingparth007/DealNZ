@@ -14,25 +14,30 @@
 
 
 </head>
-<body class="grey lighten-1" >
-    <nav   class="darken-3 grey"role="navigation">
+<body class="grey lighten-1">
+    <nav class="darken-3 grey" role="navigation">
         <div class="nav-wrapper">
             <a href="#" data-activates="slide-out" class="button-collapse left white-text show-on-large"><i class="material-icons">menu</i></a>
-            <a id="logo-container" href="@Url.Action("Index","Home")" class="brand-logo white-text"> DealsNZ</a>
+            <a id="logo-container" href="@Url.Action("Index", "Home")" class="brand-logo white-text"> DealsNZ</a>
 
 
             <ul class="right">
-                <li><span><a href="#"><i class="material-icons white-text">shopping_cart</i></a></span></li>
+                @{ if (Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID] != null)
+                    {
+                        <ul class="right hide-on-med-and-down">
+                            <li><span><a href="#">$ @Session[KeyList.SessionKeys.WalletCredit].ToString()</a></span></li>
+                        </ul>
+                                } }
                 @*<li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>*@
-            </ul>
-            <ul class="right hide-on-med-and-down">
-                <li><span><a href="/Register_Login"><i class="material-icons white-text">account_circle</i></a></span></li>
-            </ul>
 
-            <ul class="right hide-on-med-and-down">
-                <li><span><a href="@Url.Action("Index","Home")"><i class="material-icons white-text">home</i></a></span></li>
-                <li><span><a href="#" class="text-darken-4"><i class="show-search-bar material-icons white-text">search</i></a></span></li>
-            </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li><span><a href="/Register_Login"><i class="material-icons white-text">account_circle</i></a></span></li>
+                </ul>
+                <ul class="right hide-on-med-and-down"></ul>
+                <ul class="right hide-on-med-and-down">
+                    <li><span><a href="@Url.Action("Index","Home")"><i class="material-icons white-text">home</i></a></span></li>
+                    <li><span><a href="#" class="text-darken-4"><i class="show-search-bar material-icons white-text">search</i></a></span></li>
+                </ul></ul>
         </div>
     </nav>
     <nav id="search-bar" class="blue-grey lighten-5">
@@ -86,12 +91,12 @@
 
 
                     </li>
-                    <li class="picker__list-item">
-                        <a href=@Url.Action("Index","Wallet") class="waves-effect waves-lightmodal-trigger"><i class="material-icons teal-text">account_balance_wallet</i><i style="font:8px;" class="materialize-teal-text">Wallet</i></a>
+                                <li class="picker__list-item">
+                                    <a href=@Url.Action("Index","Wallet") class="waves-effect waves-lightmodal-trigger"><i class="material-icons teal-text">account_balance_wallet</i><i style="font:8px;" class="materialize-teal-text">Wallet</i></a>
 
 
-                    </li>
-                    <li class="picker__list-item"><a href="/Register_Login/LoggedOut"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                                </li>
+                                <li class="picker__list-item"><a href="/Register_Login/LoggedOut"><i class="material-icons">exit_to_app</i>Logout</a></li>
 
                 }
             }
@@ -110,6 +115,9 @@
 
     <div class="container body-content">
         @RenderBody()
+    </div>
+    <div class="pushpin-demo-nav">
+        hello
     </div>
     <footer style="bottom:0;position:fixed;z-index:-3" class="page-footer footer-copyright blue-grey lighten-5 teal-text">
 
@@ -162,7 +170,22 @@
             // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
 
+            $('.pushpin-demo-nav').each(function () {
+                var $this = $(this);
+                var $target = $('#' + $(this).attr('data-target'));
+                $this.pushpin({
+                    top: $target.offset().top,
+                    bottom: $target.offset().top + $target.outerHeight() - $this.height()
+                });
+            });
 
+            $('.target').pushpin({
+                top: 0,
+                bottom: 1000,
+                offset: 0
+            });
+
+            $('.tabs-wrapper .row').pushpin('remove');
         });
         $(document).ready(function () {
             $('.carousel').carousel();

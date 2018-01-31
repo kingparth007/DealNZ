@@ -46,6 +46,9 @@ namespace DealsNZ.Models.Repository.ClassServices
             //var a = GetAll().Select(x => new { x.Name, image = DealDb.DealImages.Where(a => a.DealId.Equals(x.UserId)).ToString() }).ToList();
             string encpass = PasswordEncrypt(Login.LogInPassword);
             var loggeduser = DealDb.UserProfiles.Where(x => x.Email.Equals(Login.LogInEmail) && x.Password == encpass).SingleOrDefault();
+
+           
+          //  KeyList.SessionKeys.WalletCredit = wallet;
             return loggeduser;
         }
         public bool RegisterUser(Models.AccountModels.Register Register)
@@ -105,7 +108,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                     //    UserMail(URL, "Activate Your Account", InsertUser.Name, InsertUser.Email);
                     //    return true;
                     //}
-
+                    
                 }
                 WalletService.Dispose();
                 return false;
@@ -257,7 +260,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                 DealDb.Entry(MatchUser).CurrentValues.SetValues(user);
                 DealDb.SaveChanges();
                 return true;
-                //}
+               //}
                 //catch
                 //{ return false; }
             }
