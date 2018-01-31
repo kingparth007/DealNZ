@@ -248,7 +248,6 @@
     </Compile>
     <Compile Include="Repository\ClassServices\AddressService.cs" />
     <Compile Include="Repository\ClassServices\CompanyService.cs" />
-    <Compile Include="Repository\ClassServices\CouponService.cs" />
     <Compile Include="Repository\ClassServices\DealImageService.cs" />
     <Compile Include="Repository\ClassServices\DealServices.cs" />
     <Compile Include="Repository\ClassServices\LogTrackerService.cs" />
@@ -263,7 +262,6 @@
     <Compile Include="Repository\ClassServices\UserWalletServices.cs" />
     <Compile Include="Repository\Interface\IAddress.cs" />
     <Compile Include="Repository\Interface\ICompany.cs" />
-    <Compile Include="Repository\Interface\ICoupon.cs" />
     <Compile Include="Repository\Interface\IDeal.cs" />
     <Compile Include="Repository\Interface\IDealImage.cs" />
     <Compile Include="Repository\Interface\ILogTracker.cs" />
