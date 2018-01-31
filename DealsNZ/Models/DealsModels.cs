@@ -26,6 +26,7 @@ namespace DealsNZ.Models
             [DisplayName("Company")]
             [Required]
             public int CompanyId { get; set; }
+           
             [StringLength(20, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
             public string CompanyName { get; set; }
             public IEnumerable<CompanyViewModel> CompanyList { get; set; }
@@ -66,16 +67,15 @@ namespace DealsNZ.Models
             public int StrikePrice { get; set; }
             [RegularExpression("^[0-9]+$", ErrorMessage = "Number does not contain alphabates")]
             public int Price { get; set; }
-            [StringLength(20, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
+            [StringLength(250, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
             public string Title { get; set; }
             [StringLength(500, ErrorMessage = "Length Between 0 to 500 character", MinimumLength = 0)]
             public string Description { get; set; }
             public DateTime AddedOn { get; set; }
-            public bool IsDealFree { get; set; }
             public bool IsDeleted { get; set; }
             public int StoreId { get; set; }
-
-
+            [DisplayName("Free")]
+            public bool IsDealfree { get; set; }
             public IEnumerable<StoreViewModel> StoreList { get; set; }
 
             public string DealImages { get; set; }
