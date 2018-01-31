@@ -19,6 +19,7 @@ namespace DealsNZ.Controllers.AdminController
     public class AdminController : Controller
     {
         // GET: Admin
+        ICoupon couponService;
 
         IStore storeService = new StoreServices(new DealsDB());
         IAddress addressService = new AddressService(new DealsDB());
@@ -29,11 +30,14 @@ namespace DealsNZ.Controllers.AdminController
 
         #region StoreSection
 
-       
-        public ActionResult Store(int? page)
+
+        public ActionResult Store(int? page, string searchBy, string search)
         {
-            var listofStore = storeService.GetAll().ToPagedList(page ?? 1, 2);
-            return View(listofStore);
+
+            return View(storeService.Get(x => x.StoreName.StartsWith(search) || search == null).ToList().ToPagedList(page ?? 1, 2));
+
+            //var listofStore = storeService.GetAll().ToPagedList(page ?? 1, 2);
+            //return View(listofStore);
         }
 
         // GET: Store/Create
@@ -331,12 +335,13 @@ ToList();
                                         StoreId = _deal.StoreId,
                                         Description = _deal.Description,
                                         Title = _deal.Title,
-                                        ValidTill =_deal.ValidTill.Date,
+                                        ValidTill = _deal.ValidTill.Date,
                                         Price = _deal.Price,
                                         Discount = _deal.Discount,
                                         StrikePrice = strikePrice,
                                         AddedOn = DateTime.Now,
                                         IsDeleted = false,
+                                        IsDealFree = _deal.IsDealfree
 
                                     };
                                     int id = dealServices.CreateDeal(deal);
@@ -362,7 +367,7 @@ ToList();
                             }
 
 
-                           
+
                         }
                     }
                     Logs GenerateLog = new Logs();
@@ -461,6 +466,40 @@ ToList();
         {
             var images = dealImageServices.GetAll().Where(x => x.DealId == Id);
             return View(images);
+        }
+
+        public ActionResult Coupon(string searchBy, string search)
+        {
+            couponService = new CouponService(new DealsDB());
+
+            return View(couponService.Get(x => x.CouponUniqueText.StartsWith(search) || search == null).ToList());
+        }
+
+
+        public ActionResult RedeemCoupon(int Id)
+        {
+            couponService = new CouponService(new DealsDB());
+
+            Coupon cupon = couponService.GetByID(Id);
+            if (cupon.CouponValidTill <= DateTime.Now)
+            {
+
+                TempData["Message"] = "The deal " + cupon.CouponUniqueText + " you trying to redeeem is already expired";
+            }
+            else
+            {
+                if (cupon.ReedemNo < cupon.CouponQty)
+                {
+                    cupon.ReedemNo = cupon.ReedemNo + 1;
+                    couponService.UpdateCoupon(cupon);
+                    TempData["Message"] = "The coupon  " + cupon.CouponUniqueText +" is redeemed for " + cupon.ReedemNo + " times";
+                }
+                else
+                {
+                    TempData["Message"] = "The coupon " + cupon.CouponUniqueText + " not valid anymore .It is for " + cupon.ReedemNo + " time already";
+                }
+            }
+            return RedirectToAction("Coupon");
         }
         #endregion
         public bool Checknumber(string number)

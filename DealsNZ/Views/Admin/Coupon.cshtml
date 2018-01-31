@@ -1,0 +1,85 @@
+﻿@model IEnumerable<DealsNZ.Models.Coupon>
+
+@{
+    ViewBag.Title = "Coupon";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="card grey lighten-4">
+    <div class="card-content black-text">
+        <span class="card-title">Coupon</span>
+        <div>    
+            <p>
+                @using (@Html.BeginForm("Coupon", "Admin", FormMethod.Get))
+                {
+                    @Html.TextBox("search") <input type="submit" value="search" />
+                }
+            </p>
+
+        </div>
+        <h6 class="waves-effect center materialize-red-text accent-3">
+            @TempData["Message"] </h6>
+        <table class="table bordered responsive-table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponUniqueText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponValidTill)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserProfile.Email)
+                   
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deal.Store.StoreName)                 
+                </th>               
+                <th>
+                    @Html.DisplayNameFor(model => model.Deal.DealId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponQty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReedemNo)
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponUniqueText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponValidTill)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserProfile.Email)
+                       
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deal.Store.StoreName)
+                       
+                    </td>
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deal.DealId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReedemNo)
+                    </td>
+                    <td>
+                        <a class="btn-floating btn blue" href='@Url.Action("RedeemCoupon", "Admin", new { id = item.CouponId}, null)'><i class="material-icons">redeem</i></a>
+                    </td>
+                    
+                </tr>
+            }
+
+        </table>
+    </div>
+   
+    </div>

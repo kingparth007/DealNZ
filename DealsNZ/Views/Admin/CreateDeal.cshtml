@@ -6,7 +6,6 @@
 }
 
 
-
 <div class="card grey lighten-4">
     <div class="card-content black-text">
         <span class="card-title">Create</span>
@@ -17,6 +16,9 @@
                 @Html.AntiForgeryToken()
                 <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
                 <div class="row">
+
+
+
                     <div class="col m6 s12">
                         <div>
                             @Html.LabelFor(model => model.StoreId)
@@ -35,69 +37,80 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col m4 s12">
-                        <div class="input-field ">
-                            @Html.TextBoxFor(model => model.Discount, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.Discount)
-                            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "red-text" })
-                        </div>
-
-
+                    <div class="col m4 s12" >
+                        <style>
+                            checkbox {
+                                position: inherit;
+                                visibility: visible;
+                                left: 0;
+                                opacity: 1;
+                            }
+                            
+                        </style>
+                          @Html.Label("Free")
+                        @Html.EditorFor(model => model.IsDealfree, new { htmlAttributes = new { @class = "filled-in-box teal-text", @style = "display:block; position:inherit; visibility: visible; opacity: 1;pointer-events: auto" } })
+                      
                     </div>
-                    <div class="col m4 s12">
-                        <div class="input-field ">
-                            @Html.TextBoxFor(model => model.Price, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.Price)
-                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "red-text" })
-                        </div>
 
-                    </div>
-                    <div class="col m4 s12">
-                        <div class="input-field ">
-                            @Html.TextBoxFor(model => model.ValidTill, htmlAttributes: new { @class = "validate" })
-                            @Html.LabelFor(model => model.ValidTill)
-                            @Html.ValidationMessageFor(model => model.ValidTill, "", new { @class = "red-text" })
-                        </div>
-
-                    </div>
                 </div>
-
-
-                <div class="row">
-                    <div class="input-field ">
-                        @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "validate" })
-                        @Html.LabelFor(model => model.Description)
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "red-text" })
-                    </div>
-                    <div>
-
-                    </div>
                     <div class="row">
-                        <span style="margin-left:10px;"> @Html.LabelFor(model => model.DealImages)</span>
+                        <div class="col m4 s12">
+                            <div class="input-field ">
+                                @Html.TextBoxFor(model => model.Discount, htmlAttributes: new { @class = "validate" })
+                                @Html.LabelFor(model => model.Discount)
+                                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "red-text" })
+                            </div>
 
-                        <div class="input-field">
-                            <i class="material-icons">attach_file</i>
 
-                            <input type="file" name="files" multiple="multiple" />
                         </div>
-                        @Html.ValidationMessageFor(model => model.files, "", new { @class = "red-text" })
+                        <div class="col m4 s12">
+                            <div class="input-field ">
+                                @Html.TextBoxFor(model => model.Price, htmlAttributes: new { @class = "validate" })
+                                @Html.LabelFor(model => model.Price)
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "red-text" })
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col m4 s12">
+                            <div class="input-field ">
+                                @Html.TextBoxFor(model => model.ValidTill, htmlAttributes: new { @class = "validate" })
+                                @Html.LabelFor(model => model.ValidTill)
+                                @Html.ValidationMessageFor(model => model.ValidTill, "", new { @class = "red-text" })
+                            </div>
+
+                        </div>
                     </div>
 
-                    <div>
+
+                    <div class="row">
+                        <div class="input-field ">
+                            @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "validate" })
+                            @Html.LabelFor(model => model.Description)
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "red-text" })
+                        </div>
+                        <div>
+
+                        </div>
+                        <div class="row">
+                            <span style="margin-left:10px;"> @Html.LabelFor(model => model.DealImages)</span>
+
+                            <div class="input-field">
+                                <i class="material-icons">attach_file</i>
+
+                                <input type="file" name="files" multiple="multiple" />
+                            </div>
+                            @Html.ValidationMessageFor(model => model.files, "", new { @class = "red-text" })
+                        </div>
 
                     </div>
-                    <div class="input-field">
-                        @Html.CheckBoxFor(model => model.IsDealFree, new { @class = "red-text" ,@style= "display: inline;" })
-                        @Html.LabelFor(model => model.IsDealFree)
-                        @Html.ValidationMessageFor(model => model.IsDealFree, "", new { @class = "red-text" })
+
+                    <div class="card-action">
+                        <input type="submit" value="Create" class="btn waves-effect waves-light" />
+
                     </div>
-                </div>
-
-
-                <div class="card-action">
-                    <input type="submit" value="Create" class="btn waves-effect waves-light" />
-
-                </div>
 
 
             }
