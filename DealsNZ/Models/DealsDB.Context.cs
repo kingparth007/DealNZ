@@ -28,7 +28,6 @@ namespace DealsNZ.Models
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<CustomerSupport> CustomerSupports { get; set; }
         public virtual DbSet<DealImage> DealImages { get; set; }
         public virtual DbSet<LogTracker> LogTrackers { get; set; }
@@ -43,5 +42,6 @@ namespace DealsNZ.Models
         public virtual DbSet<WishList> WishLists { get; set; }
         public virtual DbSet<Deal> Deals { get; set; }
         public virtual DbSet<Wallet> Wallets { get; set; }
+        public virtual DbSet<Coupon> Coupons { get; set; }
     }
 }

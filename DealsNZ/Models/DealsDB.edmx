@@ -43,6 +43,7 @@
           <Property Name="CouponUniqueText" Type="varchar" MaxLength="50" />
           <Property Name="CouponValidTill" Type="date" />
           <Property Name="CouponQty" Type="int" />
+          <Property Name="ReedemNo" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="DealId" Type="int" />
           <Property Name="AddedOn" Type="date" />
@@ -512,7 +513,6 @@
           <EntitySet Name="Addresses" EntityType="DealsModel.Address" />
           <EntitySet Name="Cards" EntityType="DealsModel.Card" />
           <EntitySet Name="Companies" EntityType="DealsModel.Company" />
-          <EntitySet Name="Coupons" EntityType="DealsModel.Coupon" />
           <EntitySet Name="CustomerSupports" EntityType="DealsModel.CustomerSupport" />
           <EntitySet Name="DealImages" EntityType="DealsModel.DealImage" />
           <EntitySet Name="LogTrackers" EntityType="DealsModel.LogTracker" />
@@ -536,10 +536,6 @@
           <AssociationSet Name="FK_Store_Company" Association="DealsModel.FK_Store_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Coupon_UserProfile" Association="DealsModel.FK_Coupon_UserProfile">
-            <End Role="UserProfile" EntitySet="UserProfiles" />
-            <End Role="Coupon" EntitySet="Coupons" />
           </AssociationSet>
           <AssociationSet Name="FK_LogTracker_UserProfile" Association="DealsModel.FK_LogTracker_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
@@ -574,10 +570,6 @@
             <End Role="WishList" EntitySet="WishLists" />
           </AssociationSet>
           <EntitySet Name="Deals" EntityType="DealsModel.Deal" />
-          <AssociationSet Name="FK_Coupon_Deals" Association="DealsModel.FK_Coupon_Deals">
-            <End Role="Deal" EntitySet="Deals" />
-            <End Role="Coupon" EntitySet="Coupons" />
-          </AssociationSet>
           <AssociationSet Name="FK_DealImages_Deals" Association="DealsModel.FK_DealImages_Deals">
             <End Role="Deal" EntitySet="Deals" />
             <End Role="DealImage" EntitySet="DealImages" />
@@ -590,6 +582,15 @@
           <AssociationSet Name="FK_Wallet_UserProfile" Association="DealsModel.FK_Wallet_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Wallet" EntitySet="Wallets" />
+          </AssociationSet>
+          <EntitySet Name="Coupons" EntityType="DealsModel.Coupon" />
+          <AssociationSet Name="FK_Coupon_Deals" Association="DealsModel.FK_Coupon_Deals">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="Coupon" EntitySet="Coupons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coupon_UserProfile" Association="DealsModel.FK_Coupon_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Coupon" EntitySet="Coupons" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Address">
@@ -624,20 +625,6 @@
           <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Stores" Relationship="DealsModel.FK_Store_Company" FromRole="Company" ToRole="Store" />
-        </EntityType>
-        <EntityType Name="Coupon">
-          <Key>
-            <PropertyRef Name="CouponId" />
-          </Key>
-          <Property Name="CouponId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CouponUniqueText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CouponValidTill" Type="DateTime" Precision="0" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="DealId" Type="Int32" />
-          <Property Name="AddedOn" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="Coupon" ToRole="UserProfile" />
-          <Property Name="CouponQty" Type="Int32" />
-          <NavigationProperty Name="Deal" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Coupon" ToRole="Deal" />
         </EntityType>
         <EntityType Name="CustomerSupport">
           <Key>
@@ -743,7 +730,6 @@
           <Property Name="UserPromoCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="RefferedByUser" Type="Int32" />
           <NavigationProperty Name="Cards" Relationship="DealsModel.FK_Card_UserProfile" FromRole="UserProfile" ToRole="Card" />
-          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="UserProfile" ToRole="Coupon" />
           <NavigationProperty Name="LogTrackers" Relationship="DealsModel.FK_LogTracker_UserProfile" FromRole="UserProfile" ToRole="LogTracker" />
           <NavigationProperty Name="Notifications" Relationship="DealsModel.FK_Notification_UserProfile" FromRole="UserProfile" ToRole="Notification" />
           <NavigationProperty Name="Stores" Relationship="DealsModel.FK_Store_UserProfile" FromRole="UserProfile" ToRole="Store" />
@@ -753,6 +739,7 @@
           <NavigationProperty Name="UserVerifications" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserProfile" ToRole="UserVerification" />
           <NavigationProperty Name="WishLists" Relationship="DealsModel.FK_WishList_Deal" FromRole="UserProfile" ToRole="WishList" />
           <NavigationProperty Name="Wallets" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
+          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="UserProfile" ToRole="Coupon" />
         </EntityType>
         <EntityType Name="UserSubscrition">
           <Key>
@@ -831,20 +818,6 @@
             </Principal>
             <Dependent Role="Store">
               <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Coupon_UserProfile">
-          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Coupon">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -975,22 +948,10 @@
           <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="AddedOn" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Deal" ToRole="Coupon" />
           <NavigationProperty Name="DealImages" Relationship="DealsModel.FK_DealImages_Deals" FromRole="Deal" ToRole="DealImage" />
           <NavigationProperty Name="Store" Relationship="DealsModel.FK_Deals_Store" FromRole="Deal" ToRole="Store" />
+          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Deal" ToRole="Coupon" />
         </EntityType>
-        <Association Name="FK_Coupon_Deals">
-          <End Type="DealsModel.Deal" Role="Deal" Multiplicity="0..1" />
-          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Deal">
-              <PropertyRef Name="DealId" />
-            </Principal>
-            <Dependent Role="Coupon">
-              <PropertyRef Name="DealId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DealImages_Deals">
           <End Type="DealsModel.Deal" Role="Deal" Multiplicity="0..1" />
           <End Type="DealsModel.DealImage" Role="DealImage" Multiplicity="*" />
@@ -1039,6 +1000,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="CouponId" />
+          </Key>
+          <Property Name="CouponId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CouponUniqueText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CouponValidTill" Type="DateTime" Precision="0" />
+          <Property Name="CouponQty" Type="Int32" />
+          <Property Name="ReedemNo" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="DealId" Type="Int32" />
+          <Property Name="AddedOn" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Deal" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Coupon" ToRole="Deal" />
+          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="Coupon" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_Coupon_Deals">
+          <End Type="DealsModel.Deal" Role="Deal" Multiplicity="0..1" />
+          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="DealId" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coupon_UserProfile">
+          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1075,19 +1077,6 @@
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Coupons">
-            <EntityTypeMapping TypeName="DealsModel.Coupon">
-              <MappingFragment StoreEntitySet="Coupon">
-                <ScalarProperty Name="CouponQty" ColumnName="CouponQty" />
-                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
-                <ScalarProperty Name="DealId" ColumnName="DealId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CouponValidTill" ColumnName="CouponValidTill" />
-                <ScalarProperty Name="CouponUniqueText" ColumnName="CouponUniqueText" />
-                <ScalarProperty Name="CouponId" ColumnName="CouponId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1259,6 +1248,20 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="WalletCredit" ColumnName="WalletCredit" />
                 <ScalarProperty Name="WalletId" ColumnName="WalletId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coupons">
+            <EntityTypeMapping TypeName="DealsModel.Coupon">
+              <MappingFragment StoreEntitySet="Coupon">
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="DealId" ColumnName="DealId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ReedemNo" ColumnName="ReedemNo" />
+                <ScalarProperty Name="CouponQty" ColumnName="CouponQty" />
+                <ScalarProperty Name="CouponValidTill" ColumnName="CouponValidTill" />
+                <ScalarProperty Name="CouponUniqueText" ColumnName="CouponUniqueText" />
+                <ScalarProperty Name="CouponId" ColumnName="CouponId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

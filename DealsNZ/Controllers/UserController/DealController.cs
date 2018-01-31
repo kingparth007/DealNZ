@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DealsNZ.Helpers;
 using DealsNZ.Models;
+using DealsNZ.Models.Repository.ClassServices;
+using DealsNZ.Models.Repository.Interface;
 using DealsNZ.Repository.ClassServices;
 using DealsNZ.Repository.Interface;
 using static DealsNZ.Models.DealsModels;
@@ -13,6 +16,8 @@ namespace DealsNZ.Controllers.UserController
     public class DealController : Controller
     {
         IDeal dealServices;
+        ICoupon couponservice;
+        IUserWallet walleservice;
         // GET: Deal
         public ActionResult Index()
         {
@@ -44,8 +49,44 @@ namespace DealsNZ.Controllers.UserController
         public ActionResult CouponGenerator(ViewSingleDeal CreateCoupon)
         {
 
-            string CouponCode = CreateCoupon.DealId.ToString() + GenerateCode();
-            
+
+
+            walleservice = new UserWalletServices(new DealsDB());
+            Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
+
+            if (CreateCoupon.CouponPrice > AddTrans.WalletCredit)
+            {
+                walleservice.Dispose();
+            }
+            else
+            {
+                AddTrans.UserId = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
+                AddTrans.WalletCredit = Convert.ToDecimal(Convert.ToDecimal(AddTrans.WalletCredit) - Convert.ToDecimal(CreateCoupon.CouponPrice));
+                AddTrans.WalletCreditDate = System.DateTime.Now;
+                if (walleservice.WalletUpdate(AddTrans) == true)
+                {
+                    Coupon InsertCoupon = new Coupon()
+                    {
+                        CouponUniqueText = CreateCoupon.DealId.ToString() + GenerateCode(),
+                        CouponValidTill = CreateCoupon.ValidTill,
+                        CouponQty = CreateCoupon.CouponQty,
+                        AddedOn = System.DateTime.Now.Date,
+                        DealId = CreateCoupon.DealId,
+                        ReedemNo = 0
+                    };
+                    couponservice = new CouponService(new DealsDB());
+                    couponservice.Insert(InsertCoupon);
+                    couponservice.Dispose();
+                    Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
+                    walleservice.Dispose();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    walleservice.Dispose();
+                }
+            }
+
             return View();
         }
 

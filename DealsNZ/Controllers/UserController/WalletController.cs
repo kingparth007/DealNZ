@@ -96,11 +96,7 @@ namespace DealsNZ.Controllers.UserController
                                 int id = Convert.ToInt16(i.sku);
                                 int q = Convert.ToInt32(i.quantity);
                                 Decimal p = Convert.ToDecimal(i.price);
-                                //   Cart cartitem = db.Carts.Where(x => x.ProductID == id && x.UserId == login.ID && x.Quantity == q).SingleOrDefault();
-                                // String size = cartitem.Size;
-                                // Stock stock = db.Stocks.Where(pro => pro.ProductID == id && pro.ProductSizeName == size).SingleOrDefault();
-                                // stock.StockCount = stock.StockCount - Convert.ToInt16(i.quantity);
-                                // db.Carts.Remove(cartitem);
+                               
 
 
                                

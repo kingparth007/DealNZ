@@ -488,7 +488,7 @@ ToList();
             }
             else
             {
-                if (cupon.ReedemNo < cupon.CouponQty)
+                if (cupon.ReedemNo< cupon.CouponQty)
                 {
                     cupon.ReedemNo = cupon.ReedemNo + 1;
                     couponService.UpdateCoupon(cupon);
