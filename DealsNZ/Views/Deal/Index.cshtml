@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "View Deal";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="row shades">
+    <div class="card grey lighten-2">
+        <div class="card-content black-text">
+            <span class="card-title">Deals</span>
+            <div class="row">
+                <div>
+                    @{Html.RenderPartial("ViewDeal", new DealsNZ.Models.DealsModels.ViewSingleDeal());}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="row shades">
+    <div class="card grey lighten-2">
+        <div class="card-content black-text">
+            <span class="card-title">Deals</span>
+            <div class="row">
+                <div>
+                    @{Html.RenderPartial("RelatedDeal", new DealsNZ.Models.DealsModels.DealViewModel());}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

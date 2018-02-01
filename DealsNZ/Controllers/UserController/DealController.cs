@@ -99,6 +99,14 @@ namespace DealsNZ.Controllers.UserController
             return View();
         }
 
+        public ActionResult RelatedDeal() {
+
+            dealServices = new DealServices(new DealsDB());
+            
+            var DealList = dealServices.AllDeal().OrderBy(x=>Guid.NewGuid()).Take(3);
+            return View(DealList);
+            
+        }
 
         private string GenerateCode()
         {

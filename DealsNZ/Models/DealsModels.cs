@@ -69,7 +69,7 @@ namespace DealsNZ.Models
             public int Price { get; set; }
             [StringLength(250, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
             public string Title { get; set; }
-            [StringLength(500, ErrorMessage = "Length Between 0 to 500 character", MinimumLength = 0)]
+            [StringLength(2000, ErrorMessage = "Length Between 0 to 2000 character", MinimumLength = 0)]
             public string Description { get; set; }
             public DateTime AddedOn { get; set; }
             public bool IsDeleted { get; set; }

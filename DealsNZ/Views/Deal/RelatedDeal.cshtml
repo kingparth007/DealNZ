@@ -1,0 +1,17 @@
+﻿@model IEnumerable<DealsNZ.Models.DealsModels.DealViewModel>
+
+<div class="card grey lighten-2">
+    <div class="card-content black-text">
+        <span class="card-title">Deals</span>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                
+                <div>
+                    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
