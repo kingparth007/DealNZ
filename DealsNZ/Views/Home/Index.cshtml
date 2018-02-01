@@ -5,14 +5,34 @@
 }
 
 
+<div class="card grey lighten-2">
+    <div class="card-content black-text">
+        <span class="card-title">Deals</span>
+        <div class="row">
+            @foreach (var item in Model.Where(x => x.IsDealfree == true))
+            {
+                <div>
+                    @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)
+                </div>
+            }
+        </div>
+    </div>
+</div>
 <div>
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div>
-                @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)
+    <div class="card grey lighten-2">
+        <div class="card-content black-text">
+            <span class="card-title">Free Deals</span>
+            <div class="row">
+
+                @foreach (var item in Model.Where(x => x.IsDealfree == false))
+                {
+                    <div>
+                        @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)
+                    </div>
+                }
+
             </div>
 
-        }
+        </div>
     </div>
 </div>

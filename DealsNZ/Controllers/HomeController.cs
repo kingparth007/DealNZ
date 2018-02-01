@@ -22,7 +22,7 @@ namespace DealsNZ.Controllers
         public ActionResult Index()
         {
 
-            var DealList = DealService.AllDeal().OrderBy(x => Guid.NewGuid());
+            var DealList = DealService.AllDeal().ToList();
             return View(DealList);
         }
 
