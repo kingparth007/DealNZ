@@ -18,14 +18,14 @@ namespace DealsNZ.Models
         public UserProfile()
         {
             this.Cards = new HashSet<Card>();
+            this.Coupons = new HashSet<Coupon>();
             this.LogTrackers = new HashSet<LogTracker>();
             this.Notifications = new HashSet<Notification>();
             this.Stores = new HashSet<Store>();
             this.UserSubscritions = new HashSet<UserSubscrition>();
             this.UserVerifications = new HashSet<UserVerification>();
-            this.WishLists = new HashSet<WishList>();
             this.Wallets = new HashSet<Wallet>();
-            this.Coupons = new HashSet<Coupon>();
+            this.WishLists = new HashSet<WishList>();
         }
     
         public int UserId { get; set; }
@@ -36,19 +36,22 @@ namespace DealsNZ.Models
         public string Contact { get; set; }
         public string Street { get; set; }
         public string Suburb { get; set; }
-        public string City { get; set; }
         public string Region { get; set; }
+        public string City { get; set; }
         public string Country { get; set; }
-        public Nullable<int> PinCode { get; set; }
+        public string GuidString { get; set; }
         public Nullable<bool> isContactVerified { get; set; }
         public Nullable<bool> isLocked { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
         public Nullable<int> UserSubscritionId { get; set; }
         public string UserPromoCode { get; set; }
         public Nullable<int> RefferedByUser { get; set; }
+        public Nullable<int> PinCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Card> Cards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Coupon> Coupons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LogTracker> LogTrackers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -62,10 +65,8 @@ namespace DealsNZ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVerification> UserVerifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WishList> WishLists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wallet> Wallets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Coupon> Coupons { get; set; }
+        public virtual ICollection<WishList> WishLists { get; set; }
     }
 }

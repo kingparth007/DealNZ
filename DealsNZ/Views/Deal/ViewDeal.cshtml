@@ -1,53 +1,48 @@
 ﻿@model DealsNZ.Models.DealsModels.ViewSingleDeal
-
 <style>
     .hovercolor:hover {
         color: #c2185b !important;
         font-weight: bolder;
     }
-
-    .image_deal {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
+    .image_deal{
+        object-fit:cover;
+        width:100%;
+        height:100%;
     }
-
-    .card-image {
-        max-width: 400px;
-        max-height: 600px;
+    .card-image{
+        max-width:400px;
+        max-height:600px;
     }
 </style>
-@using (Html.BeginForm("CouponGenerator", "Deal"))
-{
+<div class="col s12 m12">
 
-    <div class="col s12 m12">
+    <div class="card horizontal">
+        <div class="card-image">
+            <img class=" image_deal " src="@Model.DealImages">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <p class="card-title activator grey-text text-darken-4">@Model.Title</p>
+                <p class="teal-text">@Model.Description</></p>
 
-        <div class="card horizontal">
-            <div class="card-image">
-                <img class=" image_deal " src="@Model.DealImages">
-            </div>
-            <div class="card-stacked">
-                <div class="card-content">
-                    <p class="card-title activator grey-text text-darken-4">@Model.Title</p>
-                    <p class="teal-text">@Model.Description</p>
-                    <div class="row" style="margin-top:30px">
-                        <div class="container-fluid">
-                            <div class="col s12 m3 center">
-                                <p>Validity</p>
-                                <p><b>@Model.ValidTill.Date.ToString("dd MMM yyyy")</b></p>
-                            </div>
-                            <div class="col s12 m3 center">
-                                <p>Discount</p>
-                                <p><b>@Model.Discount%</b></p>
-                            </div>
-                            <div class="col s12 m3 center">
-                                <p>Now</p>
-                                <p><b><span class="activator grey-text text-darken-4">$@Model.StrikePrice</span></b></p>
-                            </div>
-                            <div class="col s12 m3 center">
-                                <p>Was</p>
-                                <p><b><strike >$@Model.Price</strike></b></p>
-                            </div>
+                <div class="row" style="margin-top:30px">
+                    <div class="container-fluid">
+                        <div class="col s12 m3 center">
+                            <p>Validity</p>
+                            <p><b>@Model.ValidTill.Date.ToString("dd MMM yyyy")</b></p>
+                        </div>
+                        <div class="col s12 m3 center">
+                            <p>Discount</p>
+                            <p><b>@Model.Discount%</b></p>
+                        </div>
+                        <div class="col s12 m3 center">
+                            <p>Now</p>
+                            <p><b><span class="activator grey-text text-darken-4">$@Model.StrikePrice</span></b></p>
+                        </div>
+                        <div class="col s12 m3 center">
+                            <p>Was</p>
+                            <p><b><strike>$@Model.Price</strike></b></p>
+                        </div>
 
                         </div>
                         <br />
@@ -61,20 +56,31 @@
                         @Html.HiddenFor(model => model.Price)
                         @Html.HiddenFor(model => model.StrikePrice)
                         @Html.HiddenFor(model => model.DealImages)
-
-                    </div>
-                    <div class="card-action">
-
-                        Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
-
-                        <input type="submit" value="Payment For Check-out" name="Payment For Check-out" class="btn-flat pull-right pink-text hovercolor" />
-
                     </div>
                 </div>
+                
+               <br />@*
+    <p>Quantity</p>
+    @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
+    @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })*@
+
             </div>
+            @if(Model.IsDealFree == true) { 
+
+            <div class="card-action">
+                <p>Quantity</p>
+                @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
+                @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
+
+
+                Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
+                <b><a href="" class="pull-right pink-text hovercolor" >Payment For Check-out</a></b>
+            </div>
+            }
         </div>
     </div>
-}
+</div>
+
 @section Scripts{
     <script type="text/javascript">
         $("#Cqty").change(function () {
