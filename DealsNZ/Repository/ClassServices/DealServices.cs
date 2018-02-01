@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static DealsNZ.Models.DealsModels;
 
 namespace DealsNZ.Repository.ClassServices
 {
@@ -40,6 +41,26 @@ namespace DealsNZ.Repository.ClassServices
 
             return d ;
         }
+
+        public ViewSingleDeal GetSingleDeal(int Id) {
+
+            Deal getDeal = GetByID(Id);
+            ViewSingleDeal SingleDeal = new ViewSingleDeal();
+            SingleDeal.DealId = getDeal.DealId;
+            SingleDeal.DealImages = getDeal.DealImages.FirstOrDefault().DealImage1;
+            SingleDeal.Price = Convert.ToInt32(getDeal.Price);
+            SingleDeal.Description = getDeal.Description;
+            SingleDeal.Discount = Convert.ToInt32(getDeal.Discount);
+            SingleDeal.ValidTill = DateTime.Parse(getDeal.ValidTill.ToString());
+            SingleDeal.Title = getDeal.Title;
+            SingleDeal.StrikePrice = Convert.ToInt32(getDeal.StrikePrice);
+            SingleDeal.CouponPrice = Convert.ToInt32(getDeal.StrikePrice);
+            SingleDeal.Address = getDeal.Store.Addresses.FirstOrDefault().Street.ToString() + " " + getDeal.Store.Addresses.FirstOrDefault().City.ToString() + " " + getDeal.Store.Addresses.FirstOrDefault().Country.ToString();
+            SingleDeal.StoreName = getDeal.Store.StoreName;
+            SingleDeal.IsDealFree = Convert.ToBoolean(getDeal.IsDealFree);
+
+            return SingleDeal;
+        } 
 
         public int CreateDeal(Deal deal)
         {

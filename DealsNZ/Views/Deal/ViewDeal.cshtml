@@ -14,8 +14,12 @@
         max-height:600px;
     }
 </style>
-<div class="col s12 m12">
 
+@using (Html.BeginForm("CouponGenerator", "Deal"))
+{
+
+<div class="col s12 m12">
+    <div class="card card-title">@ViewBag.Message</div>
     <div class="card horizontal">
         <div class="card-image">
             <img class=" image_deal " src="@Model.DealImages">
@@ -23,7 +27,7 @@
         <div class="card-stacked">
             <div class="card-content">
                 <p class="card-title activator grey-text text-darken-4">@Model.Title</p>
-                <p class="teal-text">@Model.Description</></p>
+                <p class="teal-text">@Model.Description</p>
 
                 <div class="row" style="margin-top:30px">
                     <div class="container-fluid">
@@ -31,6 +35,9 @@
                             <p>Validity</p>
                             <p><b>@Model.ValidTill.Date.ToString("dd MMM yyyy")</b></p>
                         </div>
+                 @{
+                     if (Model.Price == Model.StrikePrice)
+                     {
                         <div class="col s12 m3 center">
                             <p>Discount</p>
                             <p><b>@Model.Discount%</b></p>
@@ -44,9 +51,36 @@
                             <p><b><strike>$@Model.Price</strike></b></p>
                         </div>
 
+                     }
+                     else
+                     {
+
+                        <div class="col s12 m3 center">
+                            <p>Price</p>
+                            <p><b><strike>$@Model.Price</strike></b></p>
                         </div>
-                        <br />
-                        @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
+                     }
+                }
+                        
+                        </div>
+                   
+                    
+                    <br />
+                    
+                    <div class="container-fluid">
+                        <div class="col s12 m6 center">
+                            <p>Store Name</p>
+                            <p><b>@Model.StoreName</b></p>
+                        </div>
+                        <div class="col s12 m6 center">
+                            <p>Store Address</p>
+                            <p><b>@Model.Address</b></p>
+                        </div>
+                        
+
+                    </div>
+
+                 
                         @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
                         @Html.HiddenFor(model => model.DealId)
                         @Html.HiddenFor(model => model.StrikePrice, htmlAttributes: new { @id = "strikePrice" })
@@ -56,16 +90,15 @@
                         @Html.HiddenFor(model => model.Price)
                         @Html.HiddenFor(model => model.StrikePrice)
                         @Html.HiddenFor(model => model.DealImages)
+                        @Html.HiddenFor(model => model.StoreName)
+                        @Html.HiddenFor(model => model.Address)
                     </div>
                 </div>
-                
-               <br />@*
-    <p>Quantity</p>
-    @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
-    @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })*@
 
+               <br />
             </div>
-            @if(Model.IsDealFree == true) { 
+            @if (Model.IsDealFree == false)
+            {
 
             <div class="card-action">
                 <p>Quantity</p>
@@ -74,12 +107,13 @@
 
 
                 Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
-                <b><a href="" class="pull-right pink-text hovercolor" >Payment For Check-out</a></b>
+                <b><input type="submit" value="Payment For Check-out" name="Payment For Check-out" class="btn-flat pull-right pink-text hovercolor" /></b>
             </div>
             }
         </div>
     </div>
-</div>
+                     }
+
 
 @section Scripts{
     <script type="text/javascript">

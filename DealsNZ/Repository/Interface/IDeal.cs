@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DealsNZ.Models.DealsModels;
 
 namespace DealsNZ.Repository.Interface
 {
@@ -16,6 +17,9 @@ namespace DealsNZ.Repository.Interface
     //    IEnumerable<Deal> Alldeal();
    IEnumerable< DealsModels.DealViewModel> AllDeal();
 
-      
+        ViewSingleDeal GetSingleDeal(int Id);
+        
+
+
     }
 }

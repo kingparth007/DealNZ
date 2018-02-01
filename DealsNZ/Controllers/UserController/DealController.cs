@@ -31,20 +31,10 @@ namespace DealsNZ.Controllers.UserController
             {
                 int ID = Convert.ToInt32(RouteData.Values["id"].ToString());
                 dealServices = new DealServices(new DealsDB());
-                Deal getDeal = dealServices.GetByID(ID);
-                ViewSingleDeal SingleDeal = new ViewSingleDeal();
-                SingleDeal.DealId = getDeal.DealId;
-                SingleDeal.DealImages = getDeal.DealImages.FirstOrDefault().DealImage1;
-                SingleDeal.Price = Convert.ToInt32(getDeal.Price);
-                SingleDeal.Description = getDeal.Description;
-                SingleDeal.Discount = Convert.ToInt32(getDeal.Discount);
-                SingleDeal.ValidTill = DateTime.Parse(getDeal.ValidTill.ToString());
-                SingleDeal.Title = getDeal.Title;
-                SingleDeal.StrikePrice = Convert.ToInt32(getDeal.StrikePrice);
-                SingleDeal.CouponPrice = Convert.ToInt32(getDeal.StrikePrice);
-                SingleDeal.Address = getDeal.Store.Addresses.FirstOrDefault().Street.ToString() + " " + getDeal.Store.Addresses.FirstOrDefault().City.ToString() +" "+ getDeal.Store.Addresses.FirstOrDefault().Country.ToString();
-                SingleDeal.StoreName = getDeal.Store.StoreName;
-                SingleDeal.IsDealFree = getDeal.IsDealFree;
+
+
+                ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(ID);
+                ViewBag.Message = " ";
                 return View(SingleDeal);
             }
             return RedirectToAction("Index", "Home");
@@ -52,9 +42,11 @@ namespace DealsNZ.Controllers.UserController
 
         public ActionResult CouponGenerator(ViewSingleDeal CreateCoupon)
         {
-
-
-
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return RedirectToAction("Index", "Register_Login");
+            }
+            
             walleservice = new UserWalletServices(new DealsDB());
             Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
 
@@ -84,13 +76,20 @@ namespace DealsNZ.Controllers.UserController
                     couponservice.Dispose();
                     Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
                     walleservice.Dispose();
-                    string CouponBody = createEmailBody(CreateCoupon.Title, CreateCoupon.Price.ToString(), CreateCoupon.StrikePrice.ToString(), CreateCoupon.Discount.ToString(), InsertCoupon.CouponQty.ToString(), InsertCoupon.CouponValidTill.ToString(), InsertCoupon.CouponUniqueText);
+                    string CouponBody = createEmailBody(CreateCoupon.StoreName, CreateCoupon.Address, CreateCoupon.Title, CreateCoupon.Price.ToString(), CreateCoupon.StrikePrice.ToString(), CreateCoupon.Discount.ToString(), InsertCoupon.CouponQty.ToString(), InsertCoupon.CouponValidTill.ToString(), InsertCoupon.CouponUniqueText);
                     string Title = "Coupon For " + CreateCoupon.Title;
                     IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
-                    if (UserProfileService.UserMail(CouponBody, Title, Session[KeyList.SessionKeys.UserEmail].ToString()) == true) {
-                        return RedirectToAction("Index", "Home");
-                    } 
-                   }
+                    if (UserProfileService.UserMail(CouponBody, Title, Session[KeyList.SessionKeys.UserEmail].ToString()) == true)
+                    {
+                        ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(CreateCoupon.DealId);
+
+                        ViewBag.Message = "Check Your Mail To Get Coupon";
+                        return View("ViewDeal",SingleDeal);
+
+                        
+                        //  return RedirectToAction("Index", "Home");
+                    }
+                }
                 else
                 {
                     walleservice.Dispose();
@@ -121,7 +120,7 @@ namespace DealsNZ.Controllers.UserController
             return otpString;
         }
 
-        private string createEmailBody(string DealTitle, string Price, string StrikePrice, string Discount, string Qty, string Expire, string Code)
+        private string createEmailBody(string StoreName, string Address, string DealTitle, string Price, string StrikePrice, string Discount, string Qty, string Expire, string Code)
 
         {
 
@@ -143,6 +142,8 @@ namespace DealsNZ.Controllers.UserController
             body = body.Replace("{Qty}", Qty);
             body = body.Replace("{Expire}", Expire);
             body = body.Replace("{Code}", Code);// 
+            body = body.Replace("{Address}", Address);
+            body = body.Replace("{Store}", StoreName);// 
 
             return body;
 
