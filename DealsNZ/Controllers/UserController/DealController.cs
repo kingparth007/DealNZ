@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -80,8 +81,13 @@ namespace DealsNZ.Controllers.UserController
                     couponservice.Dispose();
                     Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
                     walleservice.Dispose();
-                    return RedirectToAction("Index", "Home");
-                }
+                    string CouponBody = createEmailBody(CreateCoupon.Title, CreateCoupon.Price.ToString(), CreateCoupon.StrikePrice.ToString(), CreateCoupon.Discount.ToString(), InsertCoupon.CouponQty.ToString(), InsertCoupon.CouponValidTill.ToString(), InsertCoupon.CouponUniqueText);
+                    string Title = "Coupon For " + CreateCoupon.Title;
+                    IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
+                    if (UserProfileService.UserMail(CouponBody, Title, Session[KeyList.SessionKeys.UserEmail].ToString()) == true) {
+                        return RedirectToAction("Index", "Home");
+                    } 
+                   }
                 else
                 {
                     walleservice.Dispose();
@@ -111,6 +117,34 @@ namespace DealsNZ.Controllers.UserController
             }
             return otpString;
         }
+
+        private string createEmailBody(string DealTitle, string Price, string StrikePrice, string Discount, string Qty, string Expire, string Code)
+
+        {
+
+            string body = string.Empty;
+            //using streamreader for reading my htmltemplate   
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemp/CouponCodeTemplate.html")))
+
+            {
+
+                body = reader.ReadToEnd();
+
+            }
+
+            body = body.Replace("{DealTitle}", DealTitle); //replacing the required things  
+            body = body.Replace("{Price}", Price);
+            body = body.Replace("{StrikePrice}", StrikePrice);
+            body = body.Replace("{Discount}", Discount);
+            body = body.Replace("{Qty}", Qty);
+            body = body.Replace("{Expire}", Expire);
+            body = body.Replace("{Code}", Code);// 
+
+            return body;
+
+        }
+
     }
 
 

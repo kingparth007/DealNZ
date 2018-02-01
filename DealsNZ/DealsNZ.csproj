@@ -206,11 +206,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DealsDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DealsDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\DealsModels.cs" />
     <Compile Include="Models\LogTracker.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
@@ -290,6 +285,7 @@
     <Content Include="Content\js\materialize.js" />
     <Content Include="Content\js\materialize.min.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="EmailTemp\CouponCodeTemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -326,9 +322,15 @@
     <Content Include="Grid.mvc.readme" />
     <EntityDeploy Include="Models\DealsDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DealsDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>DealsDB.Designer</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\DealsDB.edmx.diagram">
+      <DependentUpon>DealsDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="Views\Admin\Coupon.cshtml" />
+    <Content Include="Models\DealsDB.Designer">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />

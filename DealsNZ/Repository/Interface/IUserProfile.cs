@@ -17,7 +17,7 @@ namespace DealsNZ.Models.Repository.Interface
         UserProfile GetUserByEmail(string Email);
         UserProfile LoginDetail(Models.AccountModels.Login Login);
         UserVerification ForgotPassUser(string guid);
-        bool UserMail(string uRL, string subject, string name, string email);
+        bool UserMail(string Body, string subject, string email);
         //  bool UserActivate(string guid);
         bool UpdateUser(UserProfile user);
         bool RemoveLinkForResetPassword(int userid);

@@ -9,6 +9,7 @@ using System.Web;
 using DealsNZ.Models.Repository.Interface;
 using RepoPattern.Models.RepositoryFiles;
 using DealsNZ.Helpers;
+using System.Net.Mime;
 
 namespace DealsNZ.Models.Repository.ClassServices
 {
@@ -121,17 +122,22 @@ namespace DealsNZ.Models.Repository.ClassServices
             }
         }
 
-        public bool UserMail(string uRL, string subject, string name, string email)
+        public bool UserMail(string Body, string subject, string email)
         {
             string Hostemail = ConfigurationManager.AppSettings["HostMail"];
             string username = ConfigurationManager.AppSettings["Username"];
             string password = ConfigurationManager.AppSettings["Password"];
             MailMessage ContectMail = new MailMessage(Hostemail, email)
             {
-                Body = uRL,
+                //Body = Body,
                 IsBodyHtml = true,
-                Subject = subject
+                Subject = subject,
+
             };
+            
+            AlternateView HtmlView = AlternateView.CreateAlternateViewFromString(Body, new ContentType("text/html"));
+            ContectMail.AlternateViews.Add(HtmlView);
+
             SmtpClient SMTP = new SmtpClient()
             {
                 Credentials = new System.Net.NetworkCredential(username, password)
@@ -183,7 +189,8 @@ namespace DealsNZ.Models.Repository.ClassServices
                 //string dec = Decryptdata(enc);
 
                 string URL = "http://localhost:20629/Activation/Activate/" + userverify.UserVerificationCode;
-                UserMail(URL, "Activate Your Account", name, email);
+                UserMail(URL, "Activate Your Account", email);
+               
                 return true;
             }
             else
@@ -216,7 +223,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                     // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
                     string URL = "http://localhost:20629/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
                     //string dec = Decryptdata(enc);
-                    UserMail(URL, "Activate Your Account", name, email);
+                    UserMail(URL, "Activate Your Account", email);
                     return true;
                 }
 
@@ -292,5 +299,7 @@ namespace DealsNZ.Models.Repository.ClassServices
             }
             return false;
         }
+
+       
     }
 }
