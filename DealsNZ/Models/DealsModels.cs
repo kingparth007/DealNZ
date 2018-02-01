@@ -104,6 +104,9 @@ namespace DealsNZ.Models
             public string Title { get; set; }
             public string Description { get; set; }
             public int CouponPrice { get; set; }
+            public string StoreName { get; set; }
+            public string Address { get; set; }
+            public bool IsDealFree { get; set; }
         }
 
 

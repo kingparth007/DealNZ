@@ -42,6 +42,9 @@ namespace DealsNZ.Controllers.UserController
                 SingleDeal.Title = getDeal.Title;
                 SingleDeal.StrikePrice = Convert.ToInt32(getDeal.StrikePrice);
                 SingleDeal.CouponPrice = Convert.ToInt32(getDeal.StrikePrice);
+                SingleDeal.Address = getDeal.Store.Addresses.FirstOrDefault().Street.ToString() + " " + getDeal.Store.Addresses.FirstOrDefault().City.ToString() +" "+ getDeal.Store.Addresses.FirstOrDefault().Country.ToString();
+                SingleDeal.StoreName = getDeal.Store.StoreName;
+                SingleDeal.IsDealFree = getDeal.IsDealFree;
                 return View(SingleDeal);
             }
             return RedirectToAction("Index", "Home");
