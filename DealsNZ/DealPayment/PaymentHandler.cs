@@ -96,7 +96,7 @@ namespace DealsNZ.DealPayment
 
             var transactionList = new List<Transaction>();
             Random rand = new Random(DateTime.Now.Second);
-            String invoice = "INV-" + rand.Next(10000, 99999) + "-" + rand.Next(10000, 99999);
+            String invoice = "INV-" + System.DateTime.Now.Ticks.ToString();
 
             transactionList.Add(new Transaction()
             {

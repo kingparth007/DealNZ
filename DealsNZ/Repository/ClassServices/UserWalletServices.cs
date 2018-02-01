@@ -34,5 +34,37 @@ namespace DealsNZ.Models.Repository.ClassServices
             catch { return false; }
             return false;
         }
+
+        public Wallet GetCreditByUserID(int UserID)
+        {
+
+            Wallet WalletAmount = DealDb.Wallets.Where(x => x.UserId == UserID).OrderByDescending(x => x.WalletCreditDate).FirstOrDefault();
+
+
+            return WalletAmount;
+
+        }
+        public string ShowWalletAmount(int UserID)
+        {
+
+            var WalletAmount = DealDb.Wallets.Where(x => x.UserId == UserID).OrderByDescending(x => x.WalletCreditDate).FirstOrDefault();
+
+
+            return WalletAmount.WalletCredit.ToString();
+        }
+
+        public bool WalletUpdate(Wallet UpdateWallet)
+        {
+
+            Wallet MatchWallet = DealDb.Wallets.Where(x => x.UserId == UpdateWallet.UserId).FirstOrDefault();
+            if (MatchWallet != null)
+            {
+
+                DealDb.Entry(MatchWallet).CurrentValues.SetValues(UpdateWallet);
+                DealDb.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }

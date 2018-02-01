@@ -11,22 +11,17 @@ namespace DealsNZ.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Coupon
     {
         public int CouponId { get; set; }
-        [DisplayName("Coupon")]
         public string CouponUniqueText { get; set; }
-        [DisplayName("Expiry")]
         public Nullable<System.DateTime> CouponValidTill { get; set; }
+        public Nullable<int> CouponQty { get; set; }
+        public Nullable<int> ReedemNo { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<int> DealId { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
-        [DisplayName("No.of Coupon")]
-        public Nullable<int> CouponQty { get; set; }
-        [DisplayName("Reedemfor")]
-        public Nullable<int> ReedemNo { get; set; }
     
         public virtual Deal Deal { get; set; }
         public virtual UserProfile UserProfile { get; set; }
