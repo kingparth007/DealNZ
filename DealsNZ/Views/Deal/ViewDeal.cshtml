@@ -47,16 +47,24 @@
                     </div>
                 </div>
                 
-                <br />
+               <br />@*
+    <p>Quantity</p>
+    @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
+    @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })*@
+
+            </div>
+            @if(Model.IsDealFree == true) { 
+
+            <div class="card-action">
                 <p>Quantity</p>
                 @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
                 @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
 
-            </div>
-            <div class="card-action">
+
                 Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
                 <b><a href="" class="pull-right pink-text hovercolor" >Payment For Check-out</a></b>
             </div>
+            }
         </div>
     </div>
 </div>

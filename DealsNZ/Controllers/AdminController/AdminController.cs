@@ -488,7 +488,7 @@ ToList();
             }
             else
             {
-                if (cupon.ReedemNo < cupon.CouponQty)
+                if (cupon.ReedemNo< cupon.CouponQty)
                 {
                     cupon.ReedemNo = cupon.ReedemNo + 1;
                     couponService.UpdateCoupon(cupon);
@@ -496,7 +496,7 @@ ToList();
                 }
                 else
                 {
-                    TempData["Message"] = "The coupon " + cupon.CouponUniqueText + " not valid anymore .It is for " + cupon.ReedemNo + " time already";
+                    TempData["Message"] = "The coupon " + cupon.CouponUniqueText + " not valid anymore .It was used for " + cupon.ReedemNo + " time already";
                 }
             }
             return RedirectToAction("Coupon");

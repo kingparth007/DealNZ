@@ -3,25 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DealsNZ.Models;
+using DealsNZ.Repository.ClassServices;
+using static DealsNZ.Models.DealsModels;
 using DealsNZ.DealPayment;
 using DealsNZ.Helpers;
-using DealsNZ.Models;
 using PayPal.Api;
+using DealsNZ.Models.Repository.Interface;
+using DealsNZ.Models.Repository.ClassServices;
 
 namespace DealsNZ.Controllers.UserController
 {
     public class WalletController : Controller
     {
+        IUserWallet walleservice;
         public Dictionary<string, string> config;
         OAuthTokenCredential auth;
         // GET: Wallet
         public ActionResult Index()
         {
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return Redirect(Url.Action("Index", "Register_Login"));
+            }
             return View();
         }
         [HttpGet]
         public ActionResult AddMoney()
         {
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return Redirect(Url.Action("Index", "Register_Login"));
+            }
             return View();
         }
         [HttpPost]
@@ -62,7 +75,7 @@ namespace DealsNZ.Controllers.UserController
 
                 //                BetaDB db = new BetaDB();
 
-                string email = Session["email"].ToString();
+                int UserID = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
                 //              var login = db.Logins.Where(x => x.Email == email).FirstOrDefault();
 
 
@@ -81,13 +94,26 @@ namespace DealsNZ.Controllers.UserController
                             try
                             {
                                 int id = Convert.ToInt16(i.sku);
-                                int q = Convert.ToInt16(i.quantity);
-                                int p = Convert.ToInt16(i.price);
-                                //   Cart cartitem = db.Carts.Where(x => x.ProductID == id && x.UserId == login.ID && x.Quantity == q).SingleOrDefault();
-                                // String size = cartitem.Size;
-                                // Stock stock = db.Stocks.Where(pro => pro.ProductID == id && pro.ProductSizeName == size).SingleOrDefault();
-                                // stock.StockCount = stock.StockCount - Convert.ToInt16(i.quantity);
-                                // db.Carts.Remove(cartitem);
+                                int q = Convert.ToInt32(i.quantity);
+                                Decimal p = Convert.ToDecimal(i.price);
+                               
+
+
+                               
+                                walleservice = new UserWalletServices(new DealsDB());
+                                Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
+
+                                AddTrans.UserId = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
+                                AddTrans.WalletCredit = Convert.ToDecimal( p+ Convert.ToDecimal(AddTrans.WalletCredit));
+                                AddTrans.WalletCreditDate = System.DateTime.Now;
+                                if (walleservice.WalletUpdate(AddTrans) == true)
+                                {
+                                    Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
+                                    return RedirectToAction("Index", "Home");
+                                }
+                                walleservice.Dispose();
+                               
+
 
                             }
                             catch (Exception er)
@@ -112,5 +138,10 @@ namespace DealsNZ.Controllers.UserController
 
             return View();
         }
+        public void ShowWalletAmount()
+        {
+            walleservice = new UserWalletServices(new DealsDB());
+            Session[KeyList.SessionKeys.WalletCredit] = ViewBag.WalletAmount = walleservice.ShowWalletAmount(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
+                   }
     }
 }

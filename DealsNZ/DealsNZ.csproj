@@ -408,7 +408,7 @@
     <Content Include="Views\Wallet\Index.cshtml" />
     <Content Include="Views\Wallet\AddMoney.cshtml" />
     <Content Include="Views\Wallet\PaymentSucess.cshtml" />
-    <Content Include="Views\Admin\Coupon.cshtml" />
+    <Content Include="Views\Shared\ShowWalletAmount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\VendorController\" />

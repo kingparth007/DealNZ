@@ -10,5 +10,8 @@ namespace DealsNZ.Models.Repository.Interface
     interface IUserWallet : _IRepositoryList<Wallet>
     {
         bool WalletAtRegister(int id);
+       string ShowWalletAmount(int UserID);
+        bool WalletUpdate(Wallet UpdateWallet);
+        Wallet GetCreditByUserID(int UserID);
     }
 }

@@ -12,7 +12,7 @@ namespace DealsNZ.Helpers
             public const string UserEmail = "UserEmail";
             public const string UserType = "UserType";
             public const string UserID = "UserID";
-            
+            public const string WalletCredit = "WalletCredit";
             public const string AdminEmail = "AdminEmail";
             public const string AdminType = "AdminType";
 

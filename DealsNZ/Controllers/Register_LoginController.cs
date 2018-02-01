@@ -92,6 +92,10 @@ namespace DealsNZ.Controllers
                             Session[KeyList.SessionKeys.UserEmail] = loggeduser.Email;
                             Session[KeyList.SessionKeys.UserType] = loggeduser.UserType1.UserTypeName;
                             Session[KeyList.SessionKeys.UserID] = loggeduser.UserId;
+                            IUserWallet WalletService = new UserWalletServices(new DealsDB());
+                            WalletService.ShowWalletAmount(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
+                            Session[KeyList.SessionKeys.WalletCredit]= WalletService.ShowWalletAmount(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
+                            WalletService.Dispose();       
                             Logs GenerateLog = new Logs();
 
                             GenerateLog.CreateLog(loggeduser.UserId, KeyList.LogMessages.LoginMessage);
