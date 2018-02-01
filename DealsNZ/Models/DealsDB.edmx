@@ -185,7 +185,7 @@
           <Property Name="WalletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WalletCredit" Type="decimal" Precision="18" Scale="0" />
           <Property Name="UserId" Type="int" />
-          <Property Name="WalletCreditDate" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="WalletCreditDate" Type="datetime" />
         </EntityType>
         <EntityType Name="WishList">
           <Key>
@@ -792,7 +792,7 @@
           <Property Name="WalletId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WalletCredit" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="UserId" Type="Int32" />
-          <Property Name="WalletCreditDate" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="WalletCreditDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="Wallet" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="WishList">
