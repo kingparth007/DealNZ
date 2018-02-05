@@ -28,7 +28,7 @@ namespace DealsNZ.Repository.ClassServices
                 Models.DealsModels.DealViewModel ds = new DealsModels.DealViewModel();
                 ds.DealId = item.Id;
                 ds.DealImages = item.DealImages.DealImage1;
-               ds.Price =Convert.ToInt32(item.price);
+                ds.Price =Convert.ToInt32(item.price);
                 ds.Description = item.description;
                 ds.Discount = Convert.ToInt32(item.discount);
                 ds.ValidTill = DateTime.Parse( item.expire.ToString());

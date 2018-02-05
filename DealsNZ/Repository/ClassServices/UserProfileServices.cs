@@ -146,36 +146,7 @@ namespace DealsNZ.Models.Repository.ClassServices
             //{
             SMTP.Send(ContectMail);
             return true;
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
-
-
-            //try
-            //{
-            //MailMessage mail = new MailMessage();
-            //SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
-            //mail.From = new MailAddress("parthking02@gmail.com");
-            //mail.To.Add(email);
-            //mail.Subject = subject;
-            //mail.Body = uRL;  //"This is for testing SMTP mail from GMAIL";
-
-            //SmtpServer.Port = 587;
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("parthking02", "asdfghjkl20");
-            //SmtpServer.EnableSsl = true;
-
-            //SmtpServer.Send(mail);
-            //return true;
-            ////  MessageBox.Show("mail Send");
-            ////}
-            ////catch (Exception ex)
-            ////{
-            ////    //MessageBox.Show(ex.ToString());
-            ////    return false;
-            ////}
+            
 
         }
 

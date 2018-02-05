@@ -22,7 +22,12 @@ namespace DealsNZ.Controllers.UserController
         // GET: Deal
         public ActionResult Index()
         {
-            return View();
+            if (RouteData.Values["id"] != null)
+            {
+
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult ViewDeal()
@@ -35,7 +40,7 @@ namespace DealsNZ.Controllers.UserController
 
                 ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(ID);
                 ViewBag.Message = " ";
-                return View(SingleDeal);
+                return View("Index", SingleDeal);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -46,7 +51,7 @@ namespace DealsNZ.Controllers.UserController
             {
                 return RedirectToAction("Index", "Register_Login");
             }
-            
+
             walleservice = new UserWalletServices(new DealsDB());
             Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
 
@@ -66,6 +71,7 @@ namespace DealsNZ.Controllers.UserController
                         CouponUniqueText = CreateCoupon.DealId.ToString() + GenerateCode(),
                         CouponValidTill = CreateCoupon.ValidTill,
                         CouponQty = CreateCoupon.CouponQty,
+                        CouponPrice = CreateCoupon.CouponPrice,
                         AddedOn = System.DateTime.Now.Date,
                         DealId = CreateCoupon.DealId,
                         UserId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID]),
@@ -84,10 +90,8 @@ namespace DealsNZ.Controllers.UserController
                         ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(CreateCoupon.DealId);
 
                         ViewBag.Message = "Check Your Mail To Get Coupon";
-                        return View("ViewDeal",SingleDeal);
+                        return View("ViewDeal", SingleDeal);
 
-                        
-                        //  return RedirectToAction("Index", "Home");
                     }
                 }
                 else
@@ -99,13 +103,32 @@ namespace DealsNZ.Controllers.UserController
             return View();
         }
 
-        public ActionResult RelatedDeal() {
+        public ActionResult RelatedDeal()
+        {
+
+            return View();
+
+        }
+
+        public IEnumerable<DealsModels.DealViewModel> RelatedDeals(int DealID)
+        {
 
             dealServices = new DealServices(new DealsDB());
-            
-            var DealList = dealServices.AllDeal().OrderBy(x=>Guid.NewGuid()).Take(3);
-            return View(DealList);
-            
+
+            IEnumerable<DealsModels.DealViewModel> DealList = dealServices.AllDeal().Where(x => x.DealId != DealID).OrderBy(x => Guid.NewGuid()).Take(3);
+            return DealList;
+
+        }
+
+        public ActionResult ShowCoupons()
+        {
+            if (Session[KeyList.SessionKeys.UserID] != null)
+            {
+                couponservice = new CouponService(new DealsDB());
+                var couponList = couponservice.ViewCoupons(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]));
+                return View(couponList);
+            }
+            return RedirectToAction("Index", "Register_Login");
         }
 
         private string GenerateCode()

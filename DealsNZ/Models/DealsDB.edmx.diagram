@@ -25,11 +25,8 @@
         <AssociationConnector Association="DealsModel.FK_DealImages_Deals" />
         <AssociationConnector Association="DealsModel.FK_Deals_Store" />
         <EntityTypeShape EntityType="DealsModel.Wallet" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="12.75" PointY="5.625" IsExpanded="true" />
-        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
         <EntityTypeShape EntityType="DealsModel.UserProfile" Width="1.5" PointX="3.125" PointY="5.75" />
         <AssociationConnector Association="DealsModel.FK_Card_UserProfile" />
-        <AssociationConnector Association="DealsModel.FK_Coupon_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_LogTracker_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Notification_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Store_UserProfile" />
@@ -39,6 +36,9 @@
         <AssociationConnector Association="DealsModel.FK_UserVeryfication_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_Wallet_UserProfile" />
         <AssociationConnector Association="DealsModel.FK_WishList_Deal" />
+        <EntityTypeShape EntityType="DealsModel.Coupon" Width="1.5" PointX="12.75" PointY="4.875" />
+        <AssociationConnector Association="DealsModel.FK_Coupon_Deals" />
+        <AssociationConnector Association="DealsModel.FK_Coupon_UserProfile" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

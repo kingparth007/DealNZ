@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DealsNZ.Models.DealsModels.CouponList>
+
+
+<div class="card card-content black-text">
+    <h4 class="card-title left-align">Coupons</h4>
+
+    <table style="margin:1% 1% 1% 1%;" class="table bordered responsive-table">
+        <tr>
+            <th>Coupon No</th>
+            <th>Title</th>
+            <th>Code</th>
+            <th>Coupon Qty</th>
+            <th>Coupon Price</th>
+            <th>Coupon Usage</th>
+            <th>Store Name</th>
+            <th>Expire</th>
+        </tr>
+
+
+
+        @foreach (var item in Model)
+        {
+            @*<tr>
+
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>*@
+            <tr>
+                <td>@item.CouponId</td>
+                <td><b>@item.Title</b></td>
+                <td class="red-text">@item.CouponUniqueText</td>
+                <td>@item.CouponQty</td>
+                <td>@item.CouponPrice</td>
+                <td>@item.ReedemNo</td>
+                <td><b>@item.StoreName</b><br /><i style="word-wrap:break-word">@item.Address</i></td>
+                <td>@item.CouponValidTill</td>
+                <td></td>
+            </tr>
+
+        }
+
+    </table>
+</div>
