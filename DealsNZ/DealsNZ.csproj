@@ -285,7 +285,9 @@
     <Content Include="Content\js\materialize.js" />
     <Content Include="Content\js\materialize.min.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="EmailTemp\ActivationLinkTemplate.html" />
     <Content Include="EmailTemp\CouponCodeTemplate.html" />
+    <Content Include="EmailTemp\ResetPasswordTemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
