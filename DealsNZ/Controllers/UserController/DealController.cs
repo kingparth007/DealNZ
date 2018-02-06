@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,7 +22,12 @@ namespace DealsNZ.Controllers.UserController
         // GET: Deal
         public ActionResult Index()
         {
-            return View();
+            if (RouteData.Values["id"] != null)
+            {
+
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult ViewDeal()
@@ -30,27 +36,21 @@ namespace DealsNZ.Controllers.UserController
             {
                 int ID = Convert.ToInt32(RouteData.Values["id"].ToString());
                 dealServices = new DealServices(new DealsDB());
-                Deal getDeal = dealServices.GetByID(ID);
-                ViewSingleDeal SingleDeal = new ViewSingleDeal();
-                SingleDeal.DealId = getDeal.DealId;
-                SingleDeal.DealImages = getDeal.DealImages.FirstOrDefault().DealImage1;
-                SingleDeal.Price = Convert.ToInt32(getDeal.Price);
-                SingleDeal.Description = getDeal.Description;
-                SingleDeal.Discount = Convert.ToInt32(getDeal.Discount);
-                SingleDeal.ValidTill = DateTime.Parse(getDeal.ValidTill.ToString());
-                SingleDeal.Title = getDeal.Title;
-                SingleDeal.StrikePrice = Convert.ToInt32(getDeal.StrikePrice);
-                SingleDeal.CouponPrice = Convert.ToInt32(getDeal.StrikePrice);
-                SingleDeal.IsDealFree = Convert.ToBoolean(getDeal.IsDealFree);
-                return View(SingleDeal);
+
+
+                ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(ID);
+                ViewBag.Message = " ";
+                return View("Index", SingleDeal);
             }
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CouponGenerator(ViewSingleDeal CreateCoupon)
         {
-
-
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return RedirectToAction("Index", "Register_Login");
+            }
 
             walleservice = new UserWalletServices(new DealsDB());
             Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
@@ -71,6 +71,7 @@ namespace DealsNZ.Controllers.UserController
                         CouponUniqueText = CreateCoupon.DealId.ToString() + GenerateCode(),
                         CouponValidTill = CreateCoupon.ValidTill,
                         CouponQty = CreateCoupon.CouponQty,
+                        CouponPrice = CreateCoupon.CouponPrice,
                         AddedOn = System.DateTime.Now.Date,
                         DealId = CreateCoupon.DealId,
                         UserId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID]),
@@ -81,7 +82,17 @@ namespace DealsNZ.Controllers.UserController
                     couponservice.Dispose();
                     Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
                     walleservice.Dispose();
-                    return RedirectToAction("Index", "Home");
+                    string CouponBody = createEmailBody(CreateCoupon.StoreName, CreateCoupon.Address, CreateCoupon.Title, CreateCoupon.Price.ToString(), CreateCoupon.StrikePrice.ToString(), CreateCoupon.Discount.ToString(), InsertCoupon.CouponQty.ToString(), InsertCoupon.CouponValidTill.ToString(), InsertCoupon.CouponUniqueText);
+                    string Title = "Coupon For " + CreateCoupon.Title;
+                    IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
+                    if (UserProfileService.UserMail(CouponBody, Title, Session[KeyList.SessionKeys.UserEmail].ToString()) == true)
+                    {
+                        ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(CreateCoupon.DealId);
+
+                        ViewBag.Message = "Check Your Mail To Get Coupon";
+                        return View("ViewDeal", SingleDeal);
+
+                    }
                 }
                 else
                 {
@@ -92,6 +103,33 @@ namespace DealsNZ.Controllers.UserController
             return View();
         }
 
+        public ActionResult RelatedDeal()
+        {
+
+            return View();
+
+        }
+
+        public IEnumerable<DealsModels.DealViewModel> RelatedDeals(int DealID)
+        {
+
+            dealServices = new DealServices(new DealsDB());
+
+            IEnumerable<DealsModels.DealViewModel> DealList = dealServices.AllDeal().Where(x => x.DealId != DealID).OrderBy(x => Guid.NewGuid()).Take(3);
+            return DealList;
+
+        }
+
+        public ActionResult ShowCoupons()
+        {
+            if (Session[KeyList.SessionKeys.UserID] != null)
+            {
+                couponservice = new CouponService(new DealsDB());
+                var couponList = couponservice.ViewCoupons(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]));
+                return View(couponList);
+            }
+            return RedirectToAction("Index", "Register_Login");
+        }
 
         private string GenerateCode()
         {
@@ -112,6 +150,36 @@ namespace DealsNZ.Controllers.UserController
             }
             return otpString;
         }
+
+        private string createEmailBody(string StoreName, string Address, string DealTitle, string Price, string StrikePrice, string Discount, string Qty, string Expire, string Code)
+
+        {
+
+            string body = string.Empty;
+            //using streamreader for reading my htmltemplate   
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemp/CouponCodeTemplate.html")))
+
+            {
+
+                body = reader.ReadToEnd();
+
+            }
+
+            body = body.Replace("{DealTitle}", DealTitle); //replacing the required things  
+            body = body.Replace("{Price}", Price);
+            body = body.Replace("{StrikePrice}", StrikePrice);
+            body = body.Replace("{Discount}", Discount);
+            body = body.Replace("{Qty}", Qty);
+            body = body.Replace("{Expire}", Expire);
+            body = body.Replace("{Code}", Code);// 
+            body = body.Replace("{Address}", Address);
+            body = body.Replace("{Store}", StoreName);// 
+
+            return body;
+
+        }
+
     }
 
 

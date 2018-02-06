@@ -484,7 +484,7 @@ ToList();
             if (cupon.CouponValidTill <= DateTime.Now)
             {
 
-                TempData["Message"] = "The deal " + cupon.CouponUniqueText + " you trying to redeeem is already expired";
+                TempData["Message"] = "The deal <b> " + cupon.CouponUniqueText + "</b> you trying to redeeem is already expired";
             }
             else
             {

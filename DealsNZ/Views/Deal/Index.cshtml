@@ -1,0 +1,37 @@
+﻿@model DealsNZ.Models.DealsModels.ViewSingleDeal
+@{
+    ViewBag.Title = "View Deal";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="row shades">
+    <div class="card grey lighten-2">
+        <div class="card-content black-text">
+            <span class="card-title">Deals</span>
+            <div class="row">
+                <div>
+                    @{Html.RenderPartial("ViewDeal", Model);}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="row shades">
+    <div class="card grey lighten-2">
+        <div class="card-content black-text">
+            <span class="card-title">Deals</span>
+            <div class="row">
+                <div>
+                    @{Html.RenderPartial("RelatedDeal", (
+                            ((DealsNZ.Controllers.UserController.DealController)( new DealsNZ.Controllers.UserController.DealController())).RelatedDeals(Model.DealId)
+                        ));}
+</div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

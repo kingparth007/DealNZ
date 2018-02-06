@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace DealsNZ.Repository.Interface
 {
-    interface ICoupon:_IRepositoryList<Coupon>
+    interface ICoupon : _IRepositoryList<Coupon>
     {
-        //for company
 
-               void UpdateCoupon(Coupon _coupon);
+        void UpdateCoupon(Coupon _coupon);
+        IEnumerable<DealsModels.CouponList> ViewCoupons(int UserID);
     }
 }

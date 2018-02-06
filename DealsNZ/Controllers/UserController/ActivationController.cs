@@ -62,7 +62,7 @@ namespace DealsNZ.Controllers.UserController
 
                     UserVerificationService.Insert(ForgotPasswordUser);
                     string URL = "http://localhost:20629/Register_Login/Reset/" + ForgotPasswordUser.UserVerificationCode;
-                    UserProfileService.UserMail(URL, "For Reset Password", checkemail.Name, checkemail.Email);
+                    UserProfileService.UserMail(URL, "For Reset Password",  checkemail.Email);
                     ViewBag.ForgotPassError = "Check Your Mail for Reset Link";
                     return View();
                 }

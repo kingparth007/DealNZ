@@ -27,7 +27,7 @@
                         <ul class="right hide-on-med-and-down">
                             <li><span><a href="#">$ @Session[KeyList.SessionKeys.WalletCredit].ToString()</a></span></li>
                         </ul>
-                                } }
+                    } }
                 @*<li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>*@
 
                 <ul class="right hide-on-med-and-down">
@@ -37,7 +37,8 @@
                 <ul class="right hide-on-med-and-down">
                     <li><span><a href="@Url.Action("Index","Home")"><i class="material-icons white-text">home</i></a></span></li>
                     <li><span><a href="#" class="text-darken-4"><i class="show-search-bar material-icons white-text">search</i></a></span></li>
-                </ul></ul>
+                </ul>
+            </ul>
         </div>
     </nav>
     <nav id="search-bar" class="blue-grey lighten-5">
@@ -71,12 +72,12 @@
             <li><div class="divider"></div></li>
             <li><a href="#!">Featured</a></li>
             <li><a href="#!"><i class="material-icons amber-text">whatshot</i>Hot Deals</a></li>
-           
             <li><a href="#!"><i class="material-icons red-text accent-3">loyalty</i>New Deals</a></li>
             <li><div class="divider"></div></li>
             <li><a href="#!">Quick Search</a></li>
             <li><a href="#!"><i class="material-icons">restaurant</i>Food</a></li>
             <li><a href="#!"><i class="material-icons">accessibility</i>Clothings</a></li>
+            <li><a href=@Url.Action("ShowCoupons", "Deal")><i class="material-icons">confirmation_number</i>Coupons</a></li>
         </ul>
 
         <ul class="picker__list">
@@ -92,12 +93,12 @@
 
 
                     </li>
-                                <li class="picker__list-item">
-                                    <a href=@Url.Action("Index","Wallet") class="waves-effect waves-lightmodal-trigger"><i class="material-icons teal-text">account_balance_wallet</i><i style="font:8px;" class="materialize-teal-text">Wallet</i></a>
+                    <li class="picker__list-item">
+                        <a href=@Url.Action("Index","Wallet") class="waves-effect waves-lightmodal-trigger"><i class="material-icons teal-text">account_balance_wallet</i><i style="font:8px;" class="materialize-teal-text">Wallet</i></a>
 
 
-                                </li>
-                                <li class="picker__list-item"><a href="/Register_Login/LoggedOut"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                    </li>
+                    <li class="picker__list-item"><a href="/Register_Login/LoggedOut"><i class="material-icons">exit_to_app</i>Logout</a></li>
 
                 }
             }
@@ -114,10 +115,10 @@
         </div>*@
 
 
-    <div class="container body-content" style="width:90%">
+    <div class="container body-content" style="width:80%">
         @RenderBody()
     </div>
-   
+
     <footer style="bottom:0;position:fixed;z-index:-3" class="page-footer footer-copyright blue-grey lighten-5 teal-text">
 
         <div class="container">
@@ -141,6 +142,11 @@
 
 
     @Scripts.Render("~/bundles/materializejs")
+    
+    @section scripts
+        {
+        @RenderSection("scripts", required: false)
+    }
 
     <script>
 
@@ -166,6 +172,7 @@
         });
 
         $(document).ready(function () {
+
             // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
 
@@ -185,28 +192,44 @@
             });
 
             $('.tabs-wrapper .row').pushpin('remove');
+
+
+
+            $("#Cqty").change(function () {
+
+                debugger;
+                a = $("#Cqty").val();
+                b = $("#strikePrice").val();
+                c = (a * b);
+                $("#Cprice").text(c);
+                $("#HiddenCouponPrice").val(c);
+            });
+
         });
+
+        
+
         $(document).ready(function () {
-            $('.carousel').carousel();
+                $('.carousel').carousel();
 
-            $('.carousel.carousel-slider').carousel({ fullWidth: true });
+                $('.carousel.carousel-slider').carousel({ fullWidth: true });
 
-            $('.slider').slider();
+                $('.slider').slider();
 
-            // Pause slider
-            $('.slider').slider('pause');
-            // Start slider
-            $('.slider').slider('start');
-            // Next slide
-            $('.slider').slider('next');
-            // Previous slide
-            $('.slider').slider('prev');
+                // Pause slider
+                $('.slider').slider('pause');
+                // Start slider
+                $('.slider').slider('start');
+                // Next slide
+                $('.slider').slider('next');
+                // Previous slide
+                $('.slider').slider('prev');
 
-        });
+            });
 
     </script>
 
-    @RenderSection("scripts", required: false)
+
 
 </body>
 </html>

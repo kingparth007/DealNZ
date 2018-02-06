@@ -26,7 +26,7 @@ namespace DealsNZ.Models
             [DisplayName("Company")]
             [Required]
             public int CompanyId { get; set; }
-           
+
             [StringLength(20, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
             public string CompanyName { get; set; }
             public IEnumerable<CompanyViewModel> CompanyList { get; set; }
@@ -69,7 +69,7 @@ namespace DealsNZ.Models
             public int Price { get; set; }
             [StringLength(250, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
             public string Title { get; set; }
-            [StringLength(500, ErrorMessage = "Length Between 0 to 500 character", MinimumLength = 0)]
+            [StringLength(2000, ErrorMessage = "Length Between 0 to 2000 character", MinimumLength = 0)]
             public string Description { get; set; }
             public DateTime AddedOn { get; set; }
             public bool IsDeleted { get; set; }
@@ -93,19 +93,36 @@ namespace DealsNZ.Models
 
             public int DealId { get; set; }
             [DisplayName("Expire On")]
-            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
-   ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
             public DateTime ValidTill { get; set; }
             public string DealImages { get; set; }
             [Required]
             public int CouponQty { get; set; }
             public int Discount { get; set; }
-            public int StrikePrice { get; set; }
-            public int Price { get; set; }
+            public decimal StrikePrice { get; set; }
+            public decimal Price { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
-            public int CouponPrice { get; set; }
+            public decimal CouponPrice { get; set; }
+            public string StoreName { get; set; }
+            public string Address { get; set; }
             public bool IsDealFree { get; set; }
+        }
+
+        public class CouponList {
+
+            public int CouponId { get; set; }
+            public string CouponUniqueText { get; set; }
+            public System.DateTime CouponValidTill { get; set; }
+            public decimal CouponPrice { get; set; }
+            public int UserId { get; set; }
+            public int DealId { get; set; }
+            public string Title { get; set; }
+            public System.DateTime AddedOn { get; set; }
+            public int CouponQty { get; set; }
+            public int ReedemNo { get; set; }
+            public string StoreName { get; set; }
+            public string Address { get; set; }
 
         }
 

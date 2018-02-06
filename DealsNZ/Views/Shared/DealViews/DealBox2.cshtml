@@ -1,15 +1,24 @@
 ﻿@model DealsNZ.Models.DealsModels.DealViewModel
 
-        <div class="col s12 m3">
+        <div class="col s12 m4">
             <div class="card white">
                 <div class="card-image waves-effect waves-block waves-light rounded">
                     <img src="@Url.Content(Model.DealImages)" style="object-fit:none;object-position:center;height:200px;width:95%;margin:2%" />
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">@Model.Title<i class="material-icons right">more_vert</i></span>
-                    <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i><strike>$@Model.Price</strike></span>
-                    <br /> <span class="right teal-text center"><i class="material-icons" style="font-size:18px"></i>$@Model.StrikePrice</span>
-                    <br />
+                    @{ if (Model.StrikePrice == Model.Price)
+                        {
+                            <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i>$@Model.Price</span>
+                        }
+                        else
+                        {
+                            <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i><strike>$@Model.Price</strike></span>
+                            <br /> <span class="right teal-text center"><i class="material-icons" style="font-size:18px"></i>$@Model.StrikePrice</span>
+                            <br />
+                        }
+                    }
+                   
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Expire:@Model.ValidTill.ToString("dd/MM/yyyy")<i class="material-icons right">close</i></span>
