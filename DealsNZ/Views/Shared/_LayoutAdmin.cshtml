@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using DealsNZ.Helpers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -21,7 +22,12 @@
             <a id="logo-container" href="#" target="_blank" class="brand-logo white-text center-align"> DealsNZ-Admin</a>
 
             <ul class="right hide-on-med-and-down">
+                @{ if (Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID] != null)
+                    {
 
+                        <li><span><a href=@Url.Action("Index","Wallet")>$ @Session[KeyList.SessionKeys.WalletCredit].ToString()</a></span></li>
+
+                    } }
                 <li><span><a href="/Register_Login"><i class="material-icons White-text">account_circle</i></a></span></li>
             </ul>
 
@@ -31,8 +37,13 @@
     <div id="slide-out" class="side-nav blue-grey lighten-5">
 
         <ul>
+            @{ if (Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID] != null)
+                {
 
-            <li><a href="#!"><i class="material-icons blue-text">dashboard</i> Dashboard </a></li>
+                    <li class="hide-on-large-only teal-text"><span>Credit-<a href=@Url.Action("Index","Wallet")>$ @Session[KeyList.SessionKeys.WalletCredit].ToString()</a></span></li>
+
+                } }
+            <li><a href="#!"><i class="material-icons blue-text">Dashboard</i> Dashboard </a></li>
             <li><a href="#!"><i class="material-icons">notifications</i>Notification</a></li>
             <li><a href=@Url.Action("Deal","Admin")><i class="material-icons">local_offer</i> Deals </a></li>
             <li><a href=@Url.Action("Coupon","Admin")><i class="material-icons blue-text">redeem</i>Coupons</a></li>
@@ -51,7 +62,7 @@
         </ul>
         <ul>
             @{
-                if (Session["UserEmail"] != null && Session["UserType"] != null)
+                if (Session[DealsNZ.Helpers.KeyList.SessionKeys.UserEmail] != null && Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID] != null)
 
 
                 //if (Request.IsAuthenticated)

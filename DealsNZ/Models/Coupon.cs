@@ -24,7 +24,7 @@ namespace DealsNZ.Models
         public Nullable<int> DealId { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
     
-        public virtual Deal Deal { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        public virtual Deal Deal { get; set; }
     }
 }

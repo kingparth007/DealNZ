@@ -97,15 +97,14 @@ namespace DealsNZ.Controllers.UserController
                                 int q = Convert.ToInt32(i.quantity);
                                 Decimal p = Convert.ToDecimal(i.price);
                                
-
-
-                               
                                 walleservice = new UserWalletServices(new DealsDB());
                                 Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
 
                                 AddTrans.UserId = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
                                 AddTrans.WalletCredit = Convert.ToDecimal( p+ Convert.ToDecimal(AddTrans.WalletCredit));
                                 AddTrans.WalletCreditDate = System.DateTime.Now;
+
+
                                 if (walleservice.WalletUpdate(AddTrans) == true)
                                 {
                                     Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));

@@ -12,6 +12,7 @@ namespace DealsNZ.Controllers
     public class Register_LoginController : Controller
     {
 
+        public static string url = "";
         IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
         //  IUserType up = new UserTypeService(new DealsDB());
 
@@ -19,7 +20,7 @@ namespace DealsNZ.Controllers
 
         public ActionResult Index()
         {
-
+            url = Request.UrlReferrer.ToString();
             ViewBag.RegisterError = "";
             ViewBag.LoginError = "";
             if (Session[KeyList.SessionKeys.UserID] != null)
@@ -94,8 +95,8 @@ namespace DealsNZ.Controllers
                             Session[KeyList.SessionKeys.UserID] = loggeduser.UserId;
                             IUserWallet WalletService = new UserWalletServices(new DealsDB());
                             WalletService.ShowWalletAmount(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
-                            Session[KeyList.SessionKeys.WalletCredit]= WalletService.ShowWalletAmount(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
-                            WalletService.Dispose();       
+                            Session[KeyList.SessionKeys.WalletCredit] = WalletService.ShowWalletAmount(Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString()));
+                            WalletService.Dispose();
                             Logs GenerateLog = new Logs();
 
                             GenerateLog.CreateLog(loggeduser.UserId, KeyList.LogMessages.LoginMessage);
@@ -108,8 +109,7 @@ namespace DealsNZ.Controllers
                             {
                                 return Redirect(Url.Action("Index", "Home"));
                             }
-
-                            return Redirect(Url.Action("Index", "Home"));
+                            return Redirect(url);
                         }
                         else
                         {

@@ -19,7 +19,9 @@ namespace DealsNZ.Controllers.UserController
         IDeal dealServices;
         ICoupon couponservice;
         IUserWallet walleservice;
+        IUserWishList wishListService;
         // GET: Deal
+
         public ActionResult Index()
         {
             if (RouteData.Values["id"] != null)
@@ -40,6 +42,7 @@ namespace DealsNZ.Controllers.UserController
 
                 ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(ID);
                 ViewBag.Message = " ";
+                dealServices.Dispose();
                 return View("Index", SingleDeal);
             }
             return RedirectToAction("Index", "Home");
@@ -52,6 +55,7 @@ namespace DealsNZ.Controllers.UserController
                 return RedirectToAction("Index", "Register_Login");
             }
 
+            //    walleservice = new UserWalletServices(new DealsDB());
             walleservice = new UserWalletServices(new DealsDB());
             Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
 
@@ -64,7 +68,11 @@ namespace DealsNZ.Controllers.UserController
                 AddTrans.UserId = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
                 AddTrans.WalletCredit = Convert.ToDecimal(Convert.ToDecimal(AddTrans.WalletCredit) - Convert.ToDecimal(CreateCoupon.CouponPrice));
                 AddTrans.WalletCreditDate = System.DateTime.Now;
-                if (walleservice.WalletUpdate(AddTrans) == true)
+
+                Wallet DealUserWallet = walleservice.GetCreditByDealUserID(CreateCoupon.DealId);
+                DealUserWallet.WalletCredit = Convert.ToDecimal(Convert.ToDecimal(DealUserWallet.WalletCredit) + Convert.ToDecimal(CreateCoupon.CouponPrice));
+
+                if (walleservice.WalletUpdate(AddTrans) == true && walleservice.WalletUpdate(DealUserWallet) == true)
                 {
                     Coupon InsertCoupon = new Coupon()
                     {
@@ -87,10 +95,11 @@ namespace DealsNZ.Controllers.UserController
                     IUserProfile UserProfileService = new UserProfileServices(new DealsDB());
                     if (UserProfileService.UserMail(CouponBody, Title, Session[KeyList.SessionKeys.UserEmail].ToString()) == true)
                     {
+                        dealServices = new DealServices(new DealsDB());
                         ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(CreateCoupon.DealId);
-
+                        dealServices.Dispose();
                         ViewBag.Message = "Check Your Mail To Get Coupon";
-                        return View("ViewDeal", SingleDeal);
+                        return View("Index", SingleDeal);
 
                     }
                 }
@@ -179,8 +188,61 @@ namespace DealsNZ.Controllers.UserController
             return body;
 
         }
+        
+        public ActionResult InsertInWishList()
+        {
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return RedirectToAction("Index", "Register_Login");
+            }
+            if (RouteData.Values["id"] != null)
+            {
+                int DealID = Convert.ToInt32(RouteData.Values["id"].ToString());
+                WishList InsWishList = new WishList();
+                InsWishList.DealId = DealID;
+                InsWishList.UserId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+                InsWishList.AddedOn = System.DateTime.Now;
+                wishListService = new UserWishListService(new DealsDB());
+                wishListService.Insert(InsWishList);
+                wishListService.Dispose();
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
+        public ActionResult ViewWishList()
+        {
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return RedirectToAction("Index", "Register_Login");
+            }
+            wishListService = new UserWishListService(new DealsDB());
+            var List = wishListService.ViewWishListByUser(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]));
+            wishListService.Dispose();
+            return View(List);
+        }
+
+        public ActionResult RemoveFromWishList()
+        {
+            if (Session[KeyList.SessionKeys.UserID] == null)
+            {
+                return RedirectToAction("Index", "Register_Login");
+            }
+            if (RouteData.Values["id"] != null)
+            {
+                int DealID = Convert.ToInt32(RouteData.Values["id"].ToString());
+                int UserID = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+                wishListService = new UserWishListService(new DealsDB());
+                WishList DelWishList = wishListService.GetAll().Where(x => x.DealId == DealID && x.UserId == UserID).FirstOrDefault();
+                wishListService.Delete(DelWishList);
+                wishListService.Dispose();
+                return View("ViewWishList");
+            }
+            else {
+                return View("ViewWishList");
+            }
+            
+        }
     }
-
-
+    
 }

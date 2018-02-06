@@ -523,6 +523,17 @@ ToList();
             }
             return true;
         }
+        
+  
+        public ActionResult Dashboard()
+        {
+            int UserID = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+            int StoreCount = storeService.GetAll().Where(x=>x.UserId==UserID).Count();
+            int DealCount = dealServices.GetAll().Where(x => x.Store.UserId == UserID).Count();
+            int CouponCount = couponService.GetAll().Where(x => x.Deal.Store.UserId == UserID).Count();
+           
+            return View();
+        }
 
     }
 }

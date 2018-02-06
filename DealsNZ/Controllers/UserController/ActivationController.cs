@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +13,7 @@ namespace DealsNZ.Controllers.UserController
     public class ActivationController : Controller
     {
         // GET: Activation
-
+        string Domain = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
         IUserProfile UserProfileService;
         //IUserType up = new UserTypeService(new DealsDB());
         IUserVerification UserVerificationService = new UserVerificationService(new DealsDB());
@@ -61,13 +62,24 @@ namespace DealsNZ.Controllers.UserController
                     };
 
                     UserVerificationService.Insert(ForgotPasswordUser);
-                    string URL = "http://localhost:20629/Register_Login/Reset/" + ForgotPasswordUser.UserVerificationCode;
-                    UserProfileService.UserMail(URL, "For Reset Password",  checkemail.Email);
+
+                    string body = string.Empty;
+                    //using streamreader for reading my htmltemplate   
+                    using (StreamReader reader = new StreamReader(@"~/EmailTemp/ResetPasswordTemplate.html"))
+                    {
+
+                        body = reader.ReadToEnd();
+
+                    }
+
+                    string URL = Domain + "/Register_Login/Reset/" + ForgotPasswordUser.UserVerificationCode;
+                    body = body.Replace("{LinkUrl}", URL); //replacing the required things  
+
+                    UserProfileService.UserMail(body, "For Reset Password", checkemail.Email);
                     ViewBag.ForgotPassError = "Check Your Mail for Reset Link";
                     return View();
                 }
-                ViewBag.ForgotPassError = "Email Does not Exists";
-
+                ViewBag.ForgotPassError = "EmailId Does not Exists";
             }
             return View(ForgotPass);
         }

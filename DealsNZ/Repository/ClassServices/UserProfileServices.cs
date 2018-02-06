@@ -10,6 +10,7 @@ using DealsNZ.Models.Repository.Interface;
 using RepoPattern.Models.RepositoryFiles;
 using DealsNZ.Helpers;
 using System.Net.Mime;
+using System.IO;
 
 namespace DealsNZ.Models.Repository.ClassServices
 {
@@ -21,6 +22,7 @@ namespace DealsNZ.Models.Repository.ClassServices
         IUserWallet WalletService;
         IUserVerification VerificationService;
 
+        string Domain = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
         public object MessageBox { get; private set; }
 
         public UserProfileServices(DealsDB Data) : base(Data)
@@ -86,6 +88,8 @@ namespace DealsNZ.Models.Repository.ClassServices
                     var RemoveUser = GetByID(id);
                     Delete(RemoveUser);
                     return false;
+
+                   
                     //string Purpose = "Register";
                     //Guid guid = Guid.NewGuid();
                     //UserVerification UserVerificationAtRegister = new UserVerification()
@@ -156,11 +160,22 @@ namespace DealsNZ.Models.Repository.ClassServices
             UserVerification userverify = DealDb.UserVerifications.Where(x => x.Userid.Equals(UserID)).Where(x => x.Purpose.Equals(KeyList.ActivationsKeys.Register)).SingleOrDefault();
             if (userverify != null)
             {
+                
+                string body = string.Empty;
+                //using streamreader for reading my htmltemplate   
+                using (StreamReader reader = new StreamReader(@"~/EmailTemp/ActivationLinkTemplate.html"))
 
-                //string dec = Decryptdata(enc);
+                {
 
-                string URL = "http://localhost:20629/Activation/Activate/" + userverify.UserVerificationCode;
-                UserMail(URL, "Activate Your Account", email);
+                    body = reader.ReadToEnd();
+
+                }
+
+
+                string URL = Domain + "/Activation/Activate/" + userverify.UserVerificationCode;
+                body = body.Replace("{LinkUrl}", URL); //replacing the required things  
+                
+                UserMail(body, "Activate Your Account", email);
                
                 return true;
             }
@@ -192,9 +207,20 @@ namespace DealsNZ.Models.Repository.ClassServices
 
                     //Mail Logic
                     // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
-                    string URL = "http://localhost:20629/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
+                    string body = string.Empty;
+                    //using streamreader for reading my htmltemplate   
+                    using (StreamReader reader = new StreamReader(@"~/EmailTemp/ActivationLinkTemplate.html"))
+
+                    {
+
+                        body = reader.ReadToEnd();
+
+                    }
+                    string URL = Domain + "/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
+                    body = body.Replace("{LinkUrl}", URL); //replacing the required things  
+                    
                     //string dec = Decryptdata(enc);
-                    UserMail(URL, "Activate Your Account", email);
+                    UserMail(body, "Activate Your Account", email);
                     return true;
                 }
 

@@ -44,6 +44,17 @@ namespace DealsNZ.Models.Repository.ClassServices
             return WalletAmount;
 
         }
+
+        public Wallet GetCreditByDealUserID(int DealID)
+        {
+
+            var CreditUser = DealDb.Deals.Where(x => x.DealId == DealID).SingleOrDefault();
+
+            Wallet WalletAmount = DealDb.Wallets.Where(x => x.UserId == CreditUser.Store.UserId).OrderByDescending(x => x.WalletCreditDate).FirstOrDefault();
+            
+            return WalletAmount;
+
+        }
         public string ShowWalletAmount(int UserID)
         {
 
