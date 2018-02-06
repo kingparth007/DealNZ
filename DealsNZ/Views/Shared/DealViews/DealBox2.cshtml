@@ -18,12 +18,12 @@
                         @{ if (Model.StrikePrice == Model.Price)
                             {
                                 <span class="teal-text" style="font-size:16px;">&nbsp;</span>
-                                <span class="teal-text right" style="font-size:20px;">$@Model.Price</span>
+                                <span class="pink-text right" style="font-size:20px;">$@Model.Price</span>
                             }
                             else
                             {
                                 <span class="grey-text" style="font-size:16px;">Was <strike>$@Model.Price</strike></span>
-                                    <span class="teal-text right" style="font-size:20px;"><b>$@Model.StrikePrice</b></span>
+                                    <span class="pink-text right" style="font-size:20px;"><b>$@Model.StrikePrice</b></span>
                             }
                         }
                     </div>
