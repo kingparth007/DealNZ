@@ -40,5 +40,17 @@ namespace DealsNZ.Repository.ClassServices
 
             return Wish;
         }
+
+        public bool wishlistCheck(int DealId, int UserID) {
+
+            int CheckWishList = DealDb.WishLists.Where(x => x.DealId == DealId && x.UserId == UserID).Count();
+
+            if (CheckWishList == 0) {
+
+                return true;
+            }
+            return false;
+
+        }
     }
 }

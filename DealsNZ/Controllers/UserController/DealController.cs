@@ -188,7 +188,7 @@ namespace DealsNZ.Controllers.UserController
             return body;
 
         }
-        
+
         public ActionResult InsertInWishList()
         {
             if (Session[KeyList.SessionKeys.UserID] == null)
@@ -197,13 +197,25 @@ namespace DealsNZ.Controllers.UserController
             }
             if (RouteData.Values["id"] != null)
             {
+
                 int DealID = Convert.ToInt32(RouteData.Values["id"].ToString());
+
                 WishList InsWishList = new WishList();
                 InsWishList.DealId = DealID;
                 InsWishList.UserId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
                 InsWishList.AddedOn = System.DateTime.Now;
                 wishListService = new UserWishListService(new DealsDB());
-                wishListService.Insert(InsWishList);
+                if (wishListService.wishlistCheck(DealID, InsWishList.UserId) == true)
+                {
+                    wishListService.Insert(InsWishList);
+                    ViewBag.Message = "Added to WishList";
+
+                }
+                else
+                {
+                    ViewBag.Message = "Already Added";
+                }
+
                 wishListService.Dispose();
                 return RedirectToAction("Index", "Home");
             }
@@ -238,11 +250,12 @@ namespace DealsNZ.Controllers.UserController
                 wishListService.Dispose();
                 return View("ViewWishList");
             }
-            else {
+            else
+            {
                 return View("ViewWishList");
             }
-            
+
         }
     }
-    
+
 }
