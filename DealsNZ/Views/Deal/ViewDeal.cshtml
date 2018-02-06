@@ -7,7 +7,7 @@
 
     .image_deal {
         object-fit: cover;
-        width: 100%;
+        width: 260px;
         height: 100%;
     }
 
@@ -33,17 +33,35 @@
 
                     <div class="row" style="margin-top:30px">
                         <div class="container-fluid">
-                            <div class="col s12 m3 center">
-                                <p>Validity</p>
-                                <p><b>@Model.ValidTill.Date.ToString("dd MMM yyyy")</b></p>
-                            </div>
                             @{
                                 if (Model.Price == Model.StrikePrice)
                                 {
+                                    <div class="col s12 m4 center">
+                                        <p>Validity</p>
+                                        <p><b>@Model.ValidTill.Date.ToString("dd MMM yyyy")</b></p>
+                                    </div>
+                                    <div class="col s12 m4 center">
+                                        <p>Discount</p>
+                                        <p><b>@Model.Discount%</b></p>
+                                    </div>
+                                    <div class="col s12 m4 center">
+                                        <p>Price</p>
+                                        <p><b>$@Model.Price</b></p>
+                                    </div>
+                                }
+                                else
+                                {
+
+                                    <div class="col s12 m3 center">
+                                        <p>Validity</p>
+                                        <p><b>@Model.ValidTill.Date.ToString("dd MMM yyyy")</b></p>
+                                    </div>
+
                                     <div class="col s12 m3 center">
                                         <p>Discount</p>
                                         <p><b>@Model.Discount%</b></p>
                                     </div>
+
                                     <div class="col s12 m3 center">
                                         <p>Now</p>
                                         <p><b><span class="activator grey-text text-darken-4">$@Model.StrikePrice</span></b></p>
@@ -54,32 +72,35 @@
                                     </div>
 
                                 }
-                                else
-                                {
-
-                                    <div class="col s12 m3 center">
-                                        <p>Price</p>
-                                        <p><b><strike>$@Model.Price</strike></b></p>
-                                    </div>
-                                }
                             }
 
                         </div>
-
-
-                        <br />
-
+                        <br/><br /><br /><br />
                         <div class="container-fluid">
-                            <div class="col s12 m6 center">
-                                <p>Store Name</p>
-                                <p><b>@Model.StoreName</b></p>
-                            </div>
-                            <div class="col s12 m6 center">
-                                <p>Store Address</p>
-                                <p><b>@Model.Address</b></p>
-                            </div>
-
-
+                            @{
+                                if (Model.Price == Model.StrikePrice)
+                                {
+                                    <div class="col s12 m4 center">
+                                        <p>Available At</p>
+                                        <p><b>@Model.StoreName</b></p>
+                                    </div>
+                                    <div class="col s12 m4 center">
+                                        <p>Address</p>
+                                        <p><b>@Model.Address</b></p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col s12 m6 center">
+                                        <p>Available At</p>
+                                        <p><b>@Model.StoreName</b></p>
+                                    </div>
+                                    <div class="col s12 m6 center">
+                                        <p>Address</p>
+                                        <p><b>@Model.Address</b></p>
+                                    </div>
+                                }
+                            }
                         </div>
 
 
@@ -95,23 +116,21 @@
                         @Html.HiddenFor(model => model.StoreName)
                         @Html.HiddenFor(model => model.Address)
                     </div>
+                    @if (Model.IsDealFree == false)
+                    {
+                        <p>Quantity</p>
+                        @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
+                        @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
+                    }
                 </div>
-
-                <br />
+                @if (Model.IsDealFree == false)
+                {
+                    <div class="card-action">
+                        Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
+                        <b><input type="submit" value="Payment For Check-out" name="Payment For Check-out" class="btn-flat pull-right pink-text hovercolor" /></b>
+                    </div>
+                }
             </div>
-            @if (Model.IsDealFree == false)
-            {
-
-                <div class="card-action">
-                    <p>Quantity</p>
-                    @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
-                    @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
-
-
-                    Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
-                    <b><input type="submit" value="Payment For Check-out" name="Payment For Check-out" class="btn-flat pull-right pink-text hovercolor" /></b>
-                </div>
-            }
         </div>
     </div>
                                 }
@@ -124,7 +143,6 @@
         });
 
         $("#Cqty").change(function () {
-            //  $("#CouponPrice").val($("#Cqty").val() * ("#StrikePrice").val());
             debugger;
             a = $("#Cqty").val();
             b = $("#strikePrice").val();
@@ -132,11 +150,6 @@
             $("#Cprice").val(c);
             $("#HiddenCouponPrice").val(c);
         });
-
-        //$("#Cqty").on("change", function () {
-        //    debugger;
-        //    alert("Hello");
-        //});
     </script>
 }
 
