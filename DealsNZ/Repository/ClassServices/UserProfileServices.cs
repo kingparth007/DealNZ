@@ -21,6 +21,7 @@ namespace DealsNZ.Models.Repository.ClassServices
         //UnitOfWorks unitofworks = new UnitOfWorks(new DealsDB());
         IUserWallet WalletService;
         IUserVerification VerificationService;
+
         string Domain = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
         public object MessageBox { get; private set; }
 

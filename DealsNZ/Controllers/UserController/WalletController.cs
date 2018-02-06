@@ -103,6 +103,8 @@ namespace DealsNZ.Controllers.UserController
                                 AddTrans.UserId = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
                                 AddTrans.WalletCredit = Convert.ToDecimal( p+ Convert.ToDecimal(AddTrans.WalletCredit));
                                 AddTrans.WalletCreditDate = System.DateTime.Now;
+
+
                                 if (walleservice.WalletUpdate(AddTrans) == true)
                                 {
                                     Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));

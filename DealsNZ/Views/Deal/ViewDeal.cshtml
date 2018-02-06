@@ -120,18 +120,18 @@
 @section Scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            alert("hello");
+            $("#Cqty").change(function () {
+                //  $("#CouponPrice").val($("#Cqty").val() * ("#StrikePrice").val());
+                debugger;
+                a = $("#Cqty").val();
+                b = $("#strikePrice").val();
+                c = (a * b);
+                $("#Cprice").text(c);
+                $("#HiddenCouponPrice").val(c);
+            });
+
         });
 
-        $("#Cqty").change(function () {
-            //  $("#CouponPrice").val($("#Cqty").val() * ("#StrikePrice").val());
-            debugger;
-            a = $("#Cqty").val();
-            b = $("#strikePrice").val();
-            c = (a * b);
-            $("#Cprice").val(c);
-            $("#HiddenCouponPrice").val(c);
-        });
 
         //$("#Cqty").on("change", function () {
         //    debugger;

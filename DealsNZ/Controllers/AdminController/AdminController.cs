@@ -488,11 +488,11 @@ ToList();
             }
             else
             {
-                if (cupon.ReedemNo< cupon.CouponQty)
+                if (cupon.ReedemNo < cupon.CouponQty)
                 {
                     cupon.ReedemNo = cupon.ReedemNo + 1;
                     couponService.UpdateCoupon(cupon);
-                    TempData["Message"] = "The coupon  " + cupon.CouponUniqueText +" is redeemed for " + cupon.ReedemNo + " times";
+                    TempData["Message"] = "The coupon  " + cupon.CouponUniqueText + " is redeemed for " + cupon.ReedemNo + " times";
                 }
                 else
                 {
@@ -509,6 +509,17 @@ ToList();
                 return false;
             }
             return true;
+        }
+        
+  
+        public ActionResult Dashboard()
+        {
+            int UserID = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
+            int StoreCount = storeService.GetAll().Where(x=>x.UserId==UserID).Count();
+            int DealCount = dealServices.GetAll().Where(x => x.Store.UserId == UserID).Count();
+            int CouponCount = couponService.GetAll().Where(x => x.Deal.Store.UserId == UserID).Count();
+           
+            return View();
         }
 
     }

@@ -408,7 +408,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WishList_Deal">
+        <Association Name="FK_WishList_Deal1">
+          <End Role="Deal" Type="Self.Deal" Multiplicity="1" />
+          <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="DealId" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -501,7 +513,11 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Wallet" EntitySet="Wallet" />
           </AssociationSet>
-          <AssociationSet Name="FK_WishList_Deal" Association="Self.FK_WishList_Deal">
+          <AssociationSet Name="FK_WishList_Deal1" Association="Self.FK_WishList_Deal1">
+            <End Role="Deal" EntitySet="Deal" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_UserProfile" Association="Self.FK_WishList_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="WishList" EntitySet="WishList" />
           </AssociationSet>
@@ -515,7 +531,6 @@
           <EntitySet Name="Cards" EntityType="DealsModel.Card" />
           <EntitySet Name="Companies" EntityType="DealsModel.Company" />
           <EntitySet Name="CustomerSupports" EntityType="DealsModel.CustomerSupport" />
-          <EntitySet Name="Deals" EntityType="DealsModel.Deal" />
           <EntitySet Name="DealImages" EntityType="DealsModel.DealImage" />
           <EntitySet Name="LogTrackers" EntityType="DealsModel.LogTracker" />
           <EntitySet Name="Notifications" EntityType="DealsModel.Notification" />
@@ -525,7 +540,6 @@
           <EntitySet Name="UserTypes" EntityType="DealsModel.UserType" />
           <EntitySet Name="UserVerifications" EntityType="DealsModel.UserVerification" />
           <EntitySet Name="Wallets" EntityType="DealsModel.Wallet" />
-          <EntitySet Name="WishLists" EntityType="DealsModel.WishList" />
           <AssociationSet Name="FK_Address_Store" Association="DealsModel.FK_Address_Store">
             <End Role="Store" EntitySet="Stores" />
             <End Role="Address" EntitySet="Addresses" />
@@ -533,14 +547,6 @@
           <AssociationSet Name="FK_Store_Company" Association="DealsModel.FK_Store_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DealImages_Deals" Association="DealsModel.FK_DealImages_Deals">
-            <End Role="Deal" EntitySet="Deals" />
-            <End Role="DealImage" EntitySet="DealImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Deals_Store" Association="DealsModel.FK_Deals_Store">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="Deal" EntitySet="Deals" />
           </AssociationSet>
           <EntitySet Name="sysdiagrams" EntityType="DealsModel.sysdiagram" />
           <EntitySet Name="UserProfiles" EntityType="DealsModel.UserProfile" />
@@ -580,18 +586,32 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Wallet" EntitySet="Wallets" />
           </AssociationSet>
-          <AssociationSet Name="FK_WishList_Deal" Association="DealsModel.FK_WishList_Deal">
-            <End Role="UserProfile" EntitySet="UserProfiles" />
-            <End Role="WishList" EntitySet="WishLists" />
-          </AssociationSet>
           <EntitySet Name="Coupons" EntityType="DealsModel.Coupon" />
+          <AssociationSet Name="FK_Coupon_UserProfile" Association="DealsModel.FK_Coupon_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Coupon" EntitySet="Coupons" />
+          </AssociationSet>
+          <EntitySet Name="Deals" EntityType="DealsModel.Deal" />
+          <EntitySet Name="WishLists" EntityType="DealsModel.WishList" />
           <AssociationSet Name="FK_Coupon_Deals" Association="DealsModel.FK_Coupon_Deals">
             <End Role="Deal" EntitySet="Deals" />
             <End Role="Coupon" EntitySet="Coupons" />
           </AssociationSet>
-          <AssociationSet Name="FK_Coupon_UserProfile" Association="DealsModel.FK_Coupon_UserProfile">
+          <AssociationSet Name="FK_DealImages_Deals" Association="DealsModel.FK_DealImages_Deals">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="DealImage" EntitySet="DealImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deals_Store" Association="DealsModel.FK_Deals_Store">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Deal" EntitySet="Deals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Deal1" Association="DealsModel.FK_WishList_Deal1">
+            <End Role="Deal" EntitySet="Deals" />
+            <End Role="WishList" EntitySet="WishLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_UserProfile" Association="DealsModel.FK_WishList_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
-            <End Role="Coupon" EntitySet="Coupons" />
+            <End Role="WishList" EntitySet="WishLists" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Address">
@@ -639,25 +659,6 @@
           <Property Name="AddedOn" Type="DateTime" Precision="3" />
           <Property Name="AdminResponse" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Deal">
-          <Key>
-            <PropertyRef Name="DealId" />
-          </Key>
-          <Property Name="DealId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StoreId" Type="Int32" />
-          <Property Name="ValidTill" Type="DateTime" Precision="3" />
-          <Property Name="Discount" Type="Int32" />
-          <Property Name="StrikePrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="IsDealFree" Type="Boolean" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="AddedOn" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="DealImages" Relationship="DealsModel.FK_DealImages_Deals" FromRole="Deal" ToRole="DealImage" />
-          <NavigationProperty Name="Store" Relationship="DealsModel.FK_Deals_Store" FromRole="Deal" ToRole="Store" />
-          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Deal" ToRole="Coupon" />
-        </EntityType>
         <EntityType Name="DealImage">
           <Key>
             <PropertyRef Name="DealImageId" />
@@ -703,8 +704,8 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Addresses" Relationship="DealsModel.FK_Address_Store" FromRole="Store" ToRole="Address" />
           <NavigationProperty Name="Company" Relationship="DealsModel.FK_Store_Company" FromRole="Store" ToRole="Company" />
-          <NavigationProperty Name="Deals" Relationship="DealsModel.FK_Deals_Store" FromRole="Store" ToRole="Deal" />
           <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Store_UserProfile" FromRole="Store" ToRole="UserProfile" />
+          <NavigationProperty Name="Deals" Relationship="DealsModel.FK_Deals_Store" FromRole="Store" ToRole="Deal" />
         </EntityType>
         <EntityType Name="Subscription">
           <Key>
@@ -757,16 +758,6 @@
           <Property Name="WalletCreditDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="Wallet" ToRole="UserProfile" />
         </EntityType>
-        <EntityType Name="WishList">
-          <Key>
-            <PropertyRef Name="WishlistID" />
-          </Key>
-          <Property Name="WishlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DealId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="AddedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_WishList_Deal" FromRole="WishList" ToRole="UserProfile" />
-        </EntityType>
         <Association Name="FK_Address_Store">
           <End Type="DealsModel.Store" Role="Store" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -790,30 +781,6 @@
             </Principal>
             <Dependent Role="Store">
               <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DealImages_Deals">
-          <End Type="DealsModel.Deal" Role="Deal" Multiplicity="0..1" />
-          <End Type="DealsModel.DealImage" Role="DealImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Deal">
-              <PropertyRef Name="DealId" />
-            </Principal>
-            <Dependent Role="DealImage">
-              <PropertyRef Name="DealId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Deals_Store">
-          <End Type="DealsModel.Store" Role="Store" Multiplicity="0..1" />
-          <End Type="DealsModel.Deal" Role="Deal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="StoreId" />
-            </Principal>
-            <Dependent Role="Deal">
-              <PropertyRef Name="StoreId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -858,8 +825,8 @@
           <NavigationProperty Name="UserSubscritions" Relationship="DealsModel.FK_UserSubscrition_UserProfile" FromRole="UserProfile" ToRole="UserSubscrition" />
           <NavigationProperty Name="UserVerifications" Relationship="DealsModel.FK_UserVeryfication_UserProfile" FromRole="UserProfile" ToRole="UserVerification" />
           <NavigationProperty Name="Wallets" Relationship="DealsModel.FK_Wallet_UserProfile" FromRole="UserProfile" ToRole="Wallet" />
-          <NavigationProperty Name="WishLists" Relationship="DealsModel.FK_WishList_Deal" FromRole="UserProfile" ToRole="WishList" />
           <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="UserProfile" ToRole="Coupon" />
+          <NavigationProperty Name="WishLists" Relationship="DealsModel.FK_WishList_UserProfile" FromRole="UserProfile" ToRole="WishList" />
         </EntityType>
         <Association Name="FK_Card_UserProfile">
           <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
@@ -987,20 +954,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WishList_Deal">
-          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DealsModel.WishList" Role="WishList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="WishList">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Coupon">
           <Key>
             <PropertyRef Name="CouponId" />
@@ -1014,8 +967,53 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="DealId" Type="Int32" />
           <Property Name="AddedOn" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Deal" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Coupon" ToRole="Deal" />
           <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_Coupon_UserProfile" FromRole="Coupon" ToRole="UserProfile" />
+          <NavigationProperty Name="Deal" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Coupon" ToRole="Deal" />
+        </EntityType>
+        <Association Name="FK_Coupon_UserProfile">
+          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Deal">
+          <Key>
+            <PropertyRef Name="DealId" />
+          </Key>
+          <Property Name="DealId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="ValidTill" Type="DateTime" Precision="3" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="StrikePrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsDealFree" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="AddedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Coupons" Relationship="DealsModel.FK_Coupon_Deals" FromRole="Deal" ToRole="Coupon" />
+          <NavigationProperty Name="DealImages" Relationship="DealsModel.FK_DealImages_Deals" FromRole="Deal" ToRole="DealImage" />
+          <NavigationProperty Name="Store" Relationship="DealsModel.FK_Deals_Store" FromRole="Deal" ToRole="Store" />
+          <NavigationProperty Name="WishLists" Relationship="DealsModel.FK_WishList_Deal1" FromRole="Deal" ToRole="WishList" />
+        </EntityType>
+        <EntityType Name="WishList">
+          <Key>
+            <PropertyRef Name="WishlistID" />
+          </Key>
+          <Property Name="WishlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DealId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AddedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Deal" Relationship="DealsModel.FK_WishList_Deal1" FromRole="WishList" ToRole="Deal" />
+          <NavigationProperty Name="UserProfile" Relationship="DealsModel.FK_WishList_UserProfile" FromRole="WishList" ToRole="UserProfile" />
         </EntityType>
         <Association Name="FK_Coupon_Deals">
           <End Type="DealsModel.Deal" Role="Deal" Multiplicity="0..1" />
@@ -1029,16 +1027,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Coupon_UserProfile">
-          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="0..1">
+        <Association Name="FK_DealImages_Deals">
+          <End Type="DealsModel.Deal" Role="Deal" Multiplicity="0..1" />
+          <End Type="DealsModel.DealImage" Role="DealImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="DealId" />
+            </Principal>
+            <Dependent Role="DealImage">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deals_Store">
+          <End Type="DealsModel.Store" Role="Store" Multiplicity="0..1" />
+          <End Type="DealsModel.Deal" Role="Deal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="Deal">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Deal1">
+          <End Type="DealsModel.Deal" Role="Deal" Multiplicity="1" />
+          <End Type="DealsModel.WishList" Role="WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deal">
+              <PropertyRef Name="DealId" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="DealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_UserProfile">
+          <End Type="DealsModel.UserProfile" Role="UserProfile" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="DealsModel.Coupon" Role="Coupon" Multiplicity="*" />
+          <End Type="DealsModel.WishList" Role="WishList" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Coupon">
+            <Dependent Role="WishList">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1092,23 +1126,6 @@
                 <ScalarProperty Name="CustomerIssueSubject" ColumnName="CustomerIssueSubject" />
                 <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
                 <ScalarProperty Name="CustomerSupportID" ColumnName="CustomerSupportID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Deals">
-            <EntityTypeMapping TypeName="DealsModel.Deal">
-              <MappingFragment StoreEntitySet="Deal">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsDealFree" ColumnName="IsDealFree" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="StrikePrice" ColumnName="StrikePrice" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
-                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
-                <ScalarProperty Name="DealId" ColumnName="DealId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1208,16 +1225,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WishLists">
-            <EntityTypeMapping TypeName="DealsModel.WishList">
-              <MappingFragment StoreEntitySet="WishList">
-                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="DealId" ColumnName="DealId" />
-                <ScalarProperty Name="WishlistID" ColumnName="WishlistID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="DealsModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1265,6 +1272,33 @@
                 <ScalarProperty Name="CouponValidTill" ColumnName="CouponValidTill" />
                 <ScalarProperty Name="CouponUniqueText" ColumnName="CouponUniqueText" />
                 <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deals">
+            <EntityTypeMapping TypeName="DealsModel.Deal">
+              <MappingFragment StoreEntitySet="Deal">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDealFree" ColumnName="IsDealFree" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StrikePrice" ColumnName="StrikePrice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="DealId" ColumnName="DealId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WishLists">
+            <EntityTypeMapping TypeName="DealsModel.WishList">
+              <MappingFragment StoreEntitySet="WishList">
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DealId" ColumnName="DealId" />
+                <ScalarProperty Name="WishlistID" ColumnName="WishlistID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

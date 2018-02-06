@@ -1,21 +1,33 @@
-﻿<div class="col s12 m4">
-    <div class="card">
-        <div class="card-image">
-            <img src="~/images/background1.jpg" class="materialboxed">
-            <span class="card-title">Card Title</span>
+﻿@model DealsNZ.Models.DealsModels.DealViewModel
+
+<div class="col s12 m4">
+    <div class="card white">
+        <div class="card-image waves-effect waves-block waves-light rounded">
+            <img src="@Url.Content(Model.DealImages)" style="object-fit:none;object-position:center;height:200px;width:95%;margin:2%" />
         </div>
         <div class="card-content">
-            <p>
-                I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.
-            </p>
-            <div class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px">attach_money</i>23</div>
-            <br />
+            <span class="card-title activator grey-text text-darken-4">@Model.Title<i class="material-icons right">more_vert</i></span>
+            @{ if (Model.StrikePrice == Model.Price)
+                {
+                    <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i>$@Model.Price</span>
+                }
+                else
+                {
+                    <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i><strike>$@Model.Price</strike></span>
+                            <br /> <span class="right teal-text center"><i class="material-icons" style="font-size:18px"></i>$@Model.StrikePrice</span>
+                            <br />
+                }
+            }
+
         </div>
-        
-        <div class="card-action">
-            <a href="#">This is a link</a>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Expire:@Model.ValidTill.ToString("dd/MM/yyyy")<i class="material-icons right">close</i></span>
+            <p>@Model.Description</p>
+        </div><div class="card-action">
+            <a href="@Url.Action("ViewDeal", "Deal", new { id = Model.DealId })">View Deal</a>
+                  <a href="@Url.Action("RemoveFromWishList", "Deal", new { id = Model.DealId })">Remove From WishList</a>
         </div>
     </div>
 </div>
+
 

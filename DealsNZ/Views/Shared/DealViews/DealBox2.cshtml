@@ -25,6 +25,7 @@
                     <p>@Model.Description</p>
                 </div><div class="card-action">
                     <a href="@Url.Action("ViewDeal", "Deal", new { id = Model.DealId })">View Deal</a>
+                          <a href="@Url.Action("InsertInWishList", "Deal", new { id = Model.DealId })">Add To WishList</a>
                 </div>
             </div>
         </div>

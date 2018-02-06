@@ -18,7 +18,7 @@ namespace RepoPattern.Models.RepositoryFiles
         internal IUserProfile UserProfile { get; private set; }
         internal IUserSubscription UserSubscription { get; private set; }
         internal IUserVerification UserVerification { get; private set; }
-        internal IUserWallet UserWallet { get; private set; }
+    //    internal IUserWishList UserWallet { get; private set; }
         public UnitOfWorks(DealsDB _dbc)
         {
 

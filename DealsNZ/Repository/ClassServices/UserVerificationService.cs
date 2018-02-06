@@ -37,9 +37,6 @@ namespace DealsNZ.Models.Repository.ClassServices
             }
             return false;
         }
-
-       
-
-
+        
     }
 }
