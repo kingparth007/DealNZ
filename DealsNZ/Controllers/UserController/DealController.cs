@@ -64,6 +64,8 @@ namespace DealsNZ.Controllers.UserController
                 AddTrans.UserId = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
                 AddTrans.WalletCredit = Convert.ToDecimal(Convert.ToDecimal(AddTrans.WalletCredit) - Convert.ToDecimal(CreateCoupon.CouponPrice));
                 AddTrans.WalletCreditDate = System.DateTime.Now;
+
+                //Wallet DealUserWallet = 
                 if (walleservice.WalletUpdate(AddTrans) == true)
                 {
                     Coupon InsertCoupon = new Coupon()

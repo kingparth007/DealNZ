@@ -97,9 +97,6 @@ namespace DealsNZ.Controllers.UserController
                                 int q = Convert.ToInt32(i.quantity);
                                 Decimal p = Convert.ToDecimal(i.price);
                                
-
-
-                               
                                 walleservice = new UserWalletServices(new DealsDB());
                                 Wallet AddTrans = walleservice.GetCreditByUserID(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
 
