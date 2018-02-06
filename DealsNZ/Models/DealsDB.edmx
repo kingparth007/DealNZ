@@ -42,10 +42,10 @@
           <Property Name="CouponId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CouponUniqueText" Type="varchar" MaxLength="50" />
           <Property Name="CouponValidTill" Type="date" />
-          <Property Name="CouponQty" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="DealId" Type="int" />
           <Property Name="AddedOn" Type="date" />
+          <Property Name="CouponQty" Type="int" />
           <Property Name="ReedemNo" Type="int" />
         </EntityType>
         <EntityType Name="CustomerSupport">
@@ -142,7 +142,6 @@
           <Property Name="Region" Type="varchar" MaxLength="30" />
           <Property Name="City" Type="varchar" MaxLength="30" />
           <Property Name="Country" Type="varchar" MaxLength="30" />
-          <Property Name="GuidString" Type="varchar" MaxLength="100" />
           <Property Name="isContactVerified" Type="bit" />
           <Property Name="isLocked" Type="bit" />
           <Property Name="AddedOn" Type="date" />
@@ -735,7 +734,6 @@
           <Property Name="Region" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="GuidString" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="isContactVerified" Type="Boolean" />
           <Property Name="isLocked" Type="Boolean" />
           <Property Name="AddedOn" Type="DateTime" Precision="0" />
@@ -1170,7 +1168,6 @@
                 <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
                 <ScalarProperty Name="isLocked" ColumnName="isLocked" />
                 <ScalarProperty Name="isContactVerified" ColumnName="isContactVerified" />
-                <ScalarProperty Name="GuidString" ColumnName="GuidString" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Region" ColumnName="Region" />

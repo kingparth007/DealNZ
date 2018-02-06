@@ -7,9 +7,9 @@
 
 <div class="card grey lighten-2">
     <div class="card-content black-text">
-        <span class="card-title">Deals</span>
+        <span class="card-title">Online Deals</span>
         <div class="row">
-            @foreach (var item in Model.Where(x => x.IsDealfree == true))
+            @foreach (var item in Model.Where(x => x.IsDealfree == false))
             {
                 <div>
                     @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)
@@ -21,10 +21,10 @@
 <div>
     <div class="card grey lighten-2">
         <div class="card-content black-text">
-            <span class="card-title">Free Deals</span>
+            <span class="card-title">Walk In Deals</span>
             <div class="row">
 
-                @foreach (var item in Model.Where(x => x.IsDealfree == false))
+                @foreach (var item in Model.Where(x => x.IsDealfree == true))
                 {
                     <div>
                         @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)

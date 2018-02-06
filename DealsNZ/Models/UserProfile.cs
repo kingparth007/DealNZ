@@ -39,7 +39,6 @@ namespace DealsNZ.Models
         public string Region { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public string GuidString { get; set; }
         public Nullable<bool> isContactVerified { get; set; }
         public Nullable<bool> isLocked { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
