@@ -5,18 +5,17 @@
         font-weight: bolder;
     }
 
-    .image_deal {
+    .imagedeal {
         object-fit: cover;
         object-position: center;
-        width: 100%;
         height: 100%;
-        max-width: 460px !important;
-        max-height: 600px;
-        min-width: 400px !important;
+        min-width:400px;
+
     }
 
-    .card-image {
-        max-width: 400px;
+    .viewdealcardimage {
+        min-width: 400px;
+        max-width: 460px;
         max-height: 600px;
     }
 </style>
@@ -27,8 +26,8 @@
     <div class="col s12 m12">
         <div class="card card-title">@ViewBag.Message</div>
         <div class="card horizontal">
-            <div class="card-image">
-                <img class=" image_deal " src="@Model.DealImages">
+            <div class="card-image viewdealcardimage">
+                <img class="imagedeal " src="@Model.DealImages">
             </div>
             <div class="card-stacked">
                 <div class="card-content">
