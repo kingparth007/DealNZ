@@ -71,13 +71,13 @@
                             </div>
 
                         </div>
-
+                      
 
 
                         <div class="col m4 s12">
                             <div class="input-field ">
                                 @Html.TextBoxFor(model => model.ValidTill, htmlAttributes: new { @class = "validate" })
-                                @Html.LabelFor(model => model.ValidTill)
+                                @Html.LabelFor(model => model.ValidTill,htmlAttributes:new { @placeholder = "dd/mm/yy" })
                                 @Html.ValidationMessageFor(model => model.ValidTill, "", new { @class = "red-text" })
                             </div>
 

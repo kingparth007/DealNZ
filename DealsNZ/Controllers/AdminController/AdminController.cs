@@ -15,7 +15,7 @@ using static DealsNZ.Models.DealsModels;
 
 namespace DealsNZ.Controllers.AdminController
 {
-    [CustomAuthorize(KeyList.Users.Admin)]
+    // [CustomAuthorize(KeyList.Users.Admin)]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -271,16 +271,29 @@ ToList();
 
         #endregion
 
-
-        #region Deals Section
-
-
-        // GET: Deal
-
-        public ActionResult Deal(int? page)
-
+        #region Company
+        public ActionResult CreateCompany()
         {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCompany(CompanyViewModel company)
+        {
+            Company comp = new Company();
+            comp.CompanyName = company.CompanyName.ToUpper();
+            companyService.CreateCompany(comp);
+            return RedirectToAction("Store");
+        }
 
+
+
+
+        #endregion
+        #region Deals Section
+        // GET: Deal
+        public ActionResult Deal(int? page)
+        {
             var listofDeals = dealServices.GetAll().ToPagedList(page ?? 1, 2); ;
             return View(listofDeals);
         }

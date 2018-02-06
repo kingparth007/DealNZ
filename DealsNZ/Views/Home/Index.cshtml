@@ -5,9 +5,9 @@
 }
 
 
-<div class="card grey lighten-2">
+<div class="card grey lighten-3">
     <div class="card-content black-text">
-        <span class="card-title">Deals</span>
+        <span class="card-title">Online Deals</span>
         <div class="row">
             @foreach (var item in Model.Where(x => x.IsDealfree == false))
             {
@@ -19,9 +19,9 @@
     </div>
 </div>
 <div>
-    <div class="card grey lighten-2">
+    <div class="card grey lighten-3">
         <div class="card-content black-text">
-            <span class="card-title">Free Deals</span>
+            <span class="card-title">Walk In Deals</span>
             <div class="row">
 
                 @foreach (var item in Model.Where(x => x.IsDealfree == true))
