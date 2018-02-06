@@ -7,8 +7,12 @@
 
     .image_deal {
         object-fit: cover;
-        width: 260px;
+        object-position: center;
+        width: 100%;
         height: 100%;
+        max-width: 460px !important;
+        max-height: 600px;
+        min-width: 300px !important;
     }
 
     .card-image {
@@ -77,9 +81,7 @@
                         </div>
                         <br/><br /><br /><br />
                         <div class="container-fluid">
-                            @{
-                                if (Model.Price == Model.StrikePrice)
-                                {
+
                                     <div class="col s12 m4 center">
                                         <p>Available At</p>
                                         <p><b>@Model.StoreName</b></p>
@@ -88,19 +90,14 @@
                                         <p>Address</p>
                                         <p><b>@Model.Address</b></p>
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="col s12 m6 center">
-                                        <p>Available At</p>
-                                        <p><b>@Model.StoreName</b></p>
+                                    <div class="col s12 m4 center">
+                                        @if (Model.IsDealFree == false)
+                                        {
+                                            <p>Quantity</p>
+                                            @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
+                                            @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
+                                        }
                                     </div>
-                                    <div class="col s12 m6 center">
-                                        <p>Address</p>
-                                        <p><b>@Model.Address</b></p>
-                                    </div>
-                                }
-                            }
                         </div>
 
 
@@ -116,12 +113,7 @@
                         @Html.HiddenFor(model => model.StoreName)
                         @Html.HiddenFor(model => model.Address)
                     </div>
-                    @if (Model.IsDealFree == false)
-                    {
-                        <p>Quantity</p>
-                        @Html.DropDownListFor(model => model.CouponQty, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), htmlAttributes: new { @class = "dropdown-button black-text validate", @style = "display:block", @id = "Cqty" })
-                        @Html.HiddenFor(model => model.CouponPrice, htmlAttributes: new { @id = "HiddenCouponPrice" })
-                    }
+                    
                 </div>
                 @if (Model.IsDealFree == false)
                 {

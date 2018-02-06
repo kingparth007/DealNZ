@@ -4,34 +4,17 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<div class="row shades">
-    <div class="card grey lighten-2">
-        <div class="card-content black-text">
-            <span class="card-title">Deals</span>
-            <div class="row">
-                <div>
-                    @{Html.RenderPartial("ViewDeal", Model);}
-                </div>
-
-            </div>
-        </div>
-    </div>
-
+<div class="row">
+        @{Html.RenderPartial("ViewDeal", Model);}
 </div>
 <br />
-<div class="row shades">
-    <div class="card grey lighten-2">
-        <div class="card-content black-text">
-            <span class="card-title">Deals</span>
-            <div class="row">
-                <div>
-                    @{Html.RenderPartial("RelatedDeal", (
-                            ((DealsNZ.Controllers.UserController.DealController)( new DealsNZ.Controllers.UserController.DealController())).RelatedDeals(Model.DealId)
-                        ));}
-</div>
-
-            </div>
+<div class="card grey lighten-3">
+    <div class="card-content">
+        <span class=" card-title text-accent-3"> Related Deals </span>
+        <div style="padding:20px;">
+            @{Html.RenderPartial("RelatedDeal", (
+            ((DealsNZ.Controllers.UserController.DealController)(new DealsNZ.Controllers.UserController.DealController())).RelatedDeals(Model.DealId)));
+            }
         </div>
     </div>
-
 </div>
