@@ -29,6 +29,7 @@ namespace DealsNZ.Helpers
             public const string Register = "Register";
             public const string ResetPass = "ResetPass";
             public const string StoreVerification = "StoreVerification";
+            
         }
 
         public class LogMessages
