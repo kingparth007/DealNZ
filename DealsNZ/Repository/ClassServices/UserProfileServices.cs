@@ -28,6 +28,9 @@ namespace DealsNZ.Models.Repository.ClassServices
         public UserProfileServices(DealsDB Data) : base(Data)
         {
             DealDb = Data;
+            if (Domain == "") {
+                Domain = "http://localhost:20629";
+            }
         }
 
         public UserProfile GetUserByEmail(string Email)
@@ -50,8 +53,8 @@ namespace DealsNZ.Models.Repository.ClassServices
             string encpass = PasswordEncrypt(Login.LogInPassword);
             var loggeduser = DealDb.UserProfiles.Where(x => x.Email.Equals(Login.LogInEmail) && x.Password == encpass).SingleOrDefault();
 
-           
-          //  KeyList.SessionKeys.WalletCredit = wallet;
+
+            //  KeyList.SessionKeys.WalletCredit = wallet;
             return loggeduser;
         }
         public bool RegisterUser(Models.AccountModels.Register Register)
@@ -89,7 +92,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                     Delete(RemoveUser);
                     return false;
 
-                   
+
                     //string Purpose = "Register";
                     //Guid guid = Guid.NewGuid();
                     //UserVerification UserVerificationAtRegister = new UserVerification()
@@ -113,15 +116,32 @@ namespace DealsNZ.Models.Repository.ClassServices
                     //    UserMail(URL, "Activate Your Account", InsertUser.Name, InsertUser.Email);
                     //    return true;
                     //}
-                    
+
                 }
                 WalletService.Dispose();
                 return false;
             }
             catch
             {
-                var RemoveUser = GetByID(id);
-                Delete(RemoveUser);
+
+                WalletService = new UserWalletServices(new DealsDB());
+                VerificationService = new UserVerificationService(new DealsDB());
+                IUserProfile Userprofileservice = new UserProfileServices(new DealsDB());
+
+
+                Wallet walletUserTemp = WalletService.GetCreditByUserID(id);
+                WalletService.Delete(walletUserTemp);
+
+                UserVerification VerificationTemp = VerificationService.GetAll().Where(x => x.Userid == id).SingleOrDefault();
+                VerificationService.Delete(VerificationTemp);
+
+
+                UserProfile RemoveUser = Userprofileservice.GetByID(id);
+                Userprofileservice.Delete(RemoveUser);
+
+                WalletService.Dispose();
+                VerificationService.Dispose();
+                Userprofileservice.Dispose();
                 return false;
             }
         }
@@ -138,7 +158,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                 Subject = subject,
 
             };
-            
+            // ContectMail.BodyFormat = System.Web.Mail.MailFormat.Html;
             AlternateView HtmlView = AlternateView.CreateAlternateViewFromString(Body, new ContentType("text/html"));
             ContectMail.AlternateViews.Add(HtmlView);
 
@@ -150,7 +170,7 @@ namespace DealsNZ.Models.Repository.ClassServices
             //{
             SMTP.Send(ContectMail);
             return true;
-            
+
 
         }
 
@@ -160,11 +180,10 @@ namespace DealsNZ.Models.Repository.ClassServices
             UserVerification userverify = DealDb.UserVerifications.Where(x => x.Userid.Equals(UserID)).Where(x => x.Purpose.Equals(KeyList.ActivationsKeys.Register)).SingleOrDefault();
             if (userverify != null)
             {
-                
+
                 string body = string.Empty;
                 //using streamreader for reading my htmltemplate   
-                using (StreamReader reader = new StreamReader(@"~/EmailTemp/ActivationLinkTemplate.html"))
-
+                using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemp/ActivationLinkTemplate.html")))
                 {
 
                     body = reader.ReadToEnd();
@@ -174,9 +193,9 @@ namespace DealsNZ.Models.Repository.ClassServices
 
                 string URL = Domain + "/Activation/Activate/" + userverify.UserVerificationCode;
                 body = body.Replace("{LinkUrl}", URL); //replacing the required things  
-                
+
                 UserMail(body, "Activate Your Account", email);
-               
+
                 return true;
             }
             else
@@ -209,7 +228,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                     // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
                     string body = string.Empty;
                     //using streamreader for reading my htmltemplate   
-                    using (StreamReader reader = new StreamReader(@"~/EmailTemp/ActivationLinkTemplate.html"))
+                    using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemp/ActivationLinkTemplate.html"))/*new StreamReader(@"~/EmailTemp/ActivationLinkTemplate.html")*/)
 
                     {
 
@@ -218,7 +237,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                     }
                     string URL = Domain + "/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
                     body = body.Replace("{LinkUrl}", URL); //replacing the required things  
-                    
+
                     //string dec = Decryptdata(enc);
                     UserMail(body, "Activate Your Account", email);
                     return true;
@@ -264,7 +283,7 @@ namespace DealsNZ.Models.Repository.ClassServices
                 DealDb.Entry(MatchUser).CurrentValues.SetValues(user);
                 DealDb.SaveChanges();
                 return true;
-               //}
+                //}
                 //catch
                 //{ return false; }
             }
@@ -297,6 +316,6 @@ namespace DealsNZ.Models.Repository.ClassServices
             return false;
         }
 
-       
+
     }
 }

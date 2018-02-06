@@ -248,11 +248,11 @@ namespace DealsNZ.Controllers.UserController
                 WishList DelWishList = wishListService.GetAll().Where(x => x.DealId == DealID && x.UserId == UserID).FirstOrDefault();
                 wishListService.Delete(DelWishList);
                 wishListService.Dispose();
-                return View("ViewWishList");
+                return RedirectToAction("ViewWishList", "Deal");
             }
             else
             {
-                return View("ViewWishList");
+                return RedirectToAction("ViewWishList", "Deal");
             }
 
         }

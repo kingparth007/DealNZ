@@ -33,7 +33,7 @@ namespace DealsNZ.Controllers.UserController
                 if (UserVerificationService.UserActivate(guid) == true)
                 {
                     ViewBag.Regisert_Login = "Verified Sucessfully Process to login";
-                    return Redirect(Url.Action("Index", "Register_Login"));
+                    return RedirectToAction("Index", "Register_Login");
                 }
             }
 
@@ -65,13 +65,17 @@ namespace DealsNZ.Controllers.UserController
 
                     string body = string.Empty;
                     //using streamreader for reading my htmltemplate   
-                    using (StreamReader reader = new StreamReader(@"~/EmailTemp/ResetPasswordTemplate.html"))
+                    //using (StreamReader reader = File.OpenText(@"~/EmailTemp/ResetPasswordTemplate.html")/*new StreamReader(@"~/EmailTemp/ResetPasswordTemplate.html")*/)
+                    //{
+
+                    //    body = reader.ReadToEnd();
+
+                    //}
+
+                    if (Domain == "")
                     {
-
-                        body = reader.ReadToEnd();
-
+                        Domain = "http://localhost:20629";
                     }
-
                     string URL = Domain + "/Register_Login/Reset/" + ForgotPasswordUser.UserVerificationCode;
                     body = body.Replace("{LinkUrl}", URL); //replacing the required things  
 
