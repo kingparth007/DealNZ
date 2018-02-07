@@ -1,12 +1,23 @@
 ﻿@model DealsNZ.Models.WalletModel.AddMoney
 
-
 @using (Html.BeginForm("AddMoney", "Wallet", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <h2>Add Money</h2>
-  //  @Html.AntiForgeryToken()
-
-    @Html.TextBoxFor(model => model.EnterMoney);
-
-    <input type="submit" value="Add Money" class="btn waves-effect waves-light" />
+    <div class="row">
+        <div class="col s12 m6 offset-m3 ">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title center"> Add Money</div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">attach_money</i>
+                        @Html.TextBoxFor(model => model.EnterMoney)
+                        <label for="icon_prefix">Amount</label>
+                    </div>
+                </div>
+                <div class="card-action">
+                        <a href="/Home/" class="btn btn-flat">Back</a>
+                        <input type="submit" value="Add Money" class="btn waves-effect waves-light right" />
+                </div>
+            </div>
+        </div>
+    </div>
 }

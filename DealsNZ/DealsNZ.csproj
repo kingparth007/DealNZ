@@ -422,6 +422,7 @@
     <Content Include="Views\Deal\Index.cshtml" />
     <Content Include="Views\Deal\ShowCoupons.cshtml" />
     <Content Include="Views\Deal\ViewWishList.cshtml" />
+    <Content Include="Views\Admin\CreateCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\VendorController\" />

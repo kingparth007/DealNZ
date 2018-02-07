@@ -5,38 +5,33 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+@using (Html.BeginForm("CreateCompany", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
 
-<div class="card grey lighten-4">
-    @using (Html.BeginForm("CreateCompany", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="card-content black-text">
-            <span class="card-title">Add Company</span>
-            <div class="row">
-                <div class="col m6 s12">
-                    <div class="input-field ">
+    <div class="row">
+        <div class="col s12 m6 offset-m3 ">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title center"> Add Company</div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">business</i>
                         @Html.TextBoxFor(model => model.CompanyName, htmlAttributes: new { @class = "validate" })
-                        @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "black-text" })
                         @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "red-text" })
+                        <label for="icon_prefix">Company Name</label>
                     </div>
-                </div>             
-            </div>
-            <div class="row">
-                <div class="card-action">
-                    <div>
-                        <input type="submit" value="Add Company" class="btn waves-effect waves-light" />
-                    </div>
+                    <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
                 </div>
-                <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
+                <div class="card-action">
+                    <a href="/Home/" class="btn btn-flat">Back</a>
+                    <input type="submit" value="Add Store" class="btn waves-effect waves-light right" />
+                </div>
             </div>
         </div>
-        <div class="card-action">
-            @Html.ActionLink("Back to List", "Store")
-        </div> 
-
-    }
     </div>
+}
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
