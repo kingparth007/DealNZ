@@ -1,4 +1,7 @@
-﻿@model IEnumerable<DealsNZ.Models.DealsModels.CouponList>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<DealsNZ.Models.DealsModels.CouponList>
 
 
 <div class="card card-content black-text">
@@ -44,4 +47,8 @@
         }
 
     </table>
+
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("ShowCoupons", new { page, @class = "teal-text" }))
+    </div>
 </div>

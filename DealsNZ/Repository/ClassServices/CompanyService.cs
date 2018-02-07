@@ -18,6 +18,17 @@ namespace DealsNZ.Repository.ClassServices
             DealDb = Data;
         }
 
+        public bool CheckCompany(string company)
+        {
+
+            if (DealDb.Companies.Where(x => x.CompanyName.ToUpper().ToString() == company.ToUpper().ToString()).Count() ==1)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
         public bool CreateCompany(Company _company)
         {
             Insert(_company);

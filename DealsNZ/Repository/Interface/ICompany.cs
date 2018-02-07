@@ -16,5 +16,6 @@ namespace DealsNZ.Repository.Interface
         bool CreateCompany(Company _company);
         void RemoveCompanybyId(int id);
         void UpdateCompany(Company _company);
+        bool CheckCompany(string company);
     }
 }

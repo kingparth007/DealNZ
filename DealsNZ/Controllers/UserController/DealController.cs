@@ -11,6 +11,7 @@ using DealsNZ.Models.Repository.Interface;
 using DealsNZ.Repository.ClassServices;
 using DealsNZ.Repository.Interface;
 using static DealsNZ.Models.DealsModels;
+using PagedList;
 
 namespace DealsNZ.Controllers.UserController
 {
@@ -98,8 +99,9 @@ namespace DealsNZ.Controllers.UserController
                         dealServices = new DealServices(new DealsDB());
                         ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(CreateCoupon.DealId);
                         dealServices.Dispose();
-                        ViewBag.Message = "Check Your Mail To Get Coupon";
-                        return View("Index", SingleDeal);
+                        TempData["Message"] = "Check Your Mail To Get Coupon";
+                        return RedirectToAction("ViewDeal", "Deal",new {id=SingleDeal.DealId });
+
 
                     }
                 }
@@ -129,13 +131,13 @@ namespace DealsNZ.Controllers.UserController
 
         }
 
-        public ActionResult ShowCoupons()
+        public ActionResult ShowCoupons(int? page)
         {
             if (Session[KeyList.SessionKeys.UserID] != null)
             {
                 couponservice = new CouponService(new DealsDB());
                 var couponList = couponservice.ViewCoupons(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]));
-                return View(couponList);
+                return View(couponList.ToPagedList(page ?? 1, 5));
             }
             return RedirectToAction("Index", "Register_Login");
         }
@@ -248,11 +250,11 @@ namespace DealsNZ.Controllers.UserController
                 WishList DelWishList = wishListService.GetAll().Where(x => x.DealId == DealID && x.UserId == UserID).FirstOrDefault();
                 wishListService.Delete(DelWishList);
                 wishListService.Dispose();
-                return View("ViewWishList");
+                return RedirectToAction("ViewWishList", "Deal");
             }
             else
             {
-                return View("ViewWishList");
+                return RedirectToAction("ViewWishList", "Deal");
             }
 
         }

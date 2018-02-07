@@ -20,6 +20,9 @@ namespace DealsNZ.Controllers
 
         public ActionResult Index()
         {
+            if (Request.UrlReferrer == null) {
+                return Redirect(Url.Action("Index", "Home"));
+            }
             url = Request.UrlReferrer.ToString();
             ViewBag.RegisterError = "";
             ViewBag.LoginError = "";

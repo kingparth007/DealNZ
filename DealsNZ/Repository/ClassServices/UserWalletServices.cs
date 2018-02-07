@@ -39,8 +39,7 @@ namespace DealsNZ.Models.Repository.ClassServices
         {
 
             Wallet WalletAmount = DealDb.Wallets.Where(x => x.UserId == UserID).OrderByDescending(x => x.WalletCreditDate).FirstOrDefault();
-
-
+            
             return WalletAmount;
 
         }
