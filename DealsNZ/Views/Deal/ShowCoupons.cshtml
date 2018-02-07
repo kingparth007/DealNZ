@@ -47,4 +47,8 @@
         }
 
     </table>
+
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("ShowCoupons", new { page, @class = "teal-text" }))
+    </div>
 </div>

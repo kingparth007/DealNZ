@@ -137,7 +137,7 @@ namespace DealsNZ.Controllers.UserController
             {
                 couponservice = new CouponService(new DealsDB());
                 var couponList = couponservice.ViewCoupons(Convert.ToInt32(Session[KeyList.SessionKeys.UserID]));
-                return View(couponList.ToPagedList(page ?? 1, 10));
+                return View(couponList.ToPagedList(page ?? 1, 5));
             }
             return RedirectToAction("Index", "Register_Login");
         }
