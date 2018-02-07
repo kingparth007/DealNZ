@@ -294,9 +294,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\background1.jpg" />
-    <Content Include="Images\background2.jpg" />
-    <Content Include="Images\background3.jpg" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -338,6 +335,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\DealsDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
