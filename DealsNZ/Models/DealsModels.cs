@@ -46,6 +46,7 @@ namespace DealsNZ.Models
         public class CompanyViewModel
         {
             public int CompanyId { get; set; }
+            [Required]
             public string CompanyName { get; set; }
 
         }

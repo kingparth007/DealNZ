@@ -206,6 +206,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DealsDB.Designer.cs">
+      <DependentUpon>DealsDB.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Models\DealsModels.cs" />
     <Compile Include="Models\LogTracker.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
@@ -217,9 +222,6 @@
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Subscription.cs">
-      <DependentUpon>DealsDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>DealsDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserProfile.cs">
@@ -326,17 +328,12 @@
     <Content Include="Grid.mvc.readme" />
     <EntityDeploy Include="Models\DealsDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DealsDB.Designer</LastGenOutput>
+      <LastGenOutput>DealsDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\DealsDB.edmx.diagram">
       <DependentUpon>DealsDB.edmx</DependentUpon>
     </Content>
     <Content Include="Views\Admin\Coupon.cshtml" />
-    <Content Include="Models\DealsDB.Designer">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DealsDB.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\DealsDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -422,6 +419,7 @@
     <Content Include="Views\Deal\Index.cshtml" />
     <Content Include="Views\Deal\ShowCoupons.cshtml" />
     <Content Include="Views\Deal\ViewWishList.cshtml" />
+    <Content Include="Views\Admin\CreateCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\VendorController\" />

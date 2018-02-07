@@ -43,11 +43,11 @@
                     <li class="hide-on-large-only teal-text"><span>Credit-<a href=@Url.Action("Index","Wallet")>$ @Session[KeyList.SessionKeys.WalletCredit].ToString()</a></span></li>
 
                 } }
-            <li><a href="#!"><i class="material-icons blue-text">Dashboard</i> Dashboard </a></li>
-            <li><a href="#!"><i class="material-icons">notifications</i>Notification</a></li>
+            <li><a href="#!"><i class="material-icons blue-text">dashboard</i> Dashboard </a></li>
+            @*<li><a href="#!"><i class="material-icons">notifications</i>Notification</a></li>*@
             <li><a href=@Url.Action("Deal","Admin")><i class="material-icons">local_offer</i> Deals </a></li>
-            <li><a href=@Url.Action("Coupon","Admin")><i class="material-icons blue-text">redeem</i>Coupons</a></li>
-            <li><a href=@Url.Action("CreateCompany","Admin")><i class="material-icons amber-text">Store</i>Company</a></li>
+            <li><a href=@Url.Action("Coupon","Admin")><i class="material-icons">redeem</i>Coupons</a></li>
+            <li><a href=@Url.Action("CreateCompany","Admin")><i class="material-icons">business</i>Company</a></li>
 
             <li><div class="divider"></div></li>
             <li><a href="#!">Quick Search</a></li>
@@ -55,10 +55,10 @@
             <li><a href="#!"><i class="material-icons">credit_card</i>Credit</a></li>
             <li><a href=@Url.Action("Store","Admin")><i class="material-icons">store</i>Store</a></li>
 
-            <li><a href="#!"><i class="material-icons">account_box</i>Users</a></li>
+            @*<li><a href="#!"><i class="material-icons">account_box</i>Users</a></li>*@
             <li><a href=@Url.Action("Index", "Subscriptions")><i class="material-icons">subscriptions</i>Subscription</a></li>
             <li><div class="divider"></div></li>
-            <li><a href="#!"><i class="material-icons">people</i>CustomerSupport</a></li>
+            @*<li><a href="#!"><i class="material-icons">people</i>CustomerSupport</a></li>*@
         </ul>
         <ul>
             @{

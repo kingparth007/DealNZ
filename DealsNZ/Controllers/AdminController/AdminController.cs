@@ -15,7 +15,7 @@ using static DealsNZ.Models.DealsModels;
 
 namespace DealsNZ.Controllers.AdminController
 {
-    // [CustomAuthorize(KeyList.Users.Admin)]
+     [CustomAuthorize(KeyList.Users.Admin)]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -280,10 +280,21 @@ ToList();
         [ValidateAntiForgeryToken]
         public ActionResult CreateCompany(CompanyViewModel company)
         {
-            Company comp = new Company();
-            comp.CompanyName = company.CompanyName.ToUpper();
-            companyService.CreateCompany(comp);
-            return RedirectToAction("Store");
+            if (ModelState.IsValid)
+            {
+                var checkCompany = companyService.CheckCompany(company.CompanyName);
+                if (checkCompany == true)
+                {
+                    ViewBag.Message = "Company already registered";
+                    return View("CreateCompany");
+                }
+                Company comp = new Company();
+                comp.CompanyName = company.CompanyName.ToUpper();
+                companyService.CreateCompany(comp);
+                ViewBag.Message = "Company successfully added";
+                return View("CreateCompany");
+            }
+            return View("CreateCompany");
         }
 
 
@@ -530,8 +541,7 @@ ToList();
             int UserID = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
             int StoreCount = storeService.GetAll().Where(x=>x.UserId==UserID).Count();
             int DealCount = dealServices.GetAll().Where(x => x.Store.UserId == UserID).Count();
-            int CouponCount = couponService.GetAll().Where(x => x.Deal.Store.UserId == UserID).Count();
-           
+            int CouponCount = couponService.GetAll().Where(x => x.Deal.Store.UserId == UserID).Count();           
             return View();
         }
 
