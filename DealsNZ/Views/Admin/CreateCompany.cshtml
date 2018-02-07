@@ -15,7 +15,7 @@
             <span class="card-title">Add Company</span>
             <div class="row">
                
-                <div class="col m6 s12">
+                <div class="col m12 s12">
                     <div class="input-field ">
                         @Html.TextBoxFor(model => model.CompanyName, htmlAttributes: new { @class = "validate" })
                         @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "black-text" })
@@ -31,10 +31,7 @@
                 </div>
                 <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.message</h6>
             </div>
-        </div>
-        <div class="card-action">
-            @Html.ActionLink("Back to List", "Store")
-        </div> 
+        </div>      
 
     }
     </div>
