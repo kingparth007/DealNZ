@@ -24,7 +24,8 @@
 {
 
     <div class="col s12 m12">
-        <div class="card card-title">@ViewBag.Message</div>
+        <div class="card card-title">@TempData["Message"]
+        </div>
         <div class="card horizontal">
             <div class="card-image viewdealcardimage">
                 <img class="imagedeal " src="@Model.DealImages">
