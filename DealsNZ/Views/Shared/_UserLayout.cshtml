@@ -24,9 +24,9 @@
             <ul class="right">
                 @{ if (Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID] != null)
                     {
-                <ul class="right hide-on-med-and-down">
-                    <li><span><a href=@Url.Action("Index","Wallet")>$ @Session[KeyList.SessionKeys.WalletCredit].ToString()</a></span></li>
-                </ul>
+                        <ul class="right hide-on-med-and-down">
+                            <li><span><a href=@Url.Action("Index","Wallet")>$ @Session[KeyList.SessionKeys.WalletCredit].ToString()</a></span></li>
+                        </ul>
                     } }
                 @*<li><span class="red accent-3 white-text" style="font-size:10px;margin-left:-22px;border-radius:30px;padding-left:6px;padding-right:6px;padding-top:3px;padding-bottom:3px;">33</span></li>*@
 
@@ -41,15 +41,19 @@
             </ul>
         </div>
     </nav>
-    <nav id="search-bar" class="blue-grey lighten-5">
-        <div class="nav-wrapper white">
+    <nav id="search-bar" class="blue-grey lighten-5 row">
+        <div class="nav-wrapper white col m11 s12">
             <form>
                 <div class="input-field">
                     <input id="search" type="search" class="teal-text" required>
                     <label class="label-icon" for="search"><i class="material-icons teal-text">search</i></label>
+
                     <i id="close-search-bar" class="material-icons teal-text">close</i>
                 </div>
             </form>
+        </div>
+        <div class="nav-wrapper col m1 s12">
+            <a class="btn btn-flat" id="SearchButton" href="~/Home/SearchText/" style="width:100%;margin-right:1%;">Search</a>
         </div>
     </nav>
 
@@ -100,7 +104,7 @@
 
 
                     </li>
-            
+
                     <li class="picker__list-item"><a href="/Register_Login/LoggedOut"><i class="material-icons">exit_to_app</i>Logout</a></li>
 
                 }
@@ -117,7 +121,7 @@
             </div>
         </div>*@
 
-
+    <br /><br />
     <div class="container body-content" style="width:80% ;padding-bottom:60px;">
         @RenderBody()
     </div>
@@ -170,6 +174,7 @@
 
         $(document).ready(function () {
 
+            $('.tooltipped').tooltip({ delay: 50 });
             // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
 
@@ -190,7 +195,15 @@
 
             $('.tabs-wrapper .row').pushpin('remove');
 
+            $("#search").change(function () {
+                debugger;
+                var x = "/Home/SearchText/";
+                
+                var a = $("#search").val();
+                $("#SearchButton").attr('href', x + a);
 
+            });
+            
 
             $("#Cqty").change(function () {
 

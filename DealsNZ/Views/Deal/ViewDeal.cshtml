@@ -117,9 +117,13 @@
                     </div>
                     @if (Model.IsDealFree == false)
                 {
-                        <div class="card-action">
-                            Total <b>$<span id="Cprice">@Model.CouponPrice</span></b>
-                            <b><input type="submit" value="Payment For Check-out" name="Payment For Check-out" class="btn-flat pull-right pink-text hovercolor" /></b>
+                        <div class="card-action row">
+                            <div class="col m6 s12">
+                                <b>Total $<span id="Cprice">@Model.CouponPrice</span></b>
+                            </div>
+                            <div class="col m6 s12">
+                                <b><input type="submit" value="Payment For Check-out" name="Payment For Check-out" class="btn-flat pull-right pink-text hovercolor" /></b>
+                            </div>
                         </div>
                     }
                 </div>

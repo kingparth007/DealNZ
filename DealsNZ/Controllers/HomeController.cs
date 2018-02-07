@@ -26,6 +26,16 @@ namespace DealsNZ.Controllers
             return View(DealList);
         }
 
+        public ActionResult SearchText()
+        {
+            if (RouteData.Values["id"] != null)
+            {
+                string id = RouteData.Values["id"].ToString();
+                var DealList = DealService.AllDeal().Where(x => x.Title.ToLower().Contains(id.ToLower())).ToList();
+                return View("Index",DealList);
+            }
+            return RedirectToAction("Index", "Home");
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

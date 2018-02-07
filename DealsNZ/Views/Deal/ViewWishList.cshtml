@@ -2,22 +2,27 @@
 
 @{
     ViewBag.Title = "Wish List";
+    
 }
 
 
 
 
-<div class="card grey lighten-2">
-    <div class="card-content black-text">
-        <span class="card-title">Deals</span>
-        <div class="row">
-            @foreach (var item in Model)
-            {
-              
-                <div>
-                    @Html.Partial("~/Views/Shared/DealViews/DealBox.cshtml", item)
-                </div>
-            }
+<div class="row">
+
+
+    <div class="card grey lighten-1">
+        <div class="card-content black-text accent-4">
+            <span class="card-title center">Wishlist</span>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+                    <div>
+                        @Html.Partial("~/Views/Shared/DealViews/DealBox.cshtml", item)
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
