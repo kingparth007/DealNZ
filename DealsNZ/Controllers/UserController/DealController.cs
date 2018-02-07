@@ -41,6 +41,10 @@ namespace DealsNZ.Controllers.UserController
 
 
                 ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(ID);
+                if (SingleDeal == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
                 ViewBag.Message = " ";
                 dealServices.Dispose();
                 return View("Index", SingleDeal);
