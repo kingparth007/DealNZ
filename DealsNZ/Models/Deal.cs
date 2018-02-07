@@ -17,9 +17,9 @@ namespace DealsNZ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Deal()
         {
+            this.Coupons = new HashSet<Coupon>();
             this.DealImages = new HashSet<DealImage>();
             this.WishLists = new HashSet<WishList>();
-            this.Coupons = new HashSet<Coupon>();
         }
     
         public int DealId { get; set; }
@@ -29,17 +29,17 @@ namespace DealsNZ.Models
         public Nullable<decimal> StrikePrice { get; set; }
         public Nullable<decimal> Price { get; set; }
         public string Title { get; set; }
-        public Nullable<bool> IsDealFree { get; set; }
+        public bool IsDealFree { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> AddedOn { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Coupon> Coupons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DealImage> DealImages { get; set; }
         public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishList> WishLists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Coupon> Coupons { get; set; }
     }
 }

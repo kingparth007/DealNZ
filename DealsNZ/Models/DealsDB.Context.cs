@@ -28,19 +28,20 @@ namespace DealsNZ.Models
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<CustomerSupport> CustomerSupports { get; set; }
+        public virtual DbSet<Deal> Deals { get; set; }
         public virtual DbSet<DealImage> DealImages { get; set; }
         public virtual DbSet<LogTracker> LogTrackers { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<UserSubscrition> UserSubscritions { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<UserVerification> UserVerifications { get; set; }
         public virtual DbSet<Wallet> Wallets { get; set; }
-        public virtual DbSet<UserProfile> UserProfiles { get; set; }
-        public virtual DbSet<Deal> Deals { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
-        public virtual DbSet<Coupon> Coupons { get; set; }
     }
 }

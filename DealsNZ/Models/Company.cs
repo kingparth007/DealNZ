@@ -11,8 +11,7 @@ namespace DealsNZ.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Company
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +21,6 @@ namespace DealsNZ.Models
         }
     
         public int CompanyId { get; set; }
-        
         public string CompanyName { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
     
