@@ -1,23 +1,32 @@
 ﻿@model DealsNZ.Models.DealsModels.DealViewModel
-
+<style>
+    .img_deal {
+        object-fit: cover;
+        object-position: center;
+        height: 260px;
+        width: 100%;
+    }
+</style>
 <div class="col s12 m4">
     <div class="card white">
         <div class="card-image waves-effect waves-block waves-light rounded">
-            <img src="@Url.Content(Model.DealImages)" style="object-fit:none;object-position:center;height:200px;width:95%;margin:2%" />
+            <img src="@Url.Content(Model.DealImages)" class="img_deal" />
         </div>
         <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">@Model.Title<i class="material-icons right">more_vert</i></span>
-            @{ if (Model.StrikePrice == Model.Price)
-                {
-                    <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i>$@Model.Price</span>
+            <div>
+                @{ if (Model.StrikePrice == Model.Price)
+                    {
+                        <span class="teal-text" style="font-size:16px;">&nbsp;</span>
+                                <span class="pink-text right" style="font-size:20px;">$@Model.Price</span>
+                    }
+                    else
+                    {
+                        <span class="grey-text" style="font-size:16px;">Was <strike>$@Model.Price</strike></span>
+                                <span class="pink-text right" style="font-size:20px;"><b>$@Model.StrikePrice</b></span>
+                    }
                 }
-                else
-                {
-                    <span class="right teal-text center" style="font-size:24px"><i class="material-icons" style="font-size:18px"></i><strike>$@Model.Price</strike></span>
-                            <br /> <span class="right teal-text center"><i class="material-icons" style="font-size:18px"></i>$@Model.StrikePrice</span>
-                            <br />
-                }
-            }
+            </div>
 
         </div>
         <div class="card-reveal">
