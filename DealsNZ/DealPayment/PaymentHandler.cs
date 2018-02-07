@@ -40,7 +40,8 @@ namespace DealsNZ.DealPayment
 
             var guid = Convert.ToString((new Random()).Next(100000));
 
-            string DomainName = "http://localhost:20629";
+            //string DomainName = "http://localhost:20629";
+            string DomainName = "dealnz-001-site1.itempurl.com";
             //string DomainName = "https://localhost:44394";
             var redirUrls = new RedirectUrls()
             {
@@ -127,44 +128,9 @@ namespace DealsNZ.DealPayment
                     HttpContext.Current.Response.Redirect(link.href);
                 }
             }
-
-           
-        }
-
-        //private void PopulateOrder(string invoice, List<PaypalItem> items,Amount amt)
-        //{
-        //    BetaDB db = new BetaDB();
-        //    var login = db.Logins.Where(x => x.ID == userId).FirstOrDefault();
-        //    var profile = login.Profiles.ElementAt(0);
-        //    var addr = profile.Address + ", " + profile.City + ", " + profile.State + ", Pin: " + profile.PinCode + ", " + profile.Country;
-        //    Payment _p = new Payment();
-        //    _p.AddedOn = DateTime.Now;
-        //    _p.InvoiceNo = invoice;
-        //    _p.Status = 0;
-        //    _p.ShippingAddress = addr;
-        //    _p.Shipping = Convert.ToDecimal(amt.details.shipping);
-        //    _p.Tax = Convert.ToDecimal(amt.details.tax);
-        //    _p.Subtotal= Convert.ToDecimal(amt.details.subtotal);
-        //    _p.UserId = userId;
-        //    db.Payments.Add(_p);
-
             
-
-        //    foreach (PaypalItem pi in items)
-        //    {
-        //        OrderDetail od = new OrderDetail();
-        //        od.InvoiceNo = invoice;
-        //        od.Price = Convert.ToDecimal(pi.price);
-        //        od.ProductId = pi.ProductId;
-        //        od.UserId = userId;
-        //        od.Size = pi.size;
-        //        od.Quantity = pi.quantity;
-        //        od.TotalAmount = Convert.ToDecimal((double)pi.quantity * pi.price);
-        //        db.OrderDetails.Add(od);
-        //    }
-
-        //    db.SaveChanges();
-        //}
+        }
+        
     }
 
 }
