@@ -280,16 +280,21 @@ ToList();
         [ValidateAntiForgeryToken]
         public ActionResult CreateCompany(CompanyViewModel company)
         {
-            var checkCompany = companyService.CheckCompany(company.CompanyName);
-            if (checkCompany == true)
+            if (ModelState.IsValid)
             {
-                ViewBag.Message = "Company already registered";
+                var checkCompany = companyService.CheckCompany(company.CompanyName);
+                if (checkCompany == true)
+                {
+                    ViewBag.Message = "Company already registered";
+                    return View("CreateCompany");
+                }
+                Company comp = new Company();
+                comp.CompanyName = company.CompanyName.ToUpper();
+                companyService.CreateCompany(comp);
+                ViewBag.Message = "Company successfully added";
                 return View("CreateCompany");
             }
-                Company comp = new Company();
-            comp.CompanyName = company.CompanyName.ToUpper();
-            companyService.CreateCompany(comp);
-            return RedirectToAction("Store");
+            return View("CreateCompany");
         }
 
 
