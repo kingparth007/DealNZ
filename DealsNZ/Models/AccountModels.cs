@@ -10,6 +10,8 @@ namespace DealsNZ.Models
 {
     public class AccountModels
     {
+
+        //Register Model 
         public class Register
         {
             [Required]
@@ -36,6 +38,7 @@ namespace DealsNZ.Models
 
         }
 
+        //Login MOdel
         public class Login
         {
             [Required]
@@ -53,6 +56,8 @@ namespace DealsNZ.Models
             public string LogInPassword { get; set; }
 
         }
+
+        //Forgot Password Model
         public class ForgotPass
         {
             [Required]
@@ -62,6 +67,8 @@ namespace DealsNZ.Models
             [EmailAddress(ErrorMessage = "Invalid Email Address")]
             public string ForgotPassEmail { get; set; }
         }
+
+        //Reset Password Model
         public class ResetPass
         {
             [Required]
@@ -72,7 +79,7 @@ namespace DealsNZ.Models
             [DataType(DataType.Password)]
             [DisplayName("Password")]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-        //    [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+            // [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
@@ -83,21 +90,21 @@ namespace DealsNZ.Models
             public string ConformPassword { get; set; }
 
         }
-
+        //Change Password Model
         public class ChangePassword
         {
             [Required]
             [DataType(DataType.Password)]
             [DisplayName("Old Password")]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-        //    [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+            // [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             public string CHOldPassword { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
             [DisplayName("New Password")]
             [StringLength(10, ErrorMessage = "Length Between 6 to 10 character", MinimumLength = 6)]
-        //    [RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
+            //[RegularExpression("^.*(?=.{6,10})(?=.*[a-zA-Z])(?=.*\\d).*$", ErrorMessage = "Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter")]
             // [NotEqualTo("OldPassword", "Old Password and New Password are same please change it ")]
             public string CHNewPassword { get; set; }
 
@@ -109,6 +116,8 @@ namespace DealsNZ.Models
             public string CHNewConformPassword { get; set; }
         }
 
+        
+        //User Profile Mdel
         public class EditProfile
         {
 

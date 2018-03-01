@@ -17,7 +17,8 @@ namespace DealsNZ.Repository.ClassServices
         {
             DealDb = Data;
         }
-        
+
+        // Get List Of Deals for user        
         public IEnumerable< DealsModels.DealViewModel> AllDeal()
         {
             var deallist = DealDb.Deals.Select(x => new { x.Title,x.StrikePrice,x.IsDealFree, Id = x.DealId,expire=x.ValidTill, description = x.Description, price = x.Price, discount = x.Discount,IsDeleted=x.IsDeleted ,DealImages = x.DealImages.FirstOrDefault()}).ToList();
@@ -42,10 +43,11 @@ namespace DealsNZ.Repository.ClassServices
             return d ;
         }
 
+        // Get Deal for View Page
         public ViewSingleDeal GetSingleDeal(int Id) {
 
             Deal getDeal = GetByID(Id);
-            if (getDeal != null) {
+            if (getDeal != null && getDeal.IsDeleted==false) {
 
                 ViewSingleDeal SingleDeal = new ViewSingleDeal();
                 SingleDeal.DealId = getDeal.DealId;
@@ -67,6 +69,7 @@ namespace DealsNZ.Repository.ClassServices
 
         } 
 
+        //Insert Deal in database
         public int CreateDeal(Deal deal)
         {
             Insert(deal);
@@ -76,13 +79,14 @@ namespace DealsNZ.Repository.ClassServices
         }
 
 
-
+        //Remove Deal
         public void RemoveDealbyId(int id)
         {
             Delete(GetByID(id));
             SaveChange();
         }
 
+        // Update Deal Detail
         public void UpdateDeal(Deal deal)
         {
             DealDb.Entry(deal).State = System.Data.Entity.EntityState.Modified;

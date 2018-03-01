@@ -34,6 +34,9 @@
                     @Html.ValidationMessageFor(model => model.ConformPassword, "", new { @class = "red-text", @type = "" })
                 </div>
 
+                <h6 class="waves-effect center materialize-red-text text-black accent-3">
+                    Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter
+                </h6>
                 <h6 class="waves-effect center materialize-red-text accent-3">@ViewBag.RegisterError</h6>
 
 

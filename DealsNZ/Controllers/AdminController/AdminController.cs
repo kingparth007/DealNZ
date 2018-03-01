@@ -30,7 +30,7 @@ namespace DealsNZ.Controllers.AdminController
 
         #region StoreSection
 
-
+        //Store List
         public ActionResult Store(int? page, string searchBy, string search)
         {
 
@@ -151,9 +151,7 @@ namespace DealsNZ.Controllers.AdminController
                 Street = address.Street
 
             };
-            dropdown.CompanyList = companyService.GetAll().
-Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).
-ToList();
+            dropdown.CompanyList = companyService.GetAll().Select(p => new CompanyViewModel { CompanyId = p.CompanyId, CompanyName = p.CompanyName }).ToList();
 
             return View(dropdown);
         }
@@ -271,7 +269,11 @@ ToList();
 
         #endregion
 
+
+
         #region Company
+
+        //Company CRUD Functionality
         public ActionResult CreateCompany()
         {
             return View();
@@ -301,11 +303,12 @@ ToList();
 
 
         #endregion
+
         #region Deals Section
         // GET: Deal
         public ActionResult Deal(int? page)
         {
-            var listofDeals = dealServices.GetAll().ToPagedList(page ?? 1, 2); ;
+            var listofDeals = dealServices.GetAll().Where(x=>x.IsDeleted==false).ToPagedList(page ?? 1, 2); ;
             return View(listofDeals);
         }
 
@@ -405,7 +408,7 @@ ToList();
                 return View(dropdown);
             }
         }
-
+//Edit Deal
         public ActionResult EditDeal(int id)
         {
 
@@ -463,7 +466,9 @@ ToList();
             return View(_deal);
         }
 
+        //Remove Deal
         [HttpPost]
+        
         public ActionResult DeleteDeal(int id, FormCollection collection)
         {
             var userId = Convert.ToInt32(Session[KeyList.SessionKeys.UserID].ToString());
@@ -492,6 +497,7 @@ ToList();
             return View(images);
         }
 
+        //List of Coupon for Admin
         public ActionResult Coupon(string searchBy, string search)
         {
             couponService = new CouponService(new DealsDB());
@@ -499,7 +505,7 @@ ToList();
             return View(couponService.Get(x => x.CouponUniqueText.StartsWith(search) || search == null).ToList());
         }
 
-
+        // Redeem Coupon at Store
         public ActionResult RedeemCoupon(int Id)
         {
             couponService = new CouponService(new DealsDB());
@@ -508,7 +514,7 @@ ToList();
             if (cupon.CouponValidTill <= DateTime.Now)
             {
 
-                TempData["Message"] = "The deal <b> " + cupon.CouponUniqueText + "</b> you trying to redeeem is already expired";
+                TempData["Message"] = "The deal  " + cupon.CouponUniqueText + " you trying to redeeem is already expired";
             }
             else
             {
@@ -526,6 +532,8 @@ ToList();
             return RedirectToAction("Coupon");
         }
         #endregion
+
+        //For User Insert Number
         public bool Checknumber(string number)
         {
             if (number.ToString().StartsWith("+64") || number.ToString().StartsWith("64") || number.ToString().StartsWith("0"))

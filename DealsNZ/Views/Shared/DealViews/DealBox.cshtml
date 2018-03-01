@@ -13,7 +13,7 @@
             <img src="@Url.Content(Model.DealImages)" class="img_deal" />
         </div>
         <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">@Model.Title<i class="material-icons right">more_vert</i></span>
+            <span class="card-title activator grey-text text-darken-4" style="font-size:15px; font-weight:bold">@Model.Title.Substring(0,((@Model.Title.Length < 20) ? @Model.Title.Length : 20)).ToUpperInvariant().ToString() ... <i class="material-icons right">more_vert</i></span>
             <div>
                 @{ if (Model.StrikePrice == Model.Price)
                     {
@@ -27,7 +27,17 @@
                     }
                 }
             </div>
-
+            <div class="col s12 m12">
+                @{ if (Model.ValidTill >= System.DateTime.Now.Date)
+                    {
+                        @*<span class="green-text" style="font-size:20px;">Available</span>*@
+                    }
+                    else
+                    {
+                        <span class="materialize-red-text" style="font-size:20px;">Expire</span>
+                    }
+                }
+            </div>
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">Expire:@Model.ValidTill.ToString("dd/MM/yyyy")<i class="material-icons right">close</i></span>

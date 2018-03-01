@@ -22,21 +22,27 @@ namespace DealsNZ.Models.Repository.ClassServices
         IUserWallet WalletService;
         IUserVerification VerificationService;
 
-        string Domain = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+        string Domain = "";
+
         public object MessageBox { get; private set; }
+
 
         public UserProfileServices(DealsDB Data) : base(Data)
         {
             DealDb = Data;
-            if (Domain == "") {
+            if (Domain == "")
+            {
                 Domain = "http://localhost:20629";
             }
         }
 
+        //getting mail by user id
         public UserProfile GetUserByEmail(string Email)
         {
             return DealDb.UserProfiles.Where(x => x.Email.ToLower().ToString() == Email.ToLower().ToString()).SingleOrDefault();
         }
+
+        //Check email is exist or not
         public bool CheckEmail(string Email)
         {
             if (DealDb.UserProfiles.Where(x => x.Email.ToLower().ToString() == Email.ToLower().ToString()).Count() == 0)
@@ -45,6 +51,8 @@ namespace DealsNZ.Models.Repository.ClassServices
             }
             return false;
         }
+
+        //Check User email and password for login
         public UserProfile LoginDetail(Models.AccountModels.Login Login)
         {
 
@@ -57,6 +65,8 @@ namespace DealsNZ.Models.Repository.ClassServices
             //  KeyList.SessionKeys.WalletCredit = wallet;
             return loggeduser;
         }
+
+        //Register User 
         public bool RegisterUser(Models.AccountModels.Register Register)
         {
             int id = 0;
@@ -86,36 +96,14 @@ namespace DealsNZ.Models.Repository.ClassServices
                         WalletService.Dispose();
                         return true;
                     }
-                    var WalletData = WalletService.GetByID(id);
+
+
+                    Wallet WalletData = WalletService.GetByID(id);
                     WalletService.Delete(WalletData);
-                    var RemoveUser = GetByID(id);
-                    Delete(RemoveUser);
+                    IUserProfile Userprofileservice = new UserProfileServices(new DealsDB());
+                    UserProfile RemoveUser = Userprofileservice.GetByID(id);
+                    Userprofileservice.Delete(RemoveUser);
                     return false;
-
-
-                    //string Purpose = "Register";
-                    //Guid guid = Guid.NewGuid();
-                    //UserVerification UserVerificationAtRegister = new UserVerification()
-                    //{
-                    //    UserVerificationCode = guid,
-                    //    Userid = id,
-                    //    Purpose = Purpose,
-                    //    AddedOn = System.DateTime.Now.Date
-                    //};
-                    //VerificationService = new UserVerificationService(DealDb);
-                    //if (UserVerificationAtRegister != null)
-                    //{
-                    //    VerificationService.Insert(UserVerificationAtRegister);
-                    //    //  VerificationService.SaveChange();
-                    //    VerificationService.Dispose();
-                    //    WalletService.Dispose();
-                    //    //Mail Logic
-                    //    // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
-                    //    string URL = "http://localhost:20629/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
-                    //    //string dec = Decryptdata(enc);
-                    //    UserMail(URL, "Activate Your Account", InsertUser.Name, InsertUser.Email);
-                    //    return true;
-                    //}
 
                 }
                 WalletService.Dispose();
@@ -146,6 +134,7 @@ namespace DealsNZ.Models.Repository.ClassServices
             }
         }
 
+//Mail Function 
         public bool UserMail(string Body, string subject, string email)
         {
             string Hostemail = ConfigurationManager.AppSettings["HostMail"];
@@ -174,15 +163,17 @@ namespace DealsNZ.Models.Repository.ClassServices
 
         }
 
+        //Verification Your Email Address
         public bool Veryfication(int UserID, string email, string name)
         {
 
             UserVerification userverify = DealDb.UserVerifications.Where(x => x.Userid.Equals(UserID)).Where(x => x.Purpose.Equals(KeyList.ActivationsKeys.Register)).SingleOrDefault();
+            string body = string.Empty;
             if (userverify != null)
             {
 
-                string body = string.Empty;
-                //using streamreader for reading my htmltemplate   
+
+                ////using streamreader for reading my htmltemplate   
                 using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemp/ActivationLinkTemplate.html")))
                 {
 
@@ -190,7 +181,14 @@ namespace DealsNZ.Models.Repository.ClassServices
 
                 }
 
-
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    Domain = "http://localhost:20629";
+                }
+                else
+                {
+                    Domain = ConfigurationManager.AppSettings["Domain"];
+                }
                 string URL = Domain + "/Activation/Activate/" + userverify.UserVerificationCode;
                 body = body.Replace("{LinkUrl}", URL); //replacing the required things  
 
@@ -224,21 +222,27 @@ namespace DealsNZ.Models.Repository.ClassServices
                     //  VerificationService.SaveChange();
                     VerificationService.Dispose();
 
-                    //Mail Logic
-                    // string enc = PasswordEncrypt(UserVerificationAtRegister.UserVerificationCode + "|" + UserVerificationAtRegister.Purpose);
-                    string body = string.Empty;
-                    //using streamreader for reading my htmltemplate   
-                    using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemp/ActivationLinkTemplate.html"))/*new StreamReader(@"~/EmailTemp/ActivationLinkTemplate.html")*/)
+                    if (System.Diagnostics.Debugger.IsAttached)
+                    {
+                        Domain = "http://localhost:20629";
+                    }
+                    else
+                    {
+                        Domain = ConfigurationManager.AppSettings["Domain"];
+                    }
 
+                    ////using streamreader for reading my htmltemplate   
+                    using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemp/ActivationLinkTemplate.html")))
                     {
 
                         body = reader.ReadToEnd();
 
                     }
+
                     string URL = Domain + "/Activation/Activate/" + UserVerificationAtRegister.UserVerificationCode;
                     body = body.Replace("{LinkUrl}", URL); //replacing the required things  
 
-                    //string dec = Decryptdata(enc);
+                    ////string dec = Decryptdata(enc);
                     UserMail(body, "Activate Your Account", email);
                     return true;
                 }
@@ -246,12 +250,16 @@ namespace DealsNZ.Models.Repository.ClassServices
             }
             return false;
         }
+
+        //Password Encryption
         public string PasswordEncrypt(string password)
         {
             byte[] encode = new byte[password.Length];
             encode = Encoding.UTF8.GetBytes(password);
             return Convert.ToBase64String(encode); ;
         }
+
+        //Password Decryption
         public string Decryptdata(string encryptpwd)
         {
             UTF8Encoding encodepwd = new UTF8Encoding();
@@ -266,6 +274,8 @@ namespace DealsNZ.Models.Repository.ClassServices
 
         }
 
+
+// If user forgot password then it user to verify that Link
         public UserVerification ForgotPassUser(string guid)
         {
 
@@ -273,6 +283,8 @@ namespace DealsNZ.Models.Repository.ClassServices
 
             return user;
         }
+
+        //Update Detail of User
         public bool UpdateUser(UserProfile user)
         {
             UserProfile MatchUser = DealDb.UserProfiles.Find(user.UserId);
@@ -290,6 +302,7 @@ namespace DealsNZ.Models.Repository.ClassServices
             return false;
         }
 
+//After password reset this function delete verification link
         public bool RemoveLinkForResetPassword(int userid)
         {
 
@@ -315,7 +328,6 @@ namespace DealsNZ.Models.Repository.ClassServices
             }
             return false;
         }
-
 
     }
 }

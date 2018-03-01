@@ -23,13 +23,14 @@ namespace DealsNZ.Repository.ClassServices
         }
 
 
-
+    //STORE NAME FOR  Check
       public Store GetStoreName(string storeName)
         { 
             Store name = DealDb.Stores.Where(x => x.StoreName == storeName).SingleOrDefault();
             return name;
         }
 
+        //Remove Store 
         public void RemoveStorebyId(int id)
         {
             Delete(GetByID(id));
@@ -37,6 +38,7 @@ namespace DealsNZ.Repository.ClassServices
 
         }
 
+//Update Store
         public void UpdateStore(Store _store)
         {
             DealDb.Entry(_store).State = System.Data.Entity.EntityState.Modified;
@@ -44,7 +46,6 @@ namespace DealsNZ.Repository.ClassServices
             
         }
         #endregion
-
 
     }
 }

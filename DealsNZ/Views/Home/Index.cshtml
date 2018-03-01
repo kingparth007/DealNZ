@@ -23,9 +23,8 @@
                 <div class="row">
                     @foreach (var item in Model.Where(x => x.IsDealfree == false))
                     {
-                        <div>
                             @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)
-                        </div>
+
                     }
                 </div>
             </div>
@@ -38,9 +37,9 @@
 
                         @foreach (var item in Model.Where(x => x.IsDealfree == true))
                 {
-                            <div>
+                    
                                 @Html.Partial("~/Views/Shared/DealViews/DealBox2.cshtml", item)
-                            </div>
+                    
                         }
 
                     </div>

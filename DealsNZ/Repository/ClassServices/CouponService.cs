@@ -17,7 +17,7 @@ namespace DealsNZ.Repository.ClassServices
             DealDb = Data;
         }
 
-
+        //Generate Coupon List
         public IEnumerable<DealsModels.CouponList> ViewCoupons(int UserID)
         {
             var ViewCoupons = DealDb.Coupons.Where(x => x.UserId == UserID).ToList().OrderByDescending(x=>x.CouponId);
@@ -43,6 +43,8 @@ namespace DealsNZ.Repository.ClassServices
 
             return CouponList;
         }
+
+        //Update Coupon Detail
         public void UpdateCoupon(Coupon _coupon)
         {
             DealDb.Entry(_coupon).State = System.Data.Entity.EntityState.Modified;

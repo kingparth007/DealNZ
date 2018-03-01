@@ -15,7 +15,7 @@ namespace DealsNZ.DealPayment
         OAuthTokenCredential auth;
         APIContext apiContext;
 
-        // Shipping Price
+        // Credit  Price fixed detail for paypal instance
         public const double _fixedShipping = 0;
         const int _taxpercent = 0;
         const string _Currency = "NZD";
@@ -28,6 +28,7 @@ namespace DealsNZ.DealPayment
             return apiContext;
         }
 
+//Payment Setup Function
         public PaymentHandler(List<PaypalItem> items,int uid)
         {
             if(apiContext==null)
@@ -40,12 +41,21 @@ namespace DealsNZ.DealPayment
 
             var guid = Convert.ToString((new Random()).Next(100000));
 
+            string DomainName = "";
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                DomainName = "http://localhost:20629";
+            }
+            else {
+                DomainName = ConfigurationManager.AppSettings["Domain"];
+            }
+
             //string DomainName = "http://localhost:20629";
-            string DomainName = "dealnz-001-site1.itempurl.com";
+           // string DomainName = "http://dealnz-001-site1.itempurl.com";
             //string DomainName = "https://localhost:44394";
             var redirUrls = new RedirectUrls()
             {
-                cancel_url = DomainName+"/Cancel/",
+                cancel_url = DomainName+"/Home",
                 return_url = DomainName + "/Wallet/PaymentSucess/"
             };
 
@@ -78,7 +88,7 @@ namespace DealsNZ.DealPayment
             }
 
             taxamount =0;
-
+        //Tax Detal list
             var details = new Details()
             {
                 tax = taxamount.ToString(),
@@ -88,6 +98,7 @@ namespace DealsNZ.DealPayment
 
             double total = taxamount + _fixedShipping + subtotal;
 
+//Amount list for Paypal
             var amount = new Amount()
             {
                 currency = _Currency,
@@ -99,6 +110,7 @@ namespace DealsNZ.DealPayment
             Random rand = new Random(DateTime.Now.Second);
             String invoice = "INV-" + System.DateTime.Now.Ticks.ToString();
 
+//generate transaction variable
             transactionList.Add(new Transaction()
             {
                 description = "Transaction description.",
@@ -107,6 +119,7 @@ namespace DealsNZ.DealPayment
                 item_list = itemList
             });
 
+// Paypal Api 
             PayPal.Api.Payment payment = new PayPal.Api.Payment()
             {
                 intent = "sale",

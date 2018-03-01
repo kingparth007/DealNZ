@@ -22,16 +22,17 @@ namespace DealsNZ.Controllers
         public ActionResult Index()
         {
 
-            var DealList = DealService.AllDeal().ToList();
+            var DealList = DealService.AllDeal().Where(x=>x.IsDeleted==false).ToList();
             return View(DealList);
         }
 
+        //Search Deal
         public ActionResult SearchText()
         {
             if (RouteData.Values["id"] != null)
             {
                 string id = RouteData.Values["id"].ToString();
-                var DealList = DealService.AllDeal().Where(x => x.Title.ToLower().Contains(id.ToLower())).ToList();
+                var DealList = DealService.AllDeal().Where(x => x.Title.ToLower().Contains(id.ToLower()) && x.IsDeleted == false).ToList();
                 return View("Index",DealList);
             }
             return RedirectToAction("Index", "Home");

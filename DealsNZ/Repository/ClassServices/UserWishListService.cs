@@ -17,6 +17,7 @@ namespace DealsNZ.Repository.ClassServices
             DealDb = Data;
         }
 
+        //View Wishlist Deal
         public IEnumerable<DealsModels.DealViewModel> ViewWishListByUser(int UserID) {
 
             var DealWishList = GetAll().Where(x => x.UserId == UserID);
@@ -41,6 +42,7 @@ namespace DealsNZ.Repository.ClassServices
             return Wish;
         }
 
+        //Check Deal is in wishlist or not
         public bool wishlistCheck(int DealId, int UserID) {
 
             int CheckWishList = DealDb.WishLists.Where(x => x.DealId == DealId && x.UserId == UserID).Count();

@@ -15,6 +15,8 @@ namespace DealsNZ.Models.Repository.ClassServices
             DealDb = Data;
         }
 
+
+        //Instert Default Data in wallet at Register Time
         public bool WalletAtRegister(int id)
         {
             try
@@ -35,6 +37,7 @@ namespace DealsNZ.Models.Repository.ClassServices
             return false;
         }
 
+        // To get user wallet amount for transaction like add money or update money
         public Wallet GetCreditByUserID(int UserID)
         {
 
@@ -44,6 +47,7 @@ namespace DealsNZ.Models.Repository.ClassServices
 
         }
 
+        //To Get Deal user wallet amount for update when user create coupon
         public Wallet GetCreditByDealUserID(int DealID)
         {
 
@@ -54,6 +58,8 @@ namespace DealsNZ.Models.Repository.ClassServices
             return WalletAmount;
 
         }
+
+        // To show wallet amount when user Logged in 
         public string ShowWalletAmount(int UserID)
         {
 
@@ -63,6 +69,7 @@ namespace DealsNZ.Models.Repository.ClassServices
             return WalletAmount.WalletCredit.ToString();
         }
 
+        //Wallet Update Function
         public bool WalletUpdate(Wallet UpdateWallet)
         {
 

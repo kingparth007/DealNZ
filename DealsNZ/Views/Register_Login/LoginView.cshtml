@@ -20,14 +20,24 @@
                     @Html.LabelFor(model => model.LogInPassword)
                     @Html.ValidationMessageFor(model => model.LogInPassword, "", new { @class = "red-text" })
                 </div>
-
+                <h6 class="waves-effect center materialize-red-text text-black accent-3">
+                    Password Contain 1 uppercase 1 lower case and at least 1 number with maximum 10 charachter
+                </h6>
                 <h6 class="waves-effect center materialize-red-text text-black accent-3">@ViewBag.LoginError</h6>
 
             </div>
         </div>
         <div class="card-action">
-            <input type="submit" value="Login" name="LoginUser" class="btn-flat  teal lighten-2 white-text waves-effect" />
-            <a class="btn-flat teal-text darken-4 waves-effect right" href="@Url.Action("ForgotPassword","Activation")" style="margin-right:0px !important;padding-right:16px;padding-left:16px">Recover Password</a>
-            <a id="Register-Btn" class="btn-flat teal-text darken-4 waves-effect right" style="margin-right:0px !important;padding-right:16px;padding-left:16px">Register</a>
+            <div class="row">
+                <div class="col m3 s12">
+                    <input type="submit" value="Login" name="LoginUser" class="btn-flat  teal lighten-2 white-text waves-effect" />
+                </div>
+                <div class=" col m9 s12">
+                    <a class="btn-flat teal-text darken-4 waves-effect right" href="@Url.Action("ForgotPassword","Activation")" style="margin-right:0px !important;padding-right:16px;padding-left:16px">Recover Password</a>
+                    <a id="Register-Btn" class="btn-flat teal-text darken-4 waves-effect right" style="margin-right:0px !important;padding-right:16px;padding-left:16px">Register</a>
+                </div>
+            </div>
+
+
         </div>
     </div>}

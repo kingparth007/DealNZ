@@ -82,13 +82,13 @@
             <li><a href="/Home"><i class="material-icons">local_offer</i> All Deals </a></li>
             <li><div class="divider"></div></li>
             <li><a href="~/Deal/ViewWishList"><i class="material-icons amber-text">favorite</i>WishList</a></li>
-            <li><a href="#!"><i class="material-icons amber-text">whatshot</i>Hot Deals</a></li>
-            <li><a href="#!"><i class="material-icons red-text accent-3">loyalty</i>New Deals</a></li>
+            @*<li><a href="#!"><i class="material-icons amber-text">whatshot</i>Hot Deals</a></li>
+                <li><a href="#!"><i class="material-icons red-text accent-3">loyalty</i>New Deals</a></li>*@
             <li><div class="divider"></div></li>
-            <li><a href="#!">Quick Search</a></li>
-            <li><a href="#!"><i class="material-icons">restaurant</i>Food</a></li>
-            <li><a href="#!"><i class="material-icons">accessibility</i>Clothings</a></li>
+            @*<li><a href="#!"><i class="material-icons">restaurant</i>Food</a></li>
+                <li><a href="#!"><i class="material-icons">accessibility</i>Clothings</a></li>*@
             <li><a href=@Url.Action("ShowCoupons", "Deal")><i class="material-icons">confirmation_number</i>Coupons</a></li>
+            <li><a href="mailto:parthking02@gmail.com@gmail.com" target="_top"><i class="material-icons">contact_mail</i>Contact Us</a></li>
         </ul>
 
         <ul class="picker__list">
@@ -126,10 +126,10 @@
         @RenderBody()
     </div>
 
-    <footer style="bottom:0;position:fixed;z-index:-3" class="page-footer footer-copyright grey lighten-1 teal-text">
+    <footer style="" class="page-footer footer-copyright darken-3 grey white-text">
 
-        <div class="container">
-            <h6 class="left-align"><b>Developed by Parth and Ranjit</b><b class="right-align"> @System.DateTime.Now.Year</b></h6>
+        <div class="container" style="padding-bottom:20px;">
+            <h6 class="center-align" style="margin-bottom:0px;"><span>Developed by Parth and Ranjit 2018</span>  For<a href="mailto:parthking02@gmail.com@gmail.com" target="_top">Contact Us</a></h6>
         </div>
 
     </footer>
@@ -198,12 +198,12 @@
             $("#search").change(function () {
                 debugger;
                 var x = "/Home/SearchText/";
-                
+
                 var a = $("#search").val();
                 $("#SearchButton").attr('href', x + a);
 
             });
-            
+
 
             $("#Cqty").change(function () {
 

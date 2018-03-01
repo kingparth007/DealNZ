@@ -51,6 +51,8 @@ namespace DealsNZ.Controllers.UserController
             PaymentHandler ph = new PaymentHandler(ListPay, Convert.ToInt32(Session[KeyList.SessionKeys.UserID]));
             return View();
         }
+
+        //If transaction is sucessfll from paypal side this function will call
         public ActionResult PaymentSucess()
         {
             //if ((string)Session["email"] == null)
@@ -78,7 +80,7 @@ namespace DealsNZ.Controllers.UserController
                 int UserID = Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString());
                 //              var login = db.Logins.Where(x => x.Email == email).FirstOrDefault();
 
-
+//Update user wallet amount
                 var executedPayment = payment.Execute(apiContext, paymentExecution);
                 if (executedPayment.failed_transactions == null)
                 {

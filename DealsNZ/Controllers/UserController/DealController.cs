@@ -33,6 +33,8 @@ namespace DealsNZ.Controllers.UserController
             return RedirectToAction("Index", "Home");
         }
 
+
+            //Show Complete Decsription About Deal
         public ActionResult ViewDeal()
         {
             if (RouteData.Values["id"] != null)
@@ -53,6 +55,7 @@ namespace DealsNZ.Controllers.UserController
             return RedirectToAction("Index", "Home");
         }
 
+        //User Generate Coupon For perticular Deal  
         public ActionResult CouponGenerator(ViewSingleDeal CreateCoupon)
         {
             if (Session[KeyList.SessionKeys.UserID] == null)
@@ -66,7 +69,12 @@ namespace DealsNZ.Controllers.UserController
 
             if (CreateCoupon.CouponPrice > AddTrans.WalletCredit)
             {
-                walleservice.Dispose();
+
+                walleservice.Dispose(); dealServices = new DealServices(new DealsDB());
+                ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(CreateCoupon.DealId);
+                dealServices.Dispose();
+                TempData["Message"] = "Your Balance is Low";
+                return RedirectToAction("ViewDeal", "Deal", new { id = SingleDeal.DealId });
             }
             else
             {
@@ -74,9 +82,11 @@ namespace DealsNZ.Controllers.UserController
                 AddTrans.WalletCredit = Convert.ToDecimal(Convert.ToDecimal(AddTrans.WalletCredit) - Convert.ToDecimal(CreateCoupon.CouponPrice));
                 AddTrans.WalletCreditDate = System.DateTime.Now;
 
+                //Update wallet transation after coupon generation
                 Wallet DealUserWallet = walleservice.GetCreditByDealUserID(CreateCoupon.DealId);
                 DealUserWallet.WalletCredit = Convert.ToDecimal(Convert.ToDecimal(DealUserWallet.WalletCredit) + Convert.ToDecimal(CreateCoupon.CouponPrice));
 
+               
                 if (walleservice.WalletUpdate(AddTrans) == true && walleservice.WalletUpdate(DealUserWallet) == true)
                 {
                     Coupon InsertCoupon = new Coupon()
@@ -91,6 +101,8 @@ namespace DealsNZ.Controllers.UserController
                         ReedemNo = 0
                     };
                     couponservice = new CouponService(new DealsDB());
+                   
+                   //Coupen Ready for user
                     couponservice.Insert(InsertCoupon);
                     couponservice.Dispose();
                     Session[KeyList.SessionKeys.WalletCredit] = walleservice.ShowWalletAmount(Convert.ToInt32(Session[DealsNZ.Helpers.KeyList.SessionKeys.UserID].ToString()));
@@ -104,9 +116,7 @@ namespace DealsNZ.Controllers.UserController
                         ViewSingleDeal SingleDeal = dealServices.GetSingleDeal(CreateCoupon.DealId);
                         dealServices.Dispose();
                         TempData["Message"] = "Check Your Mail To Get Coupon";
-                        return RedirectToAction("ViewDeal", "Deal",new {id=SingleDeal.DealId });
-
-
+                        return RedirectToAction("ViewDeal", "Deal", new { id = SingleDeal.DealId });
                     }
                 }
                 else
@@ -124,7 +134,7 @@ namespace DealsNZ.Controllers.UserController
             return View();
 
         }
-
+        //Some deals for View Deal Page
         public IEnumerable<DealsModels.DealViewModel> RelatedDeals(int DealID)
         {
 
@@ -135,7 +145,8 @@ namespace DealsNZ.Controllers.UserController
 
         }
 
-        public ActionResult ShowCoupons(int? page)
+        // Coupon list page for user
+         public ActionResult ShowCoupons(int? page)
         {
             if (Session[KeyList.SessionKeys.UserID] != null)
             {
@@ -146,6 +157,7 @@ namespace DealsNZ.Controllers.UserController
             return RedirectToAction("Index", "Register_Login");
         }
 
+        //private function for Generate default code
         private string GenerateCode()
         {
             int lenthofOtp = 6;
@@ -166,6 +178,8 @@ namespace DealsNZ.Controllers.UserController
             return otpString;
         }
 
+
+        //generate email view for coupon with details 
         private string createEmailBody(string StoreName, string Address, string DealTitle, string Price, string StrikePrice, string Discount, string Qty, string Expire, string Code)
 
         {
@@ -195,6 +209,8 @@ namespace DealsNZ.Controllers.UserController
 
         }
 
+
+        //Short list function for deal
         public ActionResult InsertInWishList()
         {
             if (Session[KeyList.SessionKeys.UserID] == null)
@@ -228,6 +244,7 @@ namespace DealsNZ.Controllers.UserController
             return RedirectToAction("Index", "Home");
         }
 
+        //Wish list page for User to show how many dela in wish list
         public ActionResult ViewWishList()
         {
             if (Session[KeyList.SessionKeys.UserID] == null)
@@ -240,6 +257,7 @@ namespace DealsNZ.Controllers.UserController
             return View(List);
         }
 
+        //Remove deal from wish list
         public ActionResult RemoveFromWishList()
         {
             if (Session[KeyList.SessionKeys.UserID] == null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,7 @@ namespace DealsNZ.Controllers.UserController
     public class ActivationController : Controller
     {
         // GET: Activation
-        string Domain = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+        string Domain = "";
         IUserProfile UserProfileService;
         //IUserType up = new UserTypeService(new DealsDB());
         IUserVerification UserVerificationService = new UserVerificationService(new DealsDB());
@@ -23,7 +24,6 @@ namespace DealsNZ.Controllers.UserController
         }
         public ActionResult Activate(string gui)
         {
-
             //string guid = (string)this.RouteData.Values["guid"];
 
             if (RouteData.Values["id"] != null)
@@ -33,6 +33,11 @@ namespace DealsNZ.Controllers.UserController
                 if (UserVerificationService.UserActivate(guid) == true)
                 {
                     ViewBag.Regisert_Login = "Verified Sucessfully Process to login";
+                    return RedirectToAction("Index", "Register_Login");
+                }
+                else
+                {
+                    ViewBag.Regisert_Login = "Please Try to Login For New Link";
                     return RedirectToAction("Index", "Register_Login");
                 }
             }
@@ -64,17 +69,20 @@ namespace DealsNZ.Controllers.UserController
                     UserVerificationService.Insert(ForgotPasswordUser);
 
                     string body = string.Empty;
-                    //using streamreader for reading my htmltemplate   
-                    //using (StreamReader reader = File.OpenText(@"~/EmailTemp/ResetPasswordTemplate.html")/*new StreamReader(@"~/EmailTemp/ResetPasswordTemplate.html")*/)
-                    //{
+                    //  using streamreader for reading my htmltemplate
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemp/ResetPasswordTemplate.html")))
+                    {
 
-                    //    body = reader.ReadToEnd();
+                        body = reader.ReadToEnd();
 
-                    //}
-
-                    if (Domain == "")
+                    }
+                    if (System.Diagnostics.Debugger.IsAttached)
                     {
                         Domain = "http://localhost:20629";
+                    }
+                    else
+                    {
+                        Domain = ConfigurationManager.AppSettings["Domain"];
                     }
                     string URL = Domain + "/Register_Login/Reset/" + ForgotPasswordUser.UserVerificationCode;
                     body = body.Replace("{LinkUrl}", URL); //replacing the required things  

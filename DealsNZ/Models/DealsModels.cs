@@ -12,6 +12,7 @@ namespace DealsNZ.Models
     public class DealsModels
     {
 
+        //View Store Detail Model
         public class StoreViewModel
         {
 
@@ -43,6 +44,8 @@ namespace DealsNZ.Models
 
             public IEnumerable<HttpPostedFileBase> files { get; set; }
         }
+
+        //View Company Detail
         public class CompanyViewModel
         {
             public int CompanyId { get; set; }
@@ -52,7 +55,7 @@ namespace DealsNZ.Models
         }
 
 
-
+        //View Deal Detail in List 
         public class DealViewModel
         {
 
@@ -68,9 +71,9 @@ namespace DealsNZ.Models
             public int StrikePrice { get; set; }
             [RegularExpression("^[0-9]+$", ErrorMessage = "Number does not contain alphabates")]
             public int Price { get; set; }
-            [StringLength(250, ErrorMessage = "Length Between 0 to 20 character", MinimumLength = 0)]
+            [StringLength(250, ErrorMessage = "Length Between 20 to 250 character", MinimumLength = 20)]
             public string Title { get; set; }
-            [StringLength(2000, ErrorMessage = "Length Between 0 to 2000 character", MinimumLength = 0)]
+            [StringLength(2000, ErrorMessage = "Length Between 0 to 2000 character", MinimumLength = 20)]
             public string Description { get; set; }
             public DateTime AddedOn { get; set; }
             public bool IsDeleted { get; set; }
@@ -88,7 +91,7 @@ namespace DealsNZ.Models
 
         }
 
-
+        //Whole Description About Deal Detail
         public class ViewSingleDeal
         {
 
@@ -110,6 +113,7 @@ namespace DealsNZ.Models
             public bool IsDealFree { get; set; }
         }
 
+        //Coupon List Model
         public class CouponList {
 
             public int CouponId { get; set; }
